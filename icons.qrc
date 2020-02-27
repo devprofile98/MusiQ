@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons8-collapse-96.png</file>
+        <file>icons8-collapse-64.png</file>
+    </qresource>
+</RCC>
