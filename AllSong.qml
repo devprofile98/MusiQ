@@ -8,6 +8,22 @@ import QtMultimedia 5.12
 Rectangle{
     //        anchors.top: parent.top
     id:mainrect
+
+    function nextSong(){
+        songmodel.next()
+    }
+    function preSong(){
+        songmodel.previous()
+    }
+    function play(){
+
+    }
+    function pause(){
+       songmodel.pause()
+    }
+
+
+
     property color clickColor: "transparent"
 
     width: parent.width

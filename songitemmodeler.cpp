@@ -3,7 +3,7 @@
 #include<QtDebug>
 #include<QMetaDataReaderControl>
 
-songitemmodeler::songitemmodeler(QObject *parent)
+songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
     m_index=0;
@@ -16,6 +16,12 @@ songitemmodeler::songitemmodeler(QObject *parent)
     pic = QVariant();
     m_playlist.setCurrentIndex(0);
     m_playing_song.setPlaylist(&m_playlist);
+
+    connect(tool,&tools::pauseRequested,this,[this](){
+        qDebug()<<"pause requested";
+        m_playing_song.pause();
+    });
+
     //    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
     connect(&m_playlist,&QMediaPlaylist::currentIndexChanged,&m_playing_song,[this](){
         m_playing_song.play();
@@ -24,6 +30,7 @@ songitemmodeler::songitemmodeler(QObject *parent)
         m_playing_song.play();
 
     });
+    m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
 
 }
 
@@ -33,9 +40,9 @@ int songitemmodeler::rowCount(const QModelIndex &parent) const
     // other (valid) parents, rowCount() should return 0 so that it does not become a tree model.
     
     if (parent.isValid())
-        return allPath.size();
+        return m_playlist.mediaCount();
     
-    return allPath.size();
+    return m_playlist.mediaCount();
 }
 
 void songitemmodeler::songpathfinder(QDir current,QStringList searchFilter,QStringList& allSongPath)
@@ -185,6 +192,20 @@ void songitemmodeler::m_status()
 void songitemmodeler::next()
 {
     m_playlist.next();
+}
+
+void songitemmodeler::previous()
+{
+    m_playlist.previous();
+    qDebug()<<"pause is not working";
+
+}
+
+void songitemmodeler::pause()
+{
+    qDebug()<<"pause is not working";
+    m_playing_song.pause();
+    qDebug()<<"pause is working";
 }
 
 qint64 songitemmodeler::findSongDuration(QString path) const

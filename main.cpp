@@ -26,16 +26,15 @@ int main(int argc, char *argv[])
 //    else{
 //        qDebug()<<"have this permission";
 //    }
+    tools tools;
     qmlRegisterType<songitemmodeler>("SongFinder",1,0,"Songfinder");
+
+
     QQuickStyle::setStyle("Material");
 //    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
     QGuiApplication app(argc, argv);
-//    QFontDatabase fontdb;
-//    if (fontdb.addApplicationFont("/../Documents/fontawesome/fontawesome-free-5.11.2-desktop/otfs/Font Awesome 5 Brands-Regular-400.otf") == -1){
-//        qDebug()<<"error before building";
-//    }
+
 //    backend2 bend;
-    tools tools;
     QQmlApplicationEngine engine;
 //    engine.rootContext()->setContextProperty("backend",&bend);
     engine.rootContext()->setContextProperty("tools",&tools);

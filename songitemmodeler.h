@@ -6,6 +6,7 @@
 #include <QStandardPaths>
 #include<QtMultimedia>
 #include <QDebug>
+#include "tools.h"
 
 
 //class backend2;
@@ -18,11 +19,13 @@ public:
     Q_INVOKABLE void play(QString path,int currentindex);
     Q_INVOKABLE void m_status();
     Q_INVOKABLE void next();
+    Q_INVOKABLE void previous();
+    Q_INVOKABLE void pause();
 
 
 public:
 
-    explicit songitemmodeler(QObject *parent = nullptr);
+    explicit songitemmodeler(QObject *parent = nullptr,tools *tool = nullptr);
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -43,6 +46,8 @@ private:
     QMediaPlaylist m_playlist;
     int m_current_position;
     QVariant pic;
+    tools tool;
+
 
 };
 

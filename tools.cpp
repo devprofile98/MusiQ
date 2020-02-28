@@ -25,6 +25,12 @@ QString tools::getNowPlayList()
 
 }
 
+void tools::m_pauseRequested()
+{
+    qDebug()<<"ey babo cheka konim";
+    emit pauseRequested();
+}
+
 void tools::setNowPlayList(QString path)
 {
     nowPlayList.append(path);

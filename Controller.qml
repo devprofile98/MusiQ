@@ -44,6 +44,14 @@ Rectangle{
                 anchors.fill: parent
                 // previous song button
                 Label{
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            allsong.preSong()
+//                            tools.m_pauseRequested()
+
+                        }
+                    }
                     anchors.right: ppbtn.left
                     anchors.rightMargin: parent.height/4
                     anchors.verticalCenter: parent.verticalCenter
@@ -59,6 +67,14 @@ Rectangle{
                 //play and pause button
                 Label{
                     id:ppbtn
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            allsong.pause()
+//                            tools.m_pauseRequested()
+
+                        }
+                    }
                     anchors.centerIn: parent
                     text:"\uf144"
 
@@ -74,6 +90,9 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
+                            console.error(allsong.nextSong())
+//                            tools.m_pauseRequested()
+
                         }
                     }
 
