@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         backend.cpp \
         backend2.cpp \
+        liveimageprovider.cpp \
         main.cpp \
         songitemmodeler.cpp \
         tools.cpp
@@ -38,6 +39,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     backend.h \
     backend2.h \
+    liveimageprovider.h \
     songitemmodeler.h \
     tools.h
 

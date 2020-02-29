@@ -74,6 +74,7 @@ Rectangle{
                 hoverEnabled: true
                 onClicked: {
                     console.log(model.path)
+                    rowimage.source ="image://live/image?id="+model.path
                     clickColor = "#3d3d3a"
 //                    parent.color = clickColor
                     model.selected = true;
@@ -105,8 +106,9 @@ Rectangle{
                 height: parent.height
 
                 Image {
+                    id:rowimage
 //                    source: "/../Pictures/sign/Crazy Big Gun - Overdose.jpg"
-                    source: toString(model.pic_url)
+                    source: "image://live/image?id="+model.path
                     onSourceChanged: {
                         console.log(model.pic_url+"sdfsdfsdfsfsdf")
                     }
@@ -117,7 +119,7 @@ Rectangle{
                     anchors.leftMargin: 10
                     OpacityMask{
                         anchors.fill: parent
-                        maskSource:                Rectangle{
+                        maskSource: Rectangle{
                             height: parent.height
                             width: height
                             color: "transparent"

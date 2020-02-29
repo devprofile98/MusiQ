@@ -9,6 +9,8 @@
 #include<QFontDatabase>
 #include <QQuickStyle>
 #include <QDebug>
+#include <QScopedPointer>
+#include "liveimageprovider.h"
 //#include <QtAndroidExtras>
 //#include <QtAndroid>
 
@@ -35,7 +37,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
 //    backend2 bend;
+    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
+
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("imageProvider",liveimage.data());
+    engine.addImageProvider("live", liveimage.data());
 //    engine.rootContext()->setContextProperty("backend",&bend);
     engine.rootContext()->setContextProperty("tools",&tools);
     const QUrl url(QStringLiteral("qrc:/main.qml"));

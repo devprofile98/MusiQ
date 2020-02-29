@@ -9,7 +9,7 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     m_index=0;
     searchfilters.append("*.mp3");
     //    qDebug()<<"i am here"<<QDir("/files").entryList();
-//    songpathfinder(QDir::home(),searchfilters,allPath);
+    //    songpathfinder(QDir::home(),searchfilters,allPath);
     songpathfinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)),searchfilters,allPath);
 
     m_current_position = -1;
@@ -121,13 +121,13 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
 
 bool songitemmodeler::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-//    qDebug()<<"from updating role"<<role;
+    //    qDebug()<<"from updating role"<<role;
 
-//    if (data(index, role) != value) {
-//        // FIXME: Implement me!
-//        emit dataChanged(index, index, QVector<int>() << role);
-//        return true;
-//    }
+    //    if (data(index, role) != value) {
+    //        // FIXME: Implement me!
+    //        emit dataChanged(index, index, QVector<int>() << role);
+    //        return true;
+    //    }
     if (role == 4){
         int last_index = m_current_position;
         m_current_position = index.row();
@@ -168,19 +168,19 @@ QVariant songitemmodeler::ahmad()
 
 void songitemmodeler::play(QString path,int currentindex)
 {
-//    m_playing_song.setMedia(QUrl::fromLocalFile(path));
-//    m_playing_song.setVolume(100);
-//    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-//        qDebug()<<"song played "<<m_playing_song.metaData("CoverArtImage");
-//        pic = m_playing_song.metaData("CoverArtImage").Url;
-//        emit dataChanged(createIndex(0,0),createIndex(2,0),QVector<int>() <<3<<4<<5);
+    //    m_playing_song.setMedia(QUrl::fromLocalFile(path));
+    //    m_playing_song.setVolume(100);
+    //    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
+    //        qDebug()<<"song played "<<m_playing_song.metaData("CoverArtImage");
+    //        pic = m_playing_song.metaData("CoverArtImage").Url;
+    //        emit dataChanged(createIndex(0,0),createIndex(2,0),QVector<int>() <<3<<4<<5);
 
-//    });
-//    m_playing_song.play();
-//    qDebug()<<"played "<<m_playing_song.mediaStatus() ;
+    //    });
+    //    m_playing_song.play();
+    //    qDebug()<<"played "<<m_playing_song.mediaStatus() ;
     m_playlist.setCurrentIndex(currentindex);
-//    m_playing_song.setPlaylist(&m_playlist);
-//    m_playing_song.play();
+    //    m_playing_song.setPlaylist(&m_playlist);
+    //    m_playing_song.play();
 
 }
 
@@ -212,7 +212,7 @@ qint64 songitemmodeler::findSongDuration(QString path) const
 {
     QMediaPlayer song;
     song.setMedia(QUrl::fromLocalFile(path));
-//    connect(&song,&QMediaPlayer::mediaStatusChanged,this,&QMediaPlayer::media);
+    //    connect(&song,&QMediaPlayer::mediaStatusChanged,this,&QMediaPlayer::media);
     //    QObject::connect(&song,&QMediaPlayer::stateChanged,[](){qDebug()<<"i am here";});
     qDebug()<<"in cpp   "<<path;
     return song.duration();
