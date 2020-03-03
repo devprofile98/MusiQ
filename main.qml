@@ -72,7 +72,7 @@ ApplicationWindow {
 
     Drawer{
         id:fullscreenDrawer
-        FullScreenPlayer{}
+        FullScreenPlayer{id:fullscreenplayer}
         edge: Qt.BottomEdge
         width: parent.width
         height: parent.height

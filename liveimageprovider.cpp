@@ -3,13 +3,14 @@
 LiveImageProvider::LiveImageProvider(QObject *parent) : QObject(parent),QQuickImageProvider(QQuickImageProvider::Image)
 {
 
-    this->default_image = QImage("/home/sub/Downloads/twitter.png");
+    this->default_image = QImage(":/new/prefix1/default_music_cover.png");
     this->blockSignals(false);
 
     connect(&music,&QMediaPlayer::mediaStatusChanged,this,[this](){
-        qDebug()<<"from image provider signal";
-        qDebug()<<music.duration()<<"is cover art with id";
-        emit imageChanged();
+        qDebug()<<"from image provider signal"<<music.mediaStatus()<<music.metaData("CoverArtImage").Image<<music.duration();
+//        qDebug()<<music.duration()<<"is cover art with id";
+        updateImage(music.metaData("CoverArtImage").value<QImage>());
+//        emit imageChanged();
 
     });
 
@@ -17,11 +18,14 @@ LiveImageProvider::LiveImageProvider(QObject *parent) : QObject(parent),QQuickIm
 
 QImage LiveImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
+    qDebug()<<"hehehehhehehehehehehheheheh2";
+
     QFileInfo info(id.split("=")[1]);
-    qDebug()<<"info is "<<info.size();
-    music.setMedia(QUrl(id.split("=")[1]));
-    music.play();
-    QImage result;
+    music.setMedia(QUrl::fromLocalFile(info.path()+"/"+info.fileName()));
+    qDebug()<<"info is "<<id.split("=")[1]<<info.path()<<info.fileName();
+    qDebug()<<"/home/sub/Downloads/Haj Mahmood Karimi - Moharram 98 (4) (5) (320).mp3";
+//    music.setMedia(QUrl(id.split("=")[1]));
+    QImage result = image;
     if (result.isNull()){
         result = this->default_image;
     }
@@ -30,14 +34,15 @@ QImage LiveImageProvider::requestImage(const QString &id, QSize *size, const QSi
       }
     if(requestedSize.width() > 0 && requestedSize.height() > 0) {
           result = result.scaled(requestedSize.width(), requestedSize.height(), Qt::KeepAspectRatio);
-      }
+//        qDebug()<<"hehehehhehehehehehehheheheh";
+    }
     return  result;
 }
 
-void LiveImageProvider::updateImage(const QImage &image)
+void LiveImageProvider::updateImage(QImage image)
 {
-    qDebug()<<"che gandi zadi dobare bejesh";
     if(this->image != image){
+        qDebug()<<"che gandi zadi dobare bejesh";
         this->image = image;
         emit imageChanged();
     }

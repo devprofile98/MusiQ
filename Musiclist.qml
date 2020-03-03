@@ -4,7 +4,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.3
 import SongFinder 1.0
-import Bend 1.0
+//import Bend 1.0
 
 Frame{
 

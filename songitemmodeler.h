@@ -14,6 +14,7 @@ class songitemmodeler : public QAbstractListModel
 {
     Q_OBJECT
     //    Q_PROPERTY(backend2 *list READ list WRITE setList )
+    Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
 public:
     Q_INVOKABLE QVariant ahmad();
     Q_INVOKABLE void play(QString path,int currentindex);
@@ -21,6 +22,11 @@ public:
     Q_INVOKABLE void next();
     Q_INVOKABLE void previous();
     Q_INVOKABLE void pause();
+    Q_INVOKABLE int progress();
+    Q_INVOKABLE void setProgress(int value);
+
+signals:
+    void progressChanged();
 
 
 public:
@@ -45,7 +51,7 @@ private:
     QMediaPlayer m_playing_song;
     QMediaPlaylist m_playlist;
     int m_current_position;
-    QVariant pic;
+    QImage pic;
     tools tool;
 
 

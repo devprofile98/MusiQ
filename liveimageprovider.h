@@ -15,10 +15,11 @@ public:
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 
 public slots:
-    void updateImage(const QImage &image);
+    void updateImage(QImage image);
 
 signals:
     void imageChanged();
+
 
 
 private:

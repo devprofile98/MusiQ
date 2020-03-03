@@ -21,10 +21,17 @@ Rectangle{
     function pause(){
        songmodel.pause()
     }
-
+    function getPath(){
+        return listvi.model.path
+    }
 
 
     property color clickColor: "transparent"
+    property int progress: songmodel.progress
+
+    onProgressChanged: {
+        console.log("\n\n\n +++++++++\n\n\n\n")
+    }
 
     width: parent.width
     height: parent.height
@@ -48,7 +55,9 @@ Rectangle{
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                songmodel.next();
+//                songmodel.next();
+                songmodel.setProgress(3);
+
             }
         }
     }
@@ -60,6 +69,8 @@ Rectangle{
         anchors.horizontalCenter: parent.horizontalCenter
         model: Songfinder{id:songmodel}
         clip: true
+        boundsBehavior: Flickable.FollowBoundsBehavior
+        snapMode: ListView.SnapToItem
         spacing:10
         delegate: Rectangle{
             height: 90
@@ -73,15 +84,17 @@ Rectangle{
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
-                    console.log(model.path)
+                    console.log(model.path,songmodel.progress)
                     rowimage.source ="image://live/image?id="+model.path
+                    controller.changeThumbnail("image://live/image?id="+model.path)
+                    fullscreenplayer.setImages("image://live/image?id="+model.path)
                     clickColor = "#3d3d3a"
 //                    parent.color = clickColor
                     model.selected = true;
                     songmodel.play(model.path,model.index);
                 }
                 onEntered: {
-                    console.log(model.selected)
+//                    console.log(model.selected)
                     if (!model.selected){
                     parent.color = "#3d3d3a"
                     }
@@ -109,14 +122,17 @@ Rectangle{
                     id:rowimage
 //                    source: "/../Pictures/sign/Crazy Big Gun - Overdose.jpg"
                     source: "image://live/image?id="+model.path
+//                    source: model.pic_url
                     onSourceChanged: {
-                        console.log(model.pic_url+"sdfsdfsdfsfsdf")
+//                        console.log(model.pic_url+"sdfsdfsdfsfsdf")
                     }
 
                     height: parent.height -10
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
+                    smooth: true
+                    asynchronous: true
                     OpacityMask{
                         anchors.fill: parent
                         maskSource: Rectangle{

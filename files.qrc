@@ -4,4 +4,8 @@
         <file>Font Awesome 5 Free-Regular-400.otf</file>
         <file>Font Awesome 5 Brands-Regular-400.otf</file>
     </qresource>
+    <qresource prefix="/new/prefix1">
+        <file>default_music_cover.svg</file>
+        <file>default_music_cover.png</file>
+    </qresource>
 </RCC>

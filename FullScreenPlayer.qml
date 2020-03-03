@@ -6,12 +6,22 @@ import QtGraphicalEffects 1.0
 
 
 Rectangle{
+
+
+    function setImages(Path){
+        background.source = ""
+        songCover.source = ""
+
+        background.source = Path
+        songCover.source = Path
+    }
+
     width: parent.width
     height: parent.height
     property string pictureurl: "/../Downloads/rezasadeghi.jpg";
     Image {
         id: background
-        source: pictureurl
+        source: "image://live/image?id="+allsong.getPath()
         anchors{
             fill: parent
         }
@@ -22,7 +32,7 @@ Rectangle{
         width: parent.height/2
         height: width
         id: songCover
-        source: pictureurl
+        source: "image://live/image?id="+allsong.getPath()
         anchors.centerIn: parent
         z:2
     }
@@ -37,8 +47,8 @@ Rectangle{
             font{
                 family: solidfont
                 pixelSize:nextsong.width/5
-//                font.weight: Font.Black
-//                    font.styleName: "Solid" // this does the trick
+                //                font.weight: Font.Black
+                //                    font.styleName: "Solid" // this does the trick
 
             }
             text: "\uf051"

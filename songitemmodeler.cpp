@@ -9,11 +9,10 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     m_index=0;
     searchfilters.append("*.mp3");
     //    qDebug()<<"i am here"<<QDir("/files").entryList();
-    //    songpathfinder(QDir::home(),searchfilters,allPath);
+//        songpathfinder(QDir::home(),searchfilters,allPath);
     songpathfinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)),searchfilters,allPath);
 
     m_current_position = -1;
-    pic = QVariant();
     m_playlist.setCurrentIndex(0);
     m_playing_song.setPlaylist(&m_playlist);
 
@@ -31,6 +30,8 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
 
     });
     m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
+
+     qDebug()<<m_playlist.mediaCount() << "have inghad ahang" <<allPath.size();
 
 }
 
@@ -55,7 +56,7 @@ void songitemmodeler::songpathfinder(QDir current,QStringList searchFilter,QStri
         current.setNameFilters(searchFilter);
         
         for(int i =0;i<current.entryList().size();i++){
-            allSongPath.append(current.absolutePath()+"/"+current.entryList().at(i));
+//            allSongPath.append(current.absolutePath()+"/"+current.entryList().at(i));
             allPath.append(current.absolutePath()+"/"+current.entryList().at(i));
             m_playlist.addMedia(QUrl::fromLocalFile(current.absolutePath()+"/"+current.entryList().at(i)));
             
@@ -168,14 +169,14 @@ QVariant songitemmodeler::ahmad()
 
 void songitemmodeler::play(QString path,int currentindex)
 {
-    //    m_playing_song.setMedia(QUrl::fromLocalFile(path));
+        m_playing_song.setMedia(QUrl::fromLocalFile(path));
     //    m_playing_song.setVolume(100);
-    //    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-    //        qDebug()<<"song played "<<m_playing_song.metaData("CoverArtImage");
-    //        pic = m_playing_song.metaData("CoverArtImage").Url;
-    //        emit dataChanged(createIndex(0,0),createIndex(2,0),QVector<int>() <<3<<4<<5);
+        connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
+            qDebug()<<"song played "<<m_playing_song.metaData("CoverArtImage").Image;
+            pic = m_playing_song.metaData("CoverArtImage").value<QImage>();
+            emit dataChanged(createIndex(0,0),createIndex(10,0),QVector<int>() <<3<<4<<5);
 
-    //    });
+        });
     //    m_playing_song.play();
     //    qDebug()<<"played "<<m_playing_song.mediaStatus() ;
     m_playlist.setCurrentIndex(currentindex);
@@ -207,6 +208,18 @@ void songitemmodeler::pause()
     m_playing_song.pause();
     qDebug()<<"pause is working";
 }
+
+int songitemmodeler::progress()
+{
+    return 100;
+}
+
+void songitemmodeler::setProgress(int value)
+{
+    Q_UNUSED(value)
+    emit progressChanged();
+}
+
 
 qint64 songitemmodeler::findSongDuration(QString path) const
 {

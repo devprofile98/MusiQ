@@ -6,6 +6,13 @@ import QtQuick.Shapes 1.12
 import QtQuick.Controls.Material 2.3
 
 Rectangle{
+
+
+    function changeThumbnail(path){
+        thumbnail.source = ""
+        thumbnail.source = path
+    }
+
     property color btncolor: "#7f05e3"
 
     width:parent.width
@@ -23,13 +30,13 @@ Rectangle{
             Layout.preferredWidth: height
             radius: 50
             Image {
-//                GaussianBlur:10
+                //                GaussianBlur:10
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width*(3/4)
                 height: width
                 id: thumbnail
-                source: "/../Pictures/sign/Minimal+Lines+Electronic+Music+Cover+Album+Template_1.jpg.jpg"
+                source: "image://live/image?id="+allsong.getPath()
             }
 
         }
@@ -48,7 +55,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             allsong.preSong()
-//                            tools.m_pauseRequested()
+                            //                            tools.m_pauseRequested()
 
                         }
                     }
@@ -71,7 +78,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             allsong.pause()
-//                            tools.m_pauseRequested()
+                            //                            tools.m_pauseRequested()
 
                         }
                     }
@@ -91,7 +98,7 @@ Rectangle{
                         anchors.fill: parent
                         onClicked: {
                             console.error(allsong.nextSong())
-//                            tools.m_pauseRequested()
+                            //                            tools.m_pauseRequested()
 
                         }
                     }
@@ -195,7 +202,9 @@ Rectangle{
                 Layout.fillWidth: true
                 anchors.verticalCenter: parent.verticalCenter
                 Material.accent: btncolor
-                value: 0.4
+                value: allsong.progress /200
+
+
             }
             //Label for duration
             Label{
@@ -233,7 +242,7 @@ Rectangle{
                 anchors.fill: parent
                 onClicked: {
                     mainwindow.toggleDrawer()
-;                }
+                    ;                }
             }
         }
 
