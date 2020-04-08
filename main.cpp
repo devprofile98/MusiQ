@@ -37,11 +37,12 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
 //    backend2 bend;
-    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
+//    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
+    LiveImageProvider liveimage;
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("imageProvider",liveimage.data());
-    engine.addImageProvider("live", liveimage.data());
+    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
+    engine.addImageProvider("live", &liveimage);
 //    engine.rootContext()->setContextProperty("backend",&bend);
     engine.rootContext()->setContextProperty("tools",&tools);
     const QUrl url(QStringLiteral("qrc:/main.qml"));

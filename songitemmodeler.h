@@ -51,7 +51,7 @@ private:
     QMediaPlayer m_playing_song;
     QMediaPlaylist m_playlist;
     int m_current_position;
-    QImage pic;
+    QUrl pic;
     tools tool;
 
 

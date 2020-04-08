@@ -84,8 +84,10 @@ Rectangle{
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
+
                     console.log(model.path,songmodel.progress)
-                    rowimage.source ="image://live/image?id="+model.path
+//                    rowimage.source ="image://live/image?id="+model.path
+                    rowimage.source ="*"
                     controller.changeThumbnail("image://live/image?id="+model.path)
                     fullscreenplayer.setImages("image://live/image?id="+model.path)
                     clickColor = "#3d3d3a"
@@ -110,6 +112,7 @@ Rectangle{
                     //                }
 
                 }
+
             }
 
             Row{
@@ -121,17 +124,20 @@ Rectangle{
                 Image {
                     id:rowimage
 //                    source: "/../Pictures/sign/Crazy Big Gun - Overdose.jpg"
-                    source: "image://live/image?id="+model.path
-//                    source: model.pic_url
+//                    source: "image://live/image?id="+model.path
+                    source: model.pic_url
                     onSourceChanged: {
-//                        console.log(model.pic_url+"sdfsdfsdfsfsdf")
+                        console.log(model.pic_url+"sdfsdfsdfsfsdf")
+                        rowimage.source = model.pic_url
+
                     }
+
 
                     height: parent.height -10
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
-                    smooth: true
+//                    smooth: true
                     asynchronous: true
                     OpacityMask{
                         anchors.fill: parent

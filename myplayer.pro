@@ -16,7 +16,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         backend.cpp \
-        backend2.cpp \
         liveimageprovider.cpp \
         main.cpp \
         songitemmodeler.cpp \

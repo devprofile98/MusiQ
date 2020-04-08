@@ -3,9 +3,11 @@
         <file>Font Awesome 5 Free-Solid-900.otf</file>
         <file>Font Awesome 5 Free-Regular-400.otf</file>
         <file>Font Awesome 5 Brands-Regular-400.otf</file>
+        <file>Mohsen Chavoshi - Javabam Nakon.mp3</file>
     </qresource>
     <qresource prefix="/new/prefix1">
         <file>default_music_cover.svg</file>
         <file>default_music_cover.png</file>
+        <file>رضا صادقی،ولی نبو،هرمزگانی.mp3</file>
     </qresource>
 </RCC>
