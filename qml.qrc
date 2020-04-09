@@ -5,23 +5,11 @@
         <file>Musiclist.qml</file>
         <file>Monitor.qml</file>
         <file>Player.qml</file>
-        <file>icons8-collapse-96.png</file>
-        <file>icons8-collapse-64.png</file>
-        <file>../Downloads/rezasadeghi.jpg</file>
-        <file>../Downloads/icons8-play-96.png</file>
         <file>Fonts.qml</file>
         <file>SettingAndPrefrences.qml</file>
         <file>ShowPage.qml</file>
         <file>Home.qml</file>
         <file>Controller.qml</file>
-        <file>../Pictures/sign/9809914.jpg</file>
-        <file>../Pictures/sign/BigGun-Impeccable.jpg</file>
-        <file>../Pictures/sign/cbg.jpg</file>
-        <file>../Pictures/sign/Crazy Big Gun - Overdose.jpg</file>
-        <file>../Pictures/sign/dlbp3b-5831f3b6-6a1b-41b9-aebc-6ebb06427846.jpg</file>
-        <file>../Pictures/sign/DoorOftade-Cover-Albume-1.jpg</file>
-        <file>../Pictures/sign/KZcOVupgcamdiRuFO0RWVTl72eJkfbmt4t8yenImKBVvK0kTmF0xjctABnaLJIm9.jpg</file>
-        <file>../Pictures/sign/Minimal+Lines+Electronic+Music+Cover+Album+Template_1.jpg.jpg</file>
         <file>FullScreenPlayer.qml</file>
         <file>AllSong.qml</file>
     </qresource>
