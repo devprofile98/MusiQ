@@ -8,7 +8,7 @@ import QtQuick.Controls.Material 2.3
 
 
 Rectangle{
-    property color btncolor: "#7f05e3"
+    property color btncolor: "#855dd4" //"#7f05e3"
     color: "#3d3d3a"
     width: parent.width
     height:parent.height
@@ -33,7 +33,7 @@ Rectangle{
                 id:homelabel
                 anchors.centerIn: parent
                 font{
-                    family: solidfont
+                    family: solidfont.name
                     bold  :true
                     pixelSize: parent.width/4
                 }
@@ -74,7 +74,7 @@ Rectangle{
                 id:favoritelabel
                 anchors.centerIn: parent
                 font{
-                    family: solidfont
+                    family: solidfont.name
                     //                bold  :true
                     pixelSize: parent.width/4
                 }
@@ -114,7 +114,7 @@ Rectangle{
                 id:artistlabel
                 anchors.centerIn: parent
                 font{
-                    family: solidfont
+                    family: solidfont.name
                     bold  :true
                     pixelSize: parent.width/4
                 }
@@ -153,7 +153,7 @@ Rectangle{
                 id:songslabel
                 anchors.centerIn: parent
                 font{
-                    family: solidfont
+                    family: solidfont.name
                     bold  :true
                     pixelSize: parent.width/4
                 }
@@ -189,9 +189,9 @@ Rectangle{
             color:"transparent"
             Label{
                 id:recentlylabel
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 font{
-                    family: solidfont
+                    family: solidfont.name
                     //                    bold  :true
                     pixelSize: parent.width/4
                 }

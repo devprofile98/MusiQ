@@ -1,5 +1,6 @@
 #include "liveimageprovider.h"
 
+
 LiveImageProvider::LiveImageProvider(QObject *parent) : QObject(parent),QQuickImageProvider(QQuickImageProvider::Image)
 {
 

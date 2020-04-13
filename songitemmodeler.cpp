@@ -2,16 +2,17 @@
 #include<backend2.h>
 #include<QtDebug>
 #include<QMetaDataReaderControl>
+#include "liveimageprovider.h"
 
 songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
     m_index=0;
     searchfilters.append("*.mp3");
-    //    qDebug()<<"i am here"<<QDir("/files").entryList();
-    //        songpathfinder(QDir::home(),searchfilters,allPath);
+    //        qDebug()<<"i am here"<<QDir("/files").entryList();
+    //    songpathfinder(QDir::home(),searchfilters,allPath);
     songpathfinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)),searchfilters,allPath);
-
+    newclassmember->trytosolve();
     m_current_position = -1;
     m_playlist.setCurrentIndex(0);
     m_playing_song.setPlaylist(&m_playlist);
@@ -26,10 +27,22 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
         m_playing_song.play();
     });
     connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-        m_playing_song.play();
+        m_duration = m_playing_song.duration();
+        emit durationChanged();
+//        m_playing_song.play();
 
     });
-    m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
+
+    connect(&m_playing_song,&QMediaPlayer::positionChanged,[this](qint64 value){
+        Q_UNUSED(this)
+        m_passed = value;
+        emit passedChanged();
+
+
+    });
+
+
+    m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
 
     qDebug()<<m_playlist.mediaCount() << "have inghad ahang" <<allPath.size();
     connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
@@ -96,7 +109,7 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
         return QVariant::fromValue(allPath.at(index.row()));
     
     else if (role==1)
-        return QVariant("red");
+        return QVariant(m_playing_song.duration());
 
     else if (role == 2){
         return QVariant(allPath.at(index.row()).split('/').last());
@@ -128,6 +141,7 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
 
 bool songitemmodeler::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    Q_UNUSED(value)
     //    qDebug()<<"from updating role"<<role;
 
     //    if (data(index, role) != value) {
@@ -192,11 +206,14 @@ void songitemmodeler::m_status()
 
 void songitemmodeler::next()
 {
+    m_playing_song.play();
     m_playlist.next();
+
 }
 
 void songitemmodeler::previous()
 {
+    m_playing_song.play();
     m_playlist.previous();
     qDebug()<<"pause is not working";
 
@@ -209,6 +226,12 @@ void songitemmodeler::pause()
     qDebug()<<"pause is working";
 }
 
+void songitemmodeler::playIndex()
+{
+    m_playing_song.play();
+
+}
+
 int songitemmodeler::progress()
 {
     return 100;
@@ -218,6 +241,11 @@ void songitemmodeler::setProgress(int value)
 {
     Q_UNUSED(value)
     emit progressChanged();
+}
+
+void songitemmodeler::m_setPosition(qint64 value)
+{
+    m_playing_song.setPosition(value);
 }
 
 

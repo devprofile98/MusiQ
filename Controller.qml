@@ -13,7 +13,61 @@ Rectangle{
         thumbnail.source = path
     }
 
-    property color btncolor: "#7f05e3"
+    function durationToText(){
+//        var insecond = (Math.round(((ballsong.endPosition/1000)*100)/100)).toString();
+        var insecond =Math.floor((allsong.endPosition/1000))
+        console.log(Math.floor((allsong.endPosition/1000)))
+        console.log(allsong.endPosition)
+        var second = (insecond % 60)
+        var minute = ((insecond - second) / 60)
+
+        var finalSecond = 0
+        var finalMinute = 0
+        if (second <10){
+            finalSecond = "0" + second
+        }
+        else{
+            finalSecond =  second
+        }
+
+        if (minute <10){
+            finalMinute = "0" + minute
+        }
+        else{
+            finalMinute =  minute
+        }
+
+        return finalMinute.toString() + ":" +finalSecond.toString()
+    }
+    function passedToText(){
+//        var insecond = (Math.round(((ballsong.endPosition/1000)*100)/100)).toString();
+        var insecond =Math.floor((allsong.passed/1000))
+//        console.log(Math.floor((allsong.endPosition/1000)))
+//        console.log(allsong.endPosition)
+        var second = (insecond % 60)
+        var minute = ((insecond - second) / 60)
+
+        var finalSecond = 0
+        var finalMinute = 0
+        if (second <10){
+            finalSecond = "0" + second
+        }
+        else{
+            finalSecond =  second
+        }
+
+        if (minute <10){
+            finalMinute = "0" + minute
+        }
+        else{
+            finalMinute =  minute
+        }
+
+        return finalMinute.toString() + ":" +finalSecond.toString()
+    }
+
+    property color btncolor: "#855dd4" //#7f05e3
+    property string endPosition: "00:00"
 
     width:parent.width
     height:parent.height
@@ -24,21 +78,44 @@ Rectangle{
         height:parent.height
         //       spacing: -100
         Rectangle{
+            MouseArea{
+                anchors.fill: parent
+                onEntered: {
+                    pa.start()
+                }
+            }
+
             id:thumbnailpic
-            color: "transparent"
-            Layout.fillHeight: true
+            //            color: "transparent"
+            //            Layout.fillHeight: true
+            Layout.preferredHeight: parent.height -20
+            Layout.leftMargin: 10
             Layout.preferredWidth: height
-            radius: 50
+            Layout.alignment: Qt.AlignVCenter
+            color:"transparent"
+            clip: true
+
+            radius: 10
+
             Image {
+
                 //                GaussianBlur:10
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width*(3/4)
-                height: width
+                //                width: parent.width*(3/4)
+                //                height: width
+                sourceSize.width: parent.width
+                sourceSize.height: parent.width
                 id: thumbnail
-                source: "image://live/image?id="+allsong.getPath()
-            }
+                //                source: "image://live/image?id="+allsong.getPath()
+                source:"/images/images/thumbnail.svg"
 
+
+
+                Component.onCompleted: {
+                    //                    ee.start()
+                }
+            }
         }
 
         // controler panel
@@ -66,7 +143,7 @@ Rectangle{
 
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/4
                     }
                 }
@@ -77,17 +154,27 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            allsong.pause()
+                            if (mainwindow.isPlaying){
+                                console.log(allsong.playlistindex,allsong.currentpath)
+
+                                allsong.pause()
+                                ppbtn.text = "\uf144"
+                            }
+                            else{
+                                allsong.play(allsong.currentpath,allsong.playlistindex)
+                                ppbtn.text = "\uf28b"
+                            }
+                            mainwindow.isPlaying =!mainwindow.isPlaying
                             //                            tools.m_pauseRequested()
 
                         }
                     }
                     anchors.centerIn: parent
-                    text:"\uf144"
-
+                    //                    text:"\uf144"
+                    text:"\uf28b"
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/2
                     }
                 }
@@ -97,7 +184,7 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            console.error(allsong.nextSong())
+                            allsong.nextSong()
                             //                            tools.m_pauseRequested()
 
                         }
@@ -112,7 +199,7 @@ Rectangle{
 
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/4
                     }
                 }
@@ -127,7 +214,7 @@ Rectangle{
 
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/5
                     }
                 }
@@ -142,7 +229,7 @@ Rectangle{
 
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/5
                     }
                 }
@@ -157,7 +244,7 @@ Rectangle{
 
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/5
                     }
                 }
@@ -173,7 +260,7 @@ Rectangle{
 
                     font{
                         bold:true
-                        family:solidfont
+                        family:solidfont.name
                         pixelSize: parent.height/5
                     }
                 }
@@ -189,7 +276,7 @@ Rectangle{
             Layout.leftMargin: 200
             //Label for progres
             Label{
-                text: "03:58"
+                text: passedToText()
                 width: parent.width/6
                 anchors.verticalCenter: parent.verticalCenter
                 font{
@@ -202,13 +289,21 @@ Rectangle{
                 Layout.fillWidth: true
                 anchors.verticalCenter: parent.verticalCenter
                 Material.accent: btncolor
-                value: allsong.progress /200
+                value: allsong.passed  // allsong.endPosition
+                from:0
+                to:allsong.endPosition
+
+                onMoved: {
+                    allsong.setSongPos(value)
+                }
 
 
             }
             //Label for duration
             Label{
-                text: "04:31"
+
+//                text: (Math.round(allsong.endPosition/(60*1000)*100)/100).toString()
+                text: durationToText();
                 width: parent.width/6
                 anchors.verticalCenter: parent.verticalCenter
                 font{
@@ -235,7 +330,7 @@ Rectangle{
 
             font{
                 bold:true
-                family:solidfont
+                family:solidfont.name
                 pixelSize: parent.height/5
             }
             MouseArea{

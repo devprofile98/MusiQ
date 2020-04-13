@@ -14,34 +14,27 @@ ApplicationWindow {
     visible: true
     width: screen.width
     height: screen.height
+    visibility: "Maximized"
     title: qsTr("Musix")
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
 
     FontLoader{
-//        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
-        source: "qrc:/fonts/Font Awesome 5 Free-Solid-900.otf"
+        //        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
+        source: "/fonts/Font Awesome 5 Free-Solid-900.otf"
+        name :"solidfont"
         id:solidfont
     }
 
-    //GridLayout{
-    //    anchors.fill: parent
+    FontLoader{
+        //        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
+        source: "qrc:/fonts/Antapani-ExtraBold.otf"
+        name :"antapan"
+        id:antapan
+    }
 
-    //    anchors.margins: 20
+    property bool isPlaying: true
 
-    //    flow:  width > height ? GridLayout.LeftToRight : GridLayout.TopToBottom
-    //    Musiclist{
-    //        id:musiclist
-    ////        width: parent.width/4
-    //        Layout.preferredWidth: parent.width/4
-    ////        height: parent.height
-    //        Layout.fillHeight: true
-    ////        anchors.left: parent.left
-    //        Layout.alignment: Qt.AlignLeft
-    ////        anchors.top: parent.top
-    ////        anchors.bottom: parent.bottom
-    ////        anchors.margins: 5
-    //    }
     SettingAndPrefrences{
         id:sap
         //    Layout.alignment: Qt.AlignLeft
@@ -55,8 +48,13 @@ ApplicationWindow {
 
     }
 
+
+
+
     Home{
+
         id:home
+        visible: true
         anchors.left:sap.right
         Layout.fillWidth: true
         Layout.fillHeight: true
@@ -78,30 +76,35 @@ ApplicationWindow {
         height: parent.height
     }
 
-//    Rectangle{
-//        anchors.right: parent.right
-////        anchors.top: parent.top
-//        width: parent.width/4
-//        height: parent.height - 130
-//        radius: 10
-//        color:Qt.rgba(61,61, 58,0.05)
-////        anchors.bottom: controller.top
-//        anchors.verticalCenter: fillingitem.verticalCenter
-//        anchors.rightMargin: 20
-        AllSong{
-//            width: parent.width -20
-//            height: parent.height -20
-            id:allsong
-            anchors.right: parent.right
-            width: parent.width > 500 ? parent.width/4 : parent.width
-            height: parent.height - 130
-//            anchors.centerIn: parent
-        }
+    //    Rectangle{
+    //        anchors.right: parent.right
+    ////        anchors.top: parent.top
+    //        width: parent.width/4
+    //        height: parent.height - 130
+    //        radius: 10
+    //        color:Qt.rgba(61,61, 58,0.05)
+    ////        anchors.bottom: controller.top
+    //        anchors.verticalCenter: fillingitem.verticalCenter
+    //        anchors.rightMargin: 20
+    AllSong{
+        //            width: parent.width -20
+        //            height: parent.height -20
+        id:allsong
+        anchors.right: parent.right
+        width: parent.width > 500 ? parent.width/4 : parent.width
+        height: parent.height - 130
+        //            anchors.centerIn: parent
+    }
 
-//    }
+    //    }
     Item {
         id: fillingitem
         height: parent.height-90
+    }
+
+
+    SplashScreen{
+        anchors.fill:parent
     }
 
     //functions

@@ -16,6 +16,7 @@ public:
 
 public slots:
     void updateImage(QImage image);
+    static void trytosolve(){qDebug()<<"injaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam";};
 
 signals:
     void imageChanged();

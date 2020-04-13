@@ -9,12 +9,16 @@
 #include "tools.h"
 
 
+class LiveImageProvider;
+
 //class backend2;
 class songitemmodeler : public QAbstractListModel
 {
     Q_OBJECT
     //    Q_PROPERTY(backend2 *list READ list WRITE setList )
     Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
+    Q_PROPERTY(int duration READ duration NOTIFY durationChanged)
+    Q_PROPERTY(qint64 passed READ passed NOTIFY passedChanged)
 public:
     Q_INVOKABLE QVariant ahmad();
     Q_INVOKABLE void play(QString path,int currentindex);
@@ -22,12 +26,20 @@ public:
     Q_INVOKABLE void next();
     Q_INVOKABLE void previous();
     Q_INVOKABLE void pause();
+    Q_INVOKABLE void playIndex(); // play specific index
     Q_INVOKABLE int progress();
     Q_INVOKABLE void setProgress(int value);
 
+
+public slots:
+    void m_setPosition(qint64 value);
+
+
 signals:
     void progressChanged();
+    void durationChanged();
 
+    void passedChanged();
 
 public:
 
@@ -39,6 +51,16 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value,int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     virtual QHash<int,QByteArray> roleNames() const override;
+
+    int duration() const
+    {
+        return m_duration;
+    }
+
+    qint64 passed() const
+    {
+        return m_passed;
+    }
 
 private:
     qint64 findSongDuration(QString path) const;
@@ -54,7 +76,10 @@ private:
     QUrl pic;
     tools tool;
 
+    LiveImageProvider* newclassmember;
 
+    int m_duration = 0;
+    qint64 m_passed = 0;
 };
 
 #endif // SONGITEMMODELER_H

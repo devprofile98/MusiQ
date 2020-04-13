@@ -12,6 +12,7 @@
         <file>Controller.qml</file>
         <file>FullScreenPlayer.qml</file>
         <file>AllSong.qml</file>
+        <file>SplashScreen.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>

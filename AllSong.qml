@@ -16,7 +16,7 @@ Rectangle{
         songmodel.previous()
     }
     function play(){
-
+        songmodel.playIndex()
     }
     function pause(){
        songmodel.pause()
@@ -24,10 +24,18 @@ Rectangle{
     function getPath(){
         return listvi.model.path
     }
+    function setSongPos(value){
+        songmodel.m_setPosition(value)
+    }
+
 
 
     property color clickColor: "transparent"
     property int progress: songmodel.progress
+    property int playlistindex: 0
+    property string currentpath: ""
+    property real endPosition: songmodel.duration
+    property real passed: songmodel.passed
 
     onProgressChanged: {
         console.log("\n\n\n +++++++++\n\n\n\n")
@@ -51,6 +59,7 @@ Rectangle{
             id:sectionlabel
             text: "All Songs "
             anchors.top:parent.top
+            font.bold: true
         }
         MouseArea{
             anchors.fill: parent
@@ -85,7 +94,7 @@ Rectangle{
                 hoverEnabled: true
                 onClicked: {
 
-                    console.log(model.path,songmodel.progress)
+                    console.log(model.duration/(1000*60))
 //                    rowimage.source ="image://live/image?id="+model.path
                     rowimage.source ="*"
                     controller.changeThumbnail("image://live/image?id="+model.path)
@@ -93,6 +102,9 @@ Rectangle{
                     clickColor = "#3d3d3a"
 //                    parent.color = clickColor
                     model.selected = true;
+                    playlistindex = model.index
+                    currentpath = model.path
+                    endPosition = model.duration
                     songmodel.play(model.path,model.index);
                 }
                 onEntered: {
@@ -105,11 +117,6 @@ Rectangle{
                     parent.color = model.selected ? "#3d3d3a" : "transparent"
                     clickColor = clickColor
 
-
-                    //                }
-                    //                onBtnColorChanged:{
-                    //                    mainrect
-                    //                }
 
                 }
 
@@ -137,40 +144,22 @@ Rectangle{
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
-//                    smooth: true
                     asynchronous: true
-                    OpacityMask{
-                        anchors.fill: parent
-                        maskSource: Rectangle{
-                            height: parent.height
-                            width: height
-                            color: "transparent"
-                            radius: 10
-                        }
-                        source: parent
-                    }
+
                 }
 
 
 
                 Label{
                     anchors.verticalCenter: parent.verticalCenter
-                    text: model.name
+                    text: model.name.toString().split(".mp3")[0]
                     font{
-                        family: "ubuntu"
+                        family: antapan.name
+//                        bold:true
                     }
                     color: "white"
                 }
-                //            Label{
-                ////                anchors.right: parent.right
-                //                anchors.verticalCenter: parent.verticalCenter
-                //                text: model.desc
 
-                //                font{
-                //                    family: "ubuntu"
-                //                }
-                //                color: "white"
-                //            }
 
             }
         }
