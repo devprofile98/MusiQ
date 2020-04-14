@@ -7,7 +7,8 @@ import QtGraphicalEffects 1.0
 
 Rectangle{
 
-
+    Material.theme: Material.Dark
+    color: "#242323"
     function setImages(Path){
         background.source = ""
         songCover.source = ""
@@ -19,22 +20,31 @@ Rectangle{
     width: parent.width
     height: parent.height
     property string pictureurl: "/../Downloads/rezasadeghi.jpg";
-    Image {
-        id: background
-        source: "image://live/image?id="+allsong.getPath()
-        anchors{
-            fill: parent
-        }
-        z:-1
-    }
+//    Image {
+//        id: background
+//        source: "image://live/image?id="+allsong.getPath()
+//        anchors{
+//            fill: parent
+//        }
+//        z:-1
+//    }
 
-    Image {
+    Rectangle{
         width: parent.height/2
         height: width
+        color: "#fa6ec0"
+        radius: 20
+        anchors.centerIn: parent
         id: songCover
+
+    Image {
+//        width: parent.height/2
+//        height: width
+        anchors.fill: parent
         source: "image://live/image?id="+allsong.getPath()
         anchors.centerIn: parent
         z:2
+    }
     }
     Rectangle{
         id:nextsong
@@ -45,7 +55,7 @@ Rectangle{
         Label{
             anchors.centerIn: parent
             font{
-                family: solidfont
+                family: solidfont.name
                 pixelSize:nextsong.width/5
                 //                font.weight: Font.Black
                 //                    font.styleName: "Solid" // this does the trick
@@ -64,7 +74,7 @@ Rectangle{
         Label{
             anchors.centerIn: parent
             font{
-                family: solidfont
+                family: solidfont.name
                 pixelSize:nextsong.width/5
                 bold:true
             }
@@ -97,7 +107,7 @@ Rectangle{
 
             text: "\uf103"
             font{
-                family: solidfont
+                family: solidfont.name
                 bold:true
                 pixelSize: parent.width/5
             }

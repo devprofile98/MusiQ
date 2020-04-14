@@ -35,6 +35,7 @@ ApplicationWindow {
 
     property bool isPlaying: true
 
+
     SettingAndPrefrences{
         id:sap
         //    Layout.alignment: Qt.AlignLeft

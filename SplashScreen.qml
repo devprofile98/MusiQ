@@ -11,7 +11,7 @@ Rectangle {
     Material.theme: Material.Dark
     Rectangle{
         anchors.centerIn: parent
-        width: 300
+        width:200
         height: width
         gradient: Gradient {
             GradientStop {id:first; position: 0.0; color: "#d3aaf2" }
@@ -28,7 +28,7 @@ Rectangle {
             target: first
             property: "color"
             from: "#d3aaf2"
-            to: "#f03cb7"
+            to: "#d3aaf2"
             duration: 2500
         }
 
@@ -37,7 +37,7 @@ Rectangle {
             target: second
             property: "color"
             from: "#d18bf0"
-            to: "#f03cb7"
+            to: "#d18bf0"
             duration: 2500
         }
         }
@@ -64,7 +64,7 @@ Rectangle {
 
 
     Timer{
-        interval: 5000
+        interval: 1000
         running: true
 
         onTriggered: {

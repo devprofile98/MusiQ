@@ -8,6 +8,8 @@ import QtQuick.Controls.Material 2.3
 Rectangle{
 
 
+
+
     function changeThumbnail(path){
         thumbnail.source = ""
         thumbnail.source = path
@@ -92,7 +94,7 @@ Rectangle{
             Layout.leftMargin: 10
             Layout.preferredWidth: height
             Layout.alignment: Qt.AlignVCenter
-            color:"transparent"
+            color:"#d3aaf2"
             clip: true
 
             radius: 10
@@ -108,7 +110,7 @@ Rectangle{
                 sourceSize.height: parent.width
                 id: thumbnail
                 //                source: "image://live/image?id="+allsong.getPath()
-                source:"/images/images/thumbnail.svg"
+                source:"qrc:/new/prefix1/thumbnail.svg"
 
 
 
@@ -131,7 +133,10 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
+                            isPlaying = true
+
                             allsong.preSong()
+
                             //                            tools.m_pauseRequested()
 
                         }
@@ -184,7 +189,10 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
+                            console.log("clicked on me")
+                            isPlaying = true
                             allsong.nextSong()
+
                             //                            tools.m_pauseRequested()
 
                         }
@@ -217,6 +225,15 @@ Rectangle{
                         family:solidfont.name
                         pixelSize: parent.height/5
                     }
+
+                    MouseArea{
+
+                        anchors.fill: parent
+                        onClicked: {
+                            allsong.changePlaybackMode(0);
+                        }
+                    }
+
                 }
                 //shuffle button
                 Label{
@@ -231,6 +248,13 @@ Rectangle{
                         bold:true
                         family:solidfont.name
                         pixelSize: parent.height/5
+                    }
+                    MouseArea{
+
+                        anchors.fill: parent
+                        onClicked: {
+                            allsong.changePlaybackMode(4);
+                        }
                     }
                 }
                 //add to favorite

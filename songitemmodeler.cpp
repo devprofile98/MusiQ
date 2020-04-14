@@ -189,14 +189,8 @@ QVariant songitemmodeler::ahmad()
 
 void songitemmodeler::play(QString path,int currentindex)
 {
-    m_playing_song.setMedia(QUrl::fromLocalFile(path));
-    //    m_playing_song.setVolume(100);
-    //    m_playing_song.play();
-    //    qDebug()<<"played "<<m_playing_song.mediaStatus() ;
+    Q_UNUSED(path)
     m_playlist.setCurrentIndex(currentindex);
-    //    m_playing_song.setPlaylist(&m_playlist);
-    //    m_playing_song.play();
-
 }
 
 void songitemmodeler::m_status()
@@ -206,15 +200,17 @@ void songitemmodeler::m_status()
 
 void songitemmodeler::next()
 {
-    m_playing_song.play();
     m_playlist.next();
+    m_playing_song.play();
+
 
 }
 
 void songitemmodeler::previous()
 {
-    m_playing_song.play();
     m_playlist.previous();
+    m_playing_song.play();
+
     qDebug()<<"pause is not working";
 
 }
@@ -246,6 +242,30 @@ void songitemmodeler::setProgress(int value)
 void songitemmodeler::m_setPosition(qint64 value)
 {
     m_playing_song.setPosition(value);
+}
+
+void songitemmodeler::m_ChangePlaybackMode(int mode)
+{
+    if (mode == 1){
+        qDebug()<<"current item in loop playBackMode on";
+        m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    }
+    else if (mode == 0){
+        qDebug()<<"current item once playBackMode on";
+        m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
+    }
+    else if (mode == 2){
+        qDebug()<<"sequential playBackMode on";
+        m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
+    }
+    else if (mode == 3){
+        qDebug()<<"loop playBackMode on";
+        m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
+    }
+    else if (mode == 4){
+        qDebug()<<"shuffle playBackMode on";
+        m_playlist.setPlaybackMode(QMediaPlaylist::Random);
+    }
 }
 
 

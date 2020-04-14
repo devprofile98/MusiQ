@@ -33,6 +33,7 @@ public:
 
 public slots:
     void m_setPosition(qint64 value);
+    void m_ChangePlaybackMode(int mode);
 
 
 signals:

@@ -4,7 +4,7 @@
 LiveImageProvider::LiveImageProvider(QObject *parent) : QObject(parent),QQuickImageProvider(QQuickImageProvider::Image)
 {
 
-    this->default_image = QImage(":/new/prefix1/default_music_cover.png");
+    this->default_image = QImage(":/new/prefix1/thumbnail.svg");
     this->blockSignals(false);
 
     connect(&music,&QMediaPlayer::mediaStatusChanged,this,[this](){

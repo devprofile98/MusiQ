@@ -11,6 +11,7 @@ Rectangle{
 
     function nextSong(){
         songmodel.next()
+        print("after calling next")
     }
     function preSong(){
         songmodel.previous()
@@ -26,6 +27,9 @@ Rectangle{
     }
     function setSongPos(value){
         songmodel.m_setPosition(value)
+    }
+    function changePlaybackMode(value){
+        songmodel.m_ChangePlaybackMode(value);
     }
 
 
@@ -94,9 +98,7 @@ Rectangle{
                 hoverEnabled: true
                 onClicked: {
 
-                    console.log(model.duration/(1000*60))
 //                    rowimage.source ="image://live/image?id="+model.path
-                    rowimage.source ="*"
                     controller.changeThumbnail("image://live/image?id="+model.path)
                     fullscreenplayer.setImages("image://live/image?id="+model.path)
                     clickColor = "#3d3d3a"
@@ -106,6 +108,7 @@ Rectangle{
                     currentpath = model.path
                     endPosition = model.duration
                     songmodel.play(model.path,model.index);
+                    isPlaying : true
                 }
                 onEntered: {
 //                    console.log(model.selected)
@@ -131,8 +134,8 @@ Rectangle{
                 Image {
                     id:rowimage
 //                    source: "/../Pictures/sign/Crazy Big Gun - Overdose.jpg"
-//                    source: "image://live/image?id="+model.path
-                    source: model.pic_url
+                    source: "image://live/image?id="+model.path
+//                    source: model.pic_url
                     onSourceChanged: {
                         console.log(model.pic_url+"sdfsdfsdfsfsdf")
                         rowimage.source = model.pic_url
