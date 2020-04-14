@@ -100,14 +100,16 @@ Rectangle{
 
 //                    rowimage.source ="image://live/image?id="+model.path
                     controller.changeThumbnail("image://live/image?id="+model.path)
-                    fullscreenplayer.setImages("image://live/image?id="+model.path)
+//                    fullscreenplayer.setImages("image://live/image?id="+model.path)
                     clickColor = "#3d3d3a"
 //                    parent.color = clickColor
                     model.selected = true;
                     playlistindex = model.index
                     currentpath = model.path
                     endPosition = model.duration
+                    print(model.index , model.path)
                     songmodel.play(model.path,model.index);
+                    print("AFTER CHECKING PLAYER")
                     isPlaying : true
                 }
                 onEntered: {

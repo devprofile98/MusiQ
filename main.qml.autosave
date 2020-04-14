@@ -16,7 +16,7 @@ ApplicationWindow {
     width: screen.width
     height: screen.height
     visibility: "Maximized"
-    title: qsTr("Musix")
+    title: qsTr("MusiQ")
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
 
@@ -55,16 +55,17 @@ ApplicationWindow {
     SystemTrayIcon{
         visible: true
         iconSource: "qrc:/new/prefix1/thumbnail.svg"
-        tooltip: "Musix"
+        tooltip: "MusiQ"
         menu: Menu {
             MenuItem {
+                id:itemsd
                 text: qsTr("Quit")
                 onTriggered: Qt.quit()
             }
         }
 
         onActivated: {
-            console.log("clicked dsljflsa;jfkadsjfl;aj;sf;klajfja;sdfj;aslfj")
+            
         }
 
 
