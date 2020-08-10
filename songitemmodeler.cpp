@@ -7,11 +7,20 @@
 songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
+    DataProvider* dp = new DataProvider(this);
+
     m_index=0;
     searchfilters.append("*.mp3");
     //        qDebug()<<"i am here"<<QDir("/files").entryList();
     //    songpathfinder(QDir::home(),searchfilters,allPath);
-    songpathfinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)),searchfilters,allPath);
+//    songpathfinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)),searchfilters,allPath);
+    allPath = *(dp->all_path);
+
+    for(int i =0;i<allPath.length();i++){
+
+        m_playlist.addMedia(QUrl::fromLocalFile(allPath[i]));
+
+    }
     newclassmember->trytosolve();
     m_current_position = -1;
     m_playlist.setCurrentIndex(0);
@@ -24,14 +33,24 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
 
     //    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
     connect(&m_playlist,&QMediaPlaylist::currentIndexChanged,&m_playing_song,[this](){
-        m_playing_song.play();
+//        m_playing_song.play();
+//        emit durationChanged();
+        qDebug()<<"IN CURRENT INDEX CAHNGED SLOT"<<" "<<this->m_duration;
+
+
     });
-    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-        m_duration = m_playing_song.duration();
-        emit durationChanged();
+    auto check_var = connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
+        qDebug()<<"MEDIA STATUS CHANGED"<<" "<<this->m_duration<<" "<<m_playing_song.mediaStatus();
+        if (m_playing_song.mediaStatus() == 6){
+            m_duration = m_playing_song.duration();
+            qDebug()<<"MEDIA STATUS CHANGED AFTER"<<" "<<this->m_duration<<" "<<m_playing_song.mediaStatus();
+            emit durationChanged();
+        }
 //        m_playing_song.play();
 
     });
+    qDebug()<<"::::::::::::: CHECK VARIABLE IS "<<check_var;
+
 
     connect(&m_playing_song,&QMediaPlayer::positionChanged,[this](qint64 value){
         Q_UNUSED(this)
@@ -120,7 +139,7 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
     }
     else if (role == 4){
         if (m_current_position <0)
-            return QVariant();
+            return QVariant(false);
         else if (m_current_position == index.row()){
             qDebug()<<"see this :"<<index.row()<<m_current_position;
             return  QVariant(true);
@@ -130,7 +149,7 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
         }
     }
     else if (role == 5){
-        return  QVariant(pic);
+        return QVariant();
     }
     else{
         return QVariant();
@@ -151,6 +170,7 @@ bool songitemmodeler::setData(const QModelIndex &index, const QVariant &value, i
     //    }
     if (role == 4){
         int last_index = m_current_position;
+        qDebug()<<"last index is "<<last_index<<" "<<index.row();
         m_current_position = index.row();
         emit dataChanged(createIndex(last_index,0),createIndex(last_index,0),QVector<int>() << role);
         emit dataChanged(createIndex(m_current_position,0),createIndex(m_current_position,0),QVector<int>() << role);
@@ -191,6 +211,12 @@ void songitemmodeler::play(QString path,int currentindex)
 {
     Q_UNUSED(path)
     m_playlist.setCurrentIndex(currentindex);
+    m_playing_song.play();
+//    this->m_duration = this->m_playing_song.duration();
+//    durationChanged();
+    qDebug()<<this->m_playing_song.mediaStatus() << ":::::::::::::::::::::";
+
+
 }
 
 void songitemmodeler::m_status()

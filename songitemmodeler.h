@@ -7,6 +7,7 @@
 #include<QtMultimedia>
 #include <QDebug>
 #include "tools.h"
+#include "dataprovider.h"
 
 
 class LiveImageProvider;

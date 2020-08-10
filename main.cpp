@@ -11,6 +11,9 @@
 #include <QDebug>
 #include <QScopedPointer>
 #include "liveimageprovider.h"
+#include"dataprovider.h"
+
+
 //#include <QtAndroidExtras>
 //#include <QtAndroid>
 
@@ -35,6 +38,9 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
 //    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
     QGuiApplication app(argc, argv);
+
+    DataProvider* dp = new DataProvider(&app);
+    app.setWindowIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
 
 //    backend2 bend;
 //    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());

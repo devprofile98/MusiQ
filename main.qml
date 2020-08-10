@@ -16,9 +16,10 @@ ApplicationWindow {
     width: screen.width
     height: screen.height
     visibility: "Maximized"
-    title: qsTr("Musix")
+    title: qsTr("MusiQ")
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
+
 
     FontLoader{
         //        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
@@ -51,25 +52,30 @@ ApplicationWindow {
     }
 
 
-
     SystemTrayIcon{
         visible: true
         iconSource: "qrc:/new/prefix1/thumbnail.svg"
-        tooltip: "Musix"
+        tooltip: "MusiQ"
+
+
         menu: Menu {
             MenuItem {
+                id:itemsd
                 text: qsTr("Quit")
                 onTriggered: Qt.quit()
             }
         }
 
+
+
         onActivated: {
-            console.log("clicked dsljflsa;jfkadsjfl;aj;sf;klajfja;sdfj;aslfj")
+            if (reason == 4){
+                menu.open()
+            }
         }
 
-
-//        onMessageClicked: console.log("Message clicked")
-//        Component.onCompleted: showMessage("Message title", "Something important came up. Click this to know more.")
+        onMessageClicked: console.log("Message clicked")
+        Component.onCompleted: showMessage("Message title", "Something important came up. Click this to know more.",iconSource)
     }
 
 
@@ -88,6 +94,8 @@ ApplicationWindow {
         anchors.top: home.bottom
         width: parent.width
         height: 90
+
+
     }
 
     Drawer{
@@ -117,6 +125,11 @@ ApplicationWindow {
         width: parent.width > 500 ? parent.width/4 : parent.width
         height: parent.height - 130
         //            anchors.centerIn: parent
+        Component.onCompleted: {
+            onDuration: controller.durationToText()
+            playBtnIconChanged.connect(controller.playPauseFromAllSong)
+
+        }
     }
 
     //    }

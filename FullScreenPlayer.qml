@@ -32,7 +32,7 @@ Rectangle{
     Rectangle{
         width: parent.height/2
         height: width
-        color: "#fa6ec0"
+        color: "#c5fad5"
         radius: 20
         anchors.centerIn: parent
         id: songCover
@@ -41,7 +41,8 @@ Rectangle{
 //        width: parent.height/2
 //        height: width
         anchors.fill: parent
-        source: "image://live/image?id="+allsong.getPath()
+//        source: "image://live/image?id="+allsong.getPath()
+        source: "qrc:/new/prefix1/thumbnail.svg"
         anchors.centerIn: parent
         z:2
     }

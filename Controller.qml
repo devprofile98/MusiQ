@@ -18,8 +18,9 @@ Rectangle{
     function durationToText(){
 //        var insecond = (Math.round(((ballsong.endPosition/1000)*100)/100)).toString();
         var insecond =Math.floor((allsong.endPosition/1000))
-        console.log(Math.floor((allsong.endPosition/1000)))
-        console.log(allsong.endPosition)
+//        console.log(Math.floor((allsong.endPosition/1000)))
+//        console.log(allsong.endPosition)
+        print("chap")
         var second = (insecond % 60)
         var minute = ((insecond - second) / 60)
 
@@ -68,8 +69,30 @@ Rectangle{
         return finalMinute.toString() + ":" +finalSecond.toString()
     }
 
+    function changeOnPlayBtnPressed(play){
+        if (play){
+            console.log(allsong.playlistindex,allsong.currentpath)
+
+            allsong.pause()
+            ppbtn.text = "\uf144"
+        }
+        else{
+            allsong.play(allsong.currentpath,allsong.playlistindex)
+            ppbtn.text = "\uf28b"
+        }
+        mainwindow.isPlaying =!mainwindow.isPlaying
+        //                            tools.m_pauseRequested()
+
+    }
+    function playPauseFromAllSong(){
+
+        ppbtn.text = "\uf28b"
+
+}
+
     property color btncolor: "#855dd4" //#7f05e3
     property string endPosition: "00:00"
+    signal playBtnPressed(bool play);
 
     width:parent.width
     height:parent.height
@@ -158,7 +181,15 @@ Rectangle{
                     id:ppbtn
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: {
+                        onClicked:{
+                            if (mainwindow.isPlaying)
+                            playBtnPressed(false)
+                            else{
+                                playBtnPressed(true)
+                            }
+
+                        }
+                            /*{
                             if (mainwindow.isPlaying){
                                 console.log(allsong.playlistindex,allsong.currentpath)
 
@@ -172,7 +203,7 @@ Rectangle{
                             mainwindow.isPlaying =!mainwindow.isPlaying
                             //                            tools.m_pauseRequested()
 
-                        }
+                        }*/
                     }
                     anchors.centerIn: parent
                     //                    text:"\uf144"
@@ -192,9 +223,6 @@ Rectangle{
                             console.log("clicked on me")
                             isPlaying = true
                             allsong.nextSong()
-
-                            //                            tools.m_pauseRequested()
-
                         }
                     }
 
@@ -367,7 +395,10 @@ Rectangle{
 
     }
 
-
+    Component.onCompleted: {
+        console.log("\n\n\n\n\n\n\\n\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        playBtnPressed.connect(changeOnPlayBtnPressed)
+    }
 
 
 }
