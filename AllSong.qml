@@ -58,6 +58,64 @@ Rectangle{
     //        anchors.bottom: controller.top
     anchors.verticalCenter: fillingitem.verticalCenter
     anchors.rightMargin: 20
+
+    states:[
+        State {
+            name: "desktop_mode"
+            PropertyChanges {
+                target: mainrect
+                width : 400
+            }
+        },
+        State {
+            name: "middle_mode"
+            PropertyChanges {
+                target: mainrect
+                width : 400
+            }
+        },
+        State {
+            name: "mobile_mode"
+            PropertyChanges {
+                target: mainrect
+                width : mainwindow.width
+                anchors.rightMargin:0
+                anchors.leftMargin: 20
+                anchors.right: mainwindow.right
+                anchors.left: mainwindow.left
+            }
+        }
+    ]
+    state:"dektop_mode"
+
+    transitions:[
+        Transition {
+            from: "*"
+            to: "*"
+            PropertyAnimation{
+                targets:[mainrect]
+                properties: "width";duration: 300
+            }
+
+        }
+
+
+
+    ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Rectangle{
         id:labelrect
         width: parent.width
@@ -105,7 +163,6 @@ Rectangle{
         delegate: Rectangle{
             height: 90
             width: parent.width
-            //        anchors.bottomMargin: 10
             radius: 10
             color: model.selected ? "#3d3d3a" : "transparent"
             MouseArea{
@@ -136,7 +193,6 @@ Rectangle{
 
                 Image {
                     id:rowimage
-                    source: "image://live/image?id="+model.path
                     height: parent.height -10
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
@@ -144,8 +200,6 @@ Rectangle{
                     asynchronous: true
 
                 }
-
-
 
                 Label{
                     anchors.verticalCenter: parent.verticalCenter
@@ -155,16 +209,8 @@ Rectangle{
                     }
                     color: "white"
                 }
-
-
             }
         }
 
     }
-
-    Component.onCompleted: {
-
-    }
-
-
 }

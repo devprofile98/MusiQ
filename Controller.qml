@@ -8,18 +8,13 @@ import QtQuick.Controls.Material 2.3
 Rectangle{
 
 
-
-
     function changeThumbnail(path){
         thumbnail.source = ""
         thumbnail.source = path
     }
 
     function durationToText(){
-//        var insecond = (Math.round(((ballsong.endPosition/1000)*100)/100)).toString();
         var insecond =Math.floor((allsong.endPosition/1000))
-//        console.log(Math.floor((allsong.endPosition/1000)))
-//        console.log(allsong.endPosition)
         print("chap")
         var second = (insecond % 60)
         var minute = ((insecond - second) / 60)
@@ -32,21 +27,18 @@ Rectangle{
         else{
             finalSecond =  second
         }
-
         if (minute <10){
             finalMinute = "0" + minute
         }
         else{
             finalMinute =  minute
         }
-
         return finalMinute.toString() + ":" +finalSecond.toString()
     }
+
+
     function passedToText(){
-//        var insecond = (Math.round(((ballsong.endPosition/1000)*100)/100)).toString();
         var insecond =Math.floor((allsong.passed/1000))
-//        console.log(Math.floor((allsong.endPosition/1000)))
-//        console.log(allsong.endPosition)
         var second = (insecond % 60)
         var minute = ((insecond - second) / 60)
 
@@ -68,6 +60,7 @@ Rectangle{
 
         return finalMinute.toString() + ":" +finalSecond.toString()
     }
+
 
     function changeOnPlayBtnPressed(play){
         if (play){
@@ -81,7 +74,6 @@ Rectangle{
             ppbtn.text = "\uf28b"
         }
         mainwindow.isPlaying =!mainwindow.isPlaying
-        //                            tools.m_pauseRequested()
 
     }
     function playPauseFromAllSong(){
@@ -89,6 +81,7 @@ Rectangle{
         ppbtn.text = "\uf28b"
 
 }
+
 
     property color btncolor: "#855dd4" //#7f05e3
     property string endPosition: "00:00"
@@ -98,21 +91,71 @@ Rectangle{
     height:parent.height
     color: "transparent"
 
+
+    states:[
+        State {
+            name: "desktop_mode"
+            PropertyChanges {
+                target: pbarlayout
+                anchors.leftMargin: 200
+
+            }
+            PropertyChanges {
+                target: thumbnailpic
+                visible:true
+
+            }
+        },
+        State {
+            name: "middle_mode"
+            PropertyChanges {
+                target: pbarlayout
+                anchors.leftMargin: 30
+
+            }
+            PropertyChanges {
+                target: thumbnailpic
+                visible:true
+
+            }
+        },
+        State {
+            name: "mobile_mode"
+            PropertyChanges {
+                target: pbarlayout
+                anchors.leftMargin: 30
+
+            }
+            PropertyChanges {
+                target: thumbnailpic
+                visible:false
+                width:0
+
+            }
+        }
+    ]
+
+    state:"desktop_mode"
+
+
+
+
+
+
     RowLayout{
         width:parent.width
         height:parent.height
         //       spacing: -100
         Rectangle{
+            id:thumbnailpic
+
             MouseArea{
                 anchors.fill: parent
                 onEntered: {
-                    pa.start()
+//                    pa.start()
                 }
             }
 
-            id:thumbnailpic
-            //            color: "transparent"
-            //            Layout.fillHeight: true
             Layout.preferredHeight: parent.height -20
             Layout.leftMargin: 10
             Layout.preferredWidth: height
@@ -127,28 +170,22 @@ Rectangle{
                 //                GaussianBlur:10
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                //                width: parent.width*(3/4)
-                //                height: width
                 sourceSize.width: parent.width
                 sourceSize.height: parent.width
                 id: thumbnail
-                //                source: "image://live/image?id="+allsong.getPath()
                 source:"qrc:/new/prefix1/thumbnail.svg"
 
-
-
-                Component.onCompleted: {
-                    //                    ee.start()
-                }
             }
+            visible: true
         }
 
         // controler panel
         Rectangle{
+            id:controlpanel
             color: "transparent"
             Layout.fillHeight: true
             Layout.preferredWidth: height*3
-            Layout.leftMargin: height
+            Layout.leftMargin: 0 //height
             Row{
                 anchors.fill: parent
                 // previous song button
@@ -189,24 +226,8 @@ Rectangle{
                             }
 
                         }
-                            /*{
-                            if (mainwindow.isPlaying){
-                                console.log(allsong.playlistindex,allsong.currentpath)
-
-                                allsong.pause()
-                                ppbtn.text = "\uf144"
-                            }
-                            else{
-                                allsong.play(allsong.currentpath,allsong.playlistindex)
-                                ppbtn.text = "\uf28b"
-                            }
-                            mainwindow.isPlaying =!mainwindow.isPlaying
-                            //                            tools.m_pauseRequested()
-
-                        }*/
                     }
                     anchors.centerIn: parent
-                    //                    text:"\uf144"
                     text:"\uf28b"
                     font{
                         bold:true
@@ -239,6 +260,7 @@ Rectangle{
                         pixelSize: parent.height/4
                     }
                 }
+
                 //repeat button
                 Label{
                     id:rptbtn
@@ -263,6 +285,7 @@ Rectangle{
                     }
 
                 }
+
                 //shuffle button
                 Label{
                     id:shufflebtn
@@ -285,6 +308,7 @@ Rectangle{
                         }
                     }
                 }
+
                 //add to favorite
                 Label{
                     id:likebtn
@@ -301,7 +325,7 @@ Rectangle{
                     }
                 }
 
-                //add to favorite
+                //add to playlist or anything addable
                 Label{
                     id:addbtn
                     anchors.left:likebtn.right
@@ -322,20 +346,24 @@ Rectangle{
 
         //progress bar
         RowLayout{
+            id:pbarlayout
             Layout.fillHeight: true
             Layout.preferredWidth: height*10
             Layout.maximumWidth: height*10
-            Layout.leftMargin: 200
+//            Layout.leftMargin: 200
+            anchors.left: controlpanel.right
             //Label for progres
             Label{
                 text: passedToText()
-                width: parent.width/6
+                Layout.maximumWidth: implicitWidth
+                Layout.minimumWidth: implicitWidth
                 anchors.verticalCenter: parent.verticalCenter
                 font{
                     bold: true
                     pixelSize: 12
                 }
             }
+
             //show song progress
             Slider{
                 Layout.fillWidth: true
@@ -353,8 +381,6 @@ Rectangle{
             }
             //Label for duration
             Label{
-
-//                text: (Math.round(allsong.endPosition/(60*1000)*100)/100).toString()
                 text: durationToText();
                 width: parent.width/6
                 anchors.verticalCenter: parent.verticalCenter

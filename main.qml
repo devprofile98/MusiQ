@@ -20,6 +20,24 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
 
+    onWidthChanged: {
+        if (width > 1000){
+            sap.state = "desktop_mode";
+            allsong.state = "desktop_mode";
+            controller.state = "desktop_mode";
+        }
+        else if (width <= 1000 && width >700 ){
+            sap.state = "middle_mode";
+            allsong.state ="middle_mode";
+            controller.state ="middle_mode";
+        }
+        else{
+            sap.state = "mobile_mode";
+            allsong.state = "mobile_mode";
+            controller.state = "mobile_mode";
+        }
+    }
+
 
     FontLoader{
         //        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
@@ -45,9 +63,10 @@ ApplicationWindow {
         //    Layout.fillHeight: true
         height: parent.height
         //    Layout.preferredWidth: parent.width > 700 ? 90 : 0
-        width: parent.width > 700 ? 90 : 0
+//        width: parent.width > 700 ? 90 : 0
         //    Layout.maximumWidth: 400
 
+        state: "desktop_mode"
 
     }
 
@@ -107,22 +126,12 @@ ApplicationWindow {
         modal: false
     }
 
-    //    Rectangle{
-    //        anchors.right: parent.right
-    ////        anchors.top: parent.top
-    //        width: parent.width/4
-    //        height: parent.height - 130
-    //        radius: 10
-    //        color:Qt.rgba(61,61, 58,0.05)
-    ////        anchors.bottom: controller.top
-    //        anchors.verticalCenter: fillingitem.verticalCenter
-    //        anchors.rightMargin: 20
     AllSong{
         //            width: parent.width -20
         //            height: parent.height -20
         id:allsong
         anchors.right: parent.right
-        width: parent.width > 500 ? parent.width/4 : parent.width
+//        width: parent.width > 500 ? parent.width/4 : parent.width
         height: parent.height - 130
         //            anchors.centerIn: parent
         Component.onCompleted: {
@@ -132,12 +141,10 @@ ApplicationWindow {
         }
     }
 
-    //    }
     Item {
         id: fillingitem
         height: parent.height-90
     }
-
 
     SplashScreen{
         anchors.fill:parent

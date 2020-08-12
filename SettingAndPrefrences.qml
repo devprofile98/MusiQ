@@ -9,22 +9,56 @@ import QtQuick.Controls.Material 2.3
 
 Rectangle{
     property color btncolor: "#855dd4" //"#7f05e3"
+    id:root
     color: "#3d3d3a"
     width: parent.width
     height:parent.height
 
-//    FontLoader{
-//        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
-//        id:brandfont
-//    }
+    states: [
+        State{
+            name:"desktop_mode"
+            PropertyChanges {
+                target: root
+                width:90
 
+            }
+        },
+        State{
+            name:"mobile_mode"
+            PropertyChanges {
+                target: root
+                width:0
 
+            }
+        },
+        State{
+            name:"middle_mode"
+            PropertyChanges {
+                target: root
+                width:90
+
+            }
+        }
+
+    ]
+
+    transitions:[
+        Transition {
+            from: "*"
+            to: "*"
+            PropertyAnimation{
+                targets:[root]
+                properties: "width";duration: 300
+            }
+
+        }
+    ]
 
 
     TabBar{
         id:sandp
         anchors.verticalCenter: parent.verticalCenter
-        height:6* home.height
+        height:5* home.height
         background: Rectangle{
             anchors.fill: parent
             color: "transparent"
@@ -33,6 +67,8 @@ Rectangle{
 
         TabButton{
             id:home
+            property int inseq: 0
+            property real indicatory: y + height/4
             width: 100
             height: 100
             anchors.horizontalCenter: parent.horizontalCenter
@@ -52,10 +88,33 @@ Rectangle{
                 text: '\uf015'
 
             }
+
+            Rectangle {
+                id:highlite
+                z:2
+                anchors.left: parent.left
+                width: 8; height: parent.height/2
+
+                color: btncolor;
+                y: home.height/4
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 4
+                        damping: 0.3
+
+                    }
+                }
+            }
+
+            onClicked: {
+                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
+                highlite.y= inseq*100 +home.height/4
+            }
         }
 
         TabButton{
             id:favorite
+            property int inseq: 1
             width: 100
             height: 100
             anchors{
@@ -79,9 +138,15 @@ Rectangle{
                 text: '\uf004'
 
             }
+            onClicked: {
+                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
+                highlite.y= inseq*100 + home.height/4
+
+            }
         }
         TabButton{
             id:artist
+            property int inseq:2
             width: 100
             height: 100
             anchors{
@@ -105,9 +170,14 @@ Rectangle{
                 text: '\uf007'
 
             }
+            onClicked: {
+                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
+                highlite.y= inseq*100 + home.height/4
+            }
         }
         TabButton{
             id:songs
+            property int inseq: 3
             width: 100
             height: 100
             anchors{
@@ -131,9 +201,15 @@ Rectangle{
                 text: '\uf001'
 
             }
+
+            onClicked: {
+                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
+                highlite.y= inseq*100 + home.height/4
+            }
         }
         TabButton{
             id:recent
+            property int inseq: 4
             width: 100
             height: 100
             anchors{
@@ -157,22 +233,16 @@ Rectangle{
                 text: '\uf017'
 
             }
-        }
-        Rectangle {
-            z:2
-            anchors.left: home.left
-            anchors.top: recent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 100; height: 100
-            color: "purple";
-            y: sandp.y
-            Behavior on y {
-                SpringAnimation {
-                    spring: 3
-                    damping: 0.2
-                }
+
+            onClicked: {
+                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
+                highlite.y= inseq*100 + home.height/4
             }
         }
+    }
+    Component.onCompleted: {
+        state:"desktop_mode"
+
     }
 
 
