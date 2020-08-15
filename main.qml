@@ -58,14 +58,8 @@ ApplicationWindow {
 
     SettingAndPrefrences{
         id:sap
-        //    Layout.alignment: Qt.AlignLeft
         anchors.left: parent.left
-        //    Layout.fillHeight: true
         height: parent.height
-        //    Layout.preferredWidth: parent.width > 700 ? 90 : 0
-//        width: parent.width > 700 ? 90 : 0
-        //    Layout.maximumWidth: 400
-
         state: "desktop_mode"
 
     }
@@ -88,7 +82,7 @@ ApplicationWindow {
 
 
         onActivated: {
-            if (reason == 4){
+            if (reason === 4){
                 menu.open()
             }
         }
@@ -127,17 +121,14 @@ ApplicationWindow {
     }
 
     AllSong{
-        //            width: parent.width -20
-        //            height: parent.height -20
         id:allsong
         anchors.right: parent.right
-//        width: parent.width > 500 ? parent.width/4 : parent.width
         height: parent.height - 130
-        //            anchors.centerIn: parent
+//        anchors.bottom: controller.top
+//        anchors.bottomMargin: 20
         Component.onCompleted: {
             onDuration: controller.durationToText()
             playBtnIconChanged.connect(controller.playPauseFromAllSong)
-
         }
     }
 
@@ -160,112 +151,5 @@ ApplicationWindow {
             fullscreenDrawer.open();
         }
     }
-
-    //
-
-
-    //    Monitor{
-    //        id:monitor
-    //        anchors.left:setting.right
-    //        Layout.preferredWidth: 0
-    //        Layout.fillHeight: true
-    //        Material.background: "pink"
-    //        padding: 5
-    //    }
-    //    Frame{
-    //        padding: 2
-    //        anchors.top: parent.top
-    //        anchors.bottom: parent.bottom
-    //        anchors.margins: 15
-    //        ToolBar{
-    //            id:toolb
-    //            width: parent.width
-    //            height: Math.max(parent.height/10,10)
-    //            anchors.top: parent.top
-    //            background: Rectangle{
-    //                border.color:"transparent"
-    //                radius: 10
-    //                color: "#edbe6d"
-
-    //            }
-
-
-    //            RowLayout{
-    //                height: toolb.height
-    //                width: toolb.width
-    //                anchors.verticalCenter: parent.verticalCenter
-
-    //                ToolButton{
-    //                    padding: 5
-    //                    icon.source:"qrc:/icons8-collapse-96.png"
-
-    //                    icon.width: toolb.height
-    //                    Layout.fillHeight: true
-    //                }
-
-    //                Label{
-    //                    Material.foreground: "white"
-    //                    text: "setting"
-    //                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-    //                    font.pixelSize: toolb.width/10
-    //                }
-    //            }
-
-    //        }
-    //        Material.accent: "white"
-    //        Material.elevation: 60
-    //        Material.background: Material.DeepOrange
-    //        background: Rectangle{
-    //            border.color:"transparent"
-    ////            color: "#00f5a7"
-    //                gradient: Gradient{
-    //                GradientStop{position: 0.0;color:"#00f5a7"}
-
-    //                GradientStop{position: 1;color:"#dcf500"}
-    //            }
-    //            radius: 15
-    //        }
-
-    //        id:setting
-    //        width: parent.width/4
-    //        height: parent.height
-    //        anchors.left: musiclist.right
-
-    //        Dial{
-    //            from:0
-    //            to:1
-    //            height: parent.height/2
-    //            width: parent.width
-    //            value: 0.5
-    //            anchors.top: toolb.bottom
-    //            onValueChanged: {
-    //                monitor.vol = value
-    //                volText.text = Math.round( value*100)
-    //            }
-
-    //        }
-    //        Text {
-    //            id: volText
-    //            text: qsTr("50")
-    //            font.pixelSize: setting.width/5
-    //            width: implicitWidth
-    //            height: implicitHeight
-    //            color: "white"
-    //            anchors.horizontalCenter: parent.horizontalCenter
-    //            y:setting.height/4
-
-    //        }
-    //    }
-    //    Player{
-    //        id:player
-    //        Layout.preferredWidth: parent.width/2
-    //        Layout.fillHeight: true
-    ////        anchors.right:parent.right
-    ////        Layout.alignment: Qt.AlignRight
-    ////        anchors.left: setting.right
-    ////        anchors.top: parent.top
-    ////        anchors.bottom: parent.bottom
-    ////        anchors.margins: 15
-    //    }
 }
-//}
+

@@ -58,32 +58,52 @@ Rectangle{
     //        anchors.bottom: controller.top
     anchors.verticalCenter: fillingitem.verticalCenter
     anchors.rightMargin: 20
+    anchors.leftMargin: 20
+    anchors.right: parent.right
 
     states:[
         State {
             name: "desktop_mode"
+            AnchorChanges {
+                target: mainrect
+                //                anchors.right: parent.right
+                anchors.left: undefined
+            }
             PropertyChanges {
                 target: mainrect
                 width : 400
             }
+
         },
         State {
             name: "middle_mode"
+            AnchorChanges {
+                target: mainrect
+                //                anchors.right: parent.right
+                anchors.left: undefined
+            }
             PropertyChanges {
                 target: mainrect
                 width : 400
+                anchors.leftMargin: 20
+
             }
+
         },
         State {
             name: "mobile_mode"
+            AnchorChanges {
+                target: mainrect
+                //                anchors.right: parent.right
+                anchors.left: parent.left
+            }
             PropertyChanges {
                 target: mainrect
-                width : mainwindow.width
-                anchors.rightMargin:0
                 anchors.leftMargin: 20
-                anchors.right: mainwindow.right
-                anchors.left: mainwindow.left
+
+
             }
+
         }
     ]
     state:"dektop_mode"
@@ -92,28 +112,18 @@ Rectangle{
         Transition {
             from: "*"
             to: "*"
+
             PropertyAnimation{
                 targets:[mainrect]
                 properties: "width";duration: 300
             }
+
 
         }
 
 
 
     ]
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     Rectangle{
@@ -148,8 +158,8 @@ Rectangle{
     }
     ListView{
         id:listvi
-        width:parent.width -20
-        height: parent.height -45
+        width:parent.width - 40
+        height: parent.height - 45
         anchors.top: labelrect.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         model: Songfinder{id:songmodel}
@@ -190,17 +200,32 @@ Rectangle{
                 spacing: 10
                 width: parent.width
                 height: parent.height
+                property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
-                Image {
-                    id:rowimage
+                Rectangle{
                     height: parent.height -10
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
-                    asynchronous: true
+                    color: parent.colors[Math.floor(Math.random()*6)]
+                    radius: 10
+                    Image {
+                        id:rowimage
+                        //                        height: parent.height -10
+                        //                        width: height
+                        anchors.fill: parent
+                        //                        anchors.verticalCenter: parent.verticalCenter
 
+                        asynchronous: true
+                        anchors.leftMargin: 10
+
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: console.log(Math.floor(Math.random()*3))
+                    }
                 }
-
                 Label{
                     anchors.verticalCenter: parent.verticalCenter
                     text: model.name.toString().split(".mp3")[0]

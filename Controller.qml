@@ -99,31 +99,38 @@ Rectangle{
                 target: pbarlayout
                 anchors.leftMargin: 200
 
+
             }
             PropertyChanges {
                 target: thumbnailpic
                 visible:true
 
             }
+
         },
         State {
             name: "middle_mode"
             PropertyChanges {
                 target: pbarlayout
                 anchors.leftMargin: 30
-
+                width:0
+                visible:false
             }
             PropertyChanges {
                 target: thumbnailpic
                 visible:true
 
             }
+
         },
         State {
             name: "mobile_mode"
             PropertyChanges {
                 target: pbarlayout
                 anchors.leftMargin: 30
+                width:0
+                Layout.preferredWidth: 0
+                visible:false
 
             }
             PropertyChanges {
@@ -132,6 +139,7 @@ Rectangle{
                 width:0
 
             }
+
         }
     ]
 
@@ -186,6 +194,7 @@ Rectangle{
             Layout.fillHeight: true
             Layout.preferredWidth: height*3
             Layout.leftMargin: 0 //height
+
             Row{
                 anchors.fill: parent
                 // previous song button
@@ -345,18 +354,16 @@ Rectangle{
         }
 
         //progress bar
-        RowLayout{
+        Row{
             id:pbarlayout
-            Layout.fillHeight: true
-            Layout.preferredWidth: height*10
-            Layout.maximumWidth: height*10
-//            Layout.leftMargin: 200
+            anchors.leftMargin: 200
+            height: 90
+            width: height*10
             anchors.left: controlpanel.right
+
             //Label for progres
             Label{
                 text: passedToText()
-                Layout.maximumWidth: implicitWidth
-                Layout.minimumWidth: implicitWidth
                 anchors.verticalCenter: parent.verticalCenter
                 font{
                     bold: true
@@ -366,7 +373,9 @@ Rectangle{
 
             //show song progress
             Slider{
-                Layout.fillWidth: true
+                id:slider
+//                Layout.fillWidth: true
+                width: 400
                 anchors.verticalCenter: parent.verticalCenter
                 Material.accent: btncolor
                 value: allsong.passed  // allsong.endPosition
@@ -422,7 +431,6 @@ Rectangle{
     }
 
     Component.onCompleted: {
-        console.log("\n\n\n\n\n\n\\n\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         playBtnPressed.connect(changeOnPlayBtnPressed)
     }
 
