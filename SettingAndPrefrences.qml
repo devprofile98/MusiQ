@@ -107,8 +107,14 @@ Rectangle{
             }
 
             onClicked: {
-                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
                 highlite.y= inseq*100 +home.height/4
+
+                if (mainstackview.currentItem != homepage){
+                    mainstackview.replace(homepage)
+                }
+
+
+
             }
         }
 
@@ -235,8 +241,8 @@ Rectangle{
             }
 
             onClicked: {
-                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
                 highlite.y= inseq*100 + home.height/4
+                mainstackview.replace(timing)
             }
         }
     }

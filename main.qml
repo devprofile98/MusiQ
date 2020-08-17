@@ -102,8 +102,8 @@ ApplicationWindow {
         id:home
         visible: true
         anchors.left:sap.right
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        //        Layout.fillWidth: true
+        //        Layout.fillHeight: true
         //        x:10
         y:-90
     }
@@ -125,12 +125,87 @@ ApplicationWindow {
         modal: false
     }
 
+    StackView{
+        id:mainstackview
+        anchors.right: allsong.left
+        anchors.left: sap.right
+        anchors.bottom: controller.top
+        anchors.top: parent.top
+        anchors.margins: 20
+
+        initialItem: homepage
+        pushEnter: Transition {
+                 PropertyAnimation {
+                     property: "opacity"
+                     from: 0
+                     to:1
+                     duration: 2000
+                 }
+             }
+             pushExit: Transition {
+                 PropertyAnimation {
+                     property: "opacity"
+                     from: 1
+                     to:0
+                     duration: 2000
+                 }
+             }
+
+             popEnter: Transition {
+                 PropertyAnimation {
+                     property: "opacity"
+                     from: 0
+                     to:1
+                     duration: 2000
+                 }
+             }
+
+             popExit: Transition {
+                 PropertyAnimation {
+                     property: "opacity"
+                     from: 1
+                     to:0
+                     duration: 2000
+                 }
+             }
+
+             replaceEnter: Transition {
+                 PropertyAnimation {
+                     property: "opacity"
+                     from: 0
+                     to:1
+                     duration: 200
+                 }
+             }
+
+             replaceExit: Transition {
+                 PropertyAnimation {
+                     property: "opacity"
+                     from: 1
+                     to:0
+                     duration: 200
+                 }
+             }
+
+
+
+    }
+
+    TimingPage{
+        id:timing
+        visible: false
+    }
+    HomePage{
+        id:homepage
+    }
+
+
     AllSong{
         id:allsong
         anchors.right: parent.right
         height: parent.height - 130
-//        anchors.bottom: controller.top
-//        anchors.bottomMargin: 20
+        //        anchors.bottom: controller.top
+        //        anchors.bottomMargin: 20
         Component.onCompleted: {
             onDuration: controller.durationToText()
             playBtnIconChanged.connect(controller.playPauseFromAllSong)

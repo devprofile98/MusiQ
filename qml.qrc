@@ -13,6 +13,8 @@
         <file>FullScreenPlayer.qml</file>
         <file>AllSong.qml</file>
         <file>SplashScreen.qml</file>
+        <file>TimingPage.qml</file>
+        <file>HomePage.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>
