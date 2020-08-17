@@ -20,6 +20,7 @@ class songitemmodeler : public QAbstractListModel
     Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
     Q_PROPERTY(int duration READ duration NOTIFY durationChanged)
     Q_PROPERTY(qint64 passed READ passed NOTIFY passedChanged)
+    Q_PROPERTY(qint64 check NOTIFY songchanged)
 public:
     Q_INVOKABLE QVariant ahmad();
     Q_INVOKABLE void play(QString path,int currentindex);
@@ -42,6 +43,8 @@ signals:
     void durationChanged();
 
     void passedChanged();
+
+    void songchanged(qint64 index);
 
 public:
 
@@ -82,6 +85,7 @@ private:
 
     int m_duration = 0;
     qint64 m_passed = 0;
+    qint64 m_check;
 };
 
 #endif // SONGITEMMODELER_H

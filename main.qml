@@ -77,6 +77,11 @@ ApplicationWindow {
                 text: qsTr("Quit")
                 onTriggered: Qt.quit()
             }
+            MenuItem {
+                id:secondmenu
+                text: qsTr("play")
+                onTriggered: Qt.quit()
+            }
         }
 
 

@@ -40,6 +40,7 @@ Rectangle{
     property real endPosition: songmodel.duration
     property real passed: songmodel.passed
 
+
     signal duration()
     signal playBtnIconChanged()
 
@@ -47,9 +48,10 @@ Rectangle{
         print("i have changed")
         controller.durationToText();
     }
-
     onProgressChanged: {
     }
+
+
 
     width: parent.width
     height: parent.height
@@ -162,12 +164,18 @@ Rectangle{
         height: parent.height - 45
         anchors.top: labelrect.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        model: Songfinder{id:songmodel}
+        model: Songfinder{
+            id:songmodel
+            onSongchanged: {
+                listvi.currentIndex = index;
+            }
+        }
         clip: true
         boundsBehavior: Flickable.FollowBoundsBehavior
         snapMode: ListView.SnapToItem
         header: labelrect
         spacing:10
+
         highlight: highlight
         highlightFollowsCurrentItem: false
         delegate: Rectangle{
