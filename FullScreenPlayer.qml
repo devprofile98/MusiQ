@@ -19,34 +19,40 @@ Rectangle{
 
     width: parent.width
     height: parent.height
-    property string pictureurl: "/../Downloads/rezasadeghi.jpg";
-//    Image {
-//        id: background
-//        source: "image://live/image?id="+allsong.getPath()
-//        anchors{
-//            fill: parent
-//        }
-//        z:-1
-//    }
+
 
     Rectangle{
         width: parent.height/2
         height: width
-        color: "#c5fad5"
+        color: "transparent"
         radius: 20
         anchors.centerIn: parent
         id: songCover
+        clip: true
 
-    Image {
-//        width: parent.height/2
-//        height: width
-        anchors.fill: parent
-//        source: "image://live/image?id="+allsong.getPath()
-        source: "qrc:/new/prefix1/thumbnail.svg"
-        anchors.centerIn: parent
-        z:2
+        Image {
+            id:fullscreenimage
+            anchors.fill: parent
+            source: "image://imageprovider/"+allsong.playlistindex
+            anchors.centerIn: parent
+//            z:2
+            fillMode: Image.PreserveAspectCrop
+            layer.enabled: true
+            layer.effect: OpacityMask{
+                maskSource: mask
+            }
+
+        }
+        Rectangle {
+             id: mask
+             width: fullscreenimage.width
+             height:fullscreenimage.height
+             radius: 20
+             visible: false
+         }
     }
-    }
+
+
     Rectangle{
         id:nextsong
         height: parent.height

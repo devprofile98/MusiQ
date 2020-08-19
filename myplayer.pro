@@ -8,7 +8,7 @@ CONFIG += c++11
 # depend on your compiler). Refer to the documentation for the
 # deprecated API to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
-
+DEFINES += TAGLIB_STATIC
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -65,3 +65,14 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
 }
+
+
+
+PRO_PATH=$$PWD
+#message($${PRO_PATH}/Dependencies/TagLib/include/)
+
+INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
+#LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
+#LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
+LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd

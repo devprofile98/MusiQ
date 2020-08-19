@@ -174,16 +174,35 @@ Rectangle{
             radius: 10
 
             Image {
-
+                width: parent.width
+                height: parent.height
                 //                GaussianBlur:10
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                sourceSize.width: parent.width
-                sourceSize.height: parent.width
+                sourceSize.width: 100
+                sourceSize.height: 100
                 id: thumbnail
-                source:"qrc:/new/prefix1/thumbnail.svg"
+//                source:"qrc:/new/prefix1/thumbnail.svg"
+                source: "image://imageprovider/"+allsong.playlistindex
+                asynchronous: true
+                fillMode: Image.PreserveAspectFit
+                smooth: true
+                layer.enabled: true
+                layer.effect: OpacityMask{
+                    maskSource: mask
+                }
 
             }
+
+            Rectangle{
+                id:mask
+                width: thumbnail.width
+                height: thumbnail.height
+                radius: 10
+                visible: false
+            }
+
+
             visible: true
         }
 

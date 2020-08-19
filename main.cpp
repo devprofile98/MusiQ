@@ -14,6 +14,23 @@
 #include"dataprovider.h"
 
 
+
+
+#include<fileref.h>
+#include<tag.h>
+#include <mpeg/mpegfile.h>
+#include <attachedpictureframe.h>
+#include <mpeg/id3v2/id3v2tag.h>
+#include <mp4/mp4file.h>
+#include <mp4/mp4tag.h>
+#include <mp4/mp4coverart.h>
+
+
+
+
+
+
+
 //#include <QtAndroidExtras>
 //#include <QtAndroid>
 
@@ -47,8 +64,8 @@ int main(int argc, char *argv[])
     LiveImageProvider liveimage;
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
-    engine.addImageProvider("live", &liveimage);
+//    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
+    engine.addImageProvider("imageprovider", &liveimage);
 //    engine.rootContext()->setContextProperty("backend",&bend);
     engine.rootContext()->setContextProperty("tools",&tools);
     const QUrl url(QStringLiteral("qrc:/main.qml"));

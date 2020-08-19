@@ -35,7 +35,7 @@ Rectangle{
 
     property color clickColor: "transparent"
     property int progress: songmodel.progress
-    property int playlistindex: 0
+    property int playlistindex: listvi.currentIndex
     property string currentpath: ""
     property real endPosition: songmodel.duration
     property real passed: songmodel.passed
@@ -219,15 +219,31 @@ Rectangle{
                     radius: 10
                     Image {
                         id:rowimage
-                        //                        height: parent.height -10
-                        //                        width: height
+                        height: parent.height
+                        width: parent.width
                         anchors.fill: parent
-                        //                        anchors.verticalCenter: parent.verticalCenter
-
+                        anchors.centerIn: parent
+                        source: "image://imageprovider/" + model.index
                         asynchronous: true
-                        anchors.leftMargin: 10
+                        smooth: true
+
+                        layer.enabled: true
+                        layer.effect: OpacityMask{
+
+                            maskSource: mask
+                        }
 
                     }
+
+                    Rectangle{
+                        visible: false
+                        id:mask
+                        width: rowimage.width
+                        height: rowimage.height
+                        radius: 10
+
+                    }
+
 
                     MouseArea{
                         anchors.fill: parent

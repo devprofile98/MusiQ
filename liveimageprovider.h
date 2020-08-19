@@ -7,6 +7,18 @@
 #include<QFileInfo>
 #include<QtMultimedia>
 
+#include "dataprovider.h"
+
+#include<fileref.h>
+#include<tag.h>
+#include <mpeg/mpegfile.h>
+#include <attachedpictureframe.h>
+#include <mpeg/id3v2/id3v2tag.h>
+#include <mp4/mp4file.h>
+#include <mp4/mp4tag.h>
+#include <mp4/mp4coverart.h>
+
+
 class LiveImageProvider : public QObject , public QQuickImageProvider
 {
     Q_OBJECT
