@@ -2,17 +2,31 @@
 
 DataProvider::DataProvider(QObject *parent) : QObject(parent)
 {
+
     findMediaOnDisk();
     qDebug()<<"Class Constructed";
+
+}
+
+void DataProvider::extractSongInfo(qint64 id)
+{
+
+    TagLib::MPEG::File audiofile(all_path[0][id].toStdString().c_str());
+    TagLib::ID3v2::Tag* tag = audiofile.ID3v2Tag(true);
+
+    m_songTitle = QString::fromStdString(tag->title().toCString());
+    m_songerName = QString::fromStdString(tag->artist().toCString());
+
+    qDebug()<<"\n\n\n\n\n\n"<<m_songTitle<<" "<<m_songerName<<"\n\n\n";
+    emit songTitleChanged();
+    emit songerNameChanged();
+
 
 }
 
 void DataProvider::findMediaOnDisk()
 {
     songPathFinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)));
-
-
-
 }
 
 void DataProvider::songPathFinder(QDir current)
@@ -26,8 +40,7 @@ void DataProvider::songPathFinder(QDir current)
 
         for(int i =0;i<current.entryList().size();i++){
             //            allSongPath.append(current.absolutePath()+"/"+current.entryList().at(i));
-            all_path->append(current.absolutePath()+"/"+current.entryList().at(i));
-//            m_playlist.addMedia(QUrl::fromLocalFile(current.absolutePath()+"/"+current.entryList().at(i)));
+            all_path->append(QString::fromUtf8(QString(current.absolutePath()+"/"+current.entryList().at(i)).toStdString().c_str()));
 
         }
 
@@ -40,6 +53,17 @@ void DataProvider::songPathFinder(QDir current)
     else{
         return;
     }
+}
+
+
+QString DataProvider::songerName() const
+{
+    return m_songerName;
+}
+
+QString DataProvider::songTitle() const
+{
+    return m_songTitle;
 }
 
 

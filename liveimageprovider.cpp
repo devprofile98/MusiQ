@@ -38,7 +38,8 @@ QImage LiveImageProvider::requestImage(const QString &id, QSize *size, const QSi
     ImageFile imageFile("C:\\Users\\sub\\Pictures\\work\\well.png");
     if (fileType == "MP3")
     {
-        TagLib::MPEG::File audioFile( DataProvider::all_path[0][id.toInt()].toStdString().c_str());
+        qDebug()<<"from taglib name of the song is utf8"<<DataProvider::all_path[0][id.toInt()];
+        TagLib::MPEG::File audioFile( DataProvider::all_path[0][id.toInt()].toUtf8().toStdString().c_str());
 
         TagLib::ID3v2::Tag* tag = audioFile.ID3v2Tag(true);
 //        TagLib::ID3v2::AttachedPictureFrame* frame = new TagLib::ID3v2::AttachedPictureFrame;

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import SongFinder 1.0
@@ -147,7 +147,7 @@ Rectangle{
         id: highlight
 
         Rectangle {
-            width: listvi.width; height: 90
+            width: listvi.width; height: 70
             color: "#3d3d3a"; radius: 5
             y: listvi.currentItem.y
             Behavior on y {
@@ -179,7 +179,7 @@ Rectangle{
         highlight: highlight
         highlightFollowsCurrentItem: false
         delegate: Rectangle{
-            height: 90
+            height: 70
             width: parent.width
             radius: 10
             color: model.selected ? "#3d3d3a" : "transparent"
@@ -191,7 +191,7 @@ Rectangle{
                     if (mainwindow.isPlaying === true){
                         playBtnIconChanged()
                     }
-
+                    DataModel.extractSongInfo(model.index);
                     listvi.currentIndex = model.index
                     playlistindex = model.index
                     currentpath = model.path
@@ -208,13 +208,15 @@ Rectangle{
                 spacing: 10
                 width: parent.width
                 height: parent.height
+                leftPadding: 10
+
                 property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
                 Rectangle{
                     height: parent.height -10
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: 10
+
                     color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 10
                     Image {
@@ -252,6 +254,7 @@ Rectangle{
                 }
                 Label{
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: rowimage.right
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: antapan.name

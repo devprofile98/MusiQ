@@ -47,23 +47,44 @@ private:
 
 
 
+
+
 class DataProvider : public QObject
 {
     Q_OBJECT
 public:
+
+    Q_PROPERTY(QString songerName READ songerName NOTIFY songerNameChanged)
+    Q_PROPERTY(QString songTitle READ songTitle NOTIFY songTitleChanged)
+
+
+
     explicit DataProvider(QObject *parent = nullptr);
     static QStringList* all_path;
     static QStringList search_filter;
 
+    Q_INVOKABLE void extractSongInfo(qint64 id );
+
+
+    QString songerName() const;
+
+    QString songTitle() const;
 
 private:
 
     void findMediaOnDisk();
     void songPathFinder(QDir current);
 
+
+    QString m_songerName;
+
+    QString m_songTitle;
+
 signals:
 
 
+void songerNameChanged();
+void songTitleChanged();
 };
 
 #endif // DATAPROVIDER_H

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
@@ -206,7 +206,49 @@ Rectangle{
             visible: true
         }
 
-        // controler panel
+        Item {
+            id: thumbnailinfo
+            Layout.preferredWidth: implicitHeight
+            Layout.preferredHeight: parent.height
+            Layout.rightMargin: 170
+
+            Column{
+                width: parent.width
+                spacing: 10
+                rightPadding: 20
+                anchors.verticalCenter: parent.verticalCenter
+            Label{
+
+
+                id:singerinfo
+                text:DataModel.songerName
+                font{
+                    bold:true
+                    pixelSize: 12
+                }
+
+            }
+
+            Label{
+                id:songname
+
+                font{
+                    bold:true
+                    pixelSize: 12
+                }
+
+                anchors{
+                    top: thumbnailinfo.bottom
+
+                }
+
+                text:DataModel.songTitle
+            }
+
+        }
+        }
+
+//         controler panel
         Rectangle{
             id:controlpanel
             color: "transparent"

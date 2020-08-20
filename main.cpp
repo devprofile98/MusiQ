@@ -68,6 +68,8 @@ int main(int argc, char *argv[])
     engine.addImageProvider("imageprovider", &liveimage);
 //    engine.rootContext()->setContextProperty("backend",&bend);
     engine.rootContext()->setContextProperty("tools",&tools);
+    engine.rootContext()->setContextProperty("DataModel",dp);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
