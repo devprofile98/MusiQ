@@ -7,14 +7,11 @@
 songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
-    DataProvider* dp = new DataProvider(this);
+//    DataProvider* dp = new DataProvider(this);
 
     m_index=0;
     searchfilters.append("*.mp3");
-    //        qDebug()<<"i am here"<<QDir("/files").entryList();
-    //    songpathfinder(QDir::home(),searchfilters,allPath);
-    //    songpathfinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)),searchfilters,allPath);
-    allPath = *(dp->all_path);
+    allPath = *(DataProvider::all_path);
 
     for(int i =0;i<allPath.length();i++){
 
@@ -31,27 +28,17 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
         m_playing_song.pause();
     });
 
-    //    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
     connect(&m_playlist,&QMediaPlaylist::currentIndexChanged,&m_playing_song,[this](){
-        //        m_playing_song.play();
-        //        emit durationChanged();
         emit songchanged(m_playlist.currentIndex());
-        qDebug()<<"IN CURRENT INDEX CAHNGED SLOT"<<" "<<this->m_duration << m_playlist.error();
-
 
     });
     auto check_var = connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-        qDebug()<<"MEDIA STATUS CHANGED"<<" "<<this->m_duration<<" "<<m_playing_song.mediaStatus();
         if (m_playing_song.mediaStatus() == 6){
             m_duration = m_playing_song.duration();
-            qDebug()<<"MEDIA STATUS CHANGED AFTER"<<" "<<this->m_duration<<" "<<m_playing_song.mediaStatus();
             emit durationChanged();
         }
         //        m_playing_song.play();
-
     });
-    qDebug()<<"::::::::::::: CHECK VARIABLE IS "<<check_var;
-
 
     connect(&m_playing_song,&QMediaPlayer::positionChanged,[this](qint64 value){
         Q_UNUSED(this)

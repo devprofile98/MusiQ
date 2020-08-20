@@ -19,7 +19,7 @@ ApplicationWindow {
     title: qsTr("MusiQ")
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
-
+    flags: Qt.FramelessWindowHint
     onWidthChanged: {
         if (width > 1000){
             sap.state = "desktop_mode";
