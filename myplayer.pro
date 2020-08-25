@@ -72,7 +72,41 @@ PRO_PATH=$$PWD
 #message($${PRO_PATH}/Dependencies/TagLib/include/)
 
 INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
-#LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+
+
+
+unix{
+
+
+LIBS+=-L/usr/local/lib -ltag -lz
+message("builiding for unix world")
+
+    debug{
+        message("from debug point in unix world")
+    }
+
+}
+win32{
+
 LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
 #LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
 LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
+#LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
