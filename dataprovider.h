@@ -56,6 +56,9 @@ public:
 
     Q_PROPERTY(QString songerName READ songerName NOTIFY songerNameChanged)
     Q_PROPERTY(QString songTitle READ songTitle NOTIFY songTitleChanged)
+    Q_PROPERTY(int songReleaseYear READ songReleaseYear NOTIFY songReleaseYearChanged)
+    Q_PROPERTY(QString songGenre READ songGenre NOTIFY songGenreChanged)
+    Q_PROPERTY(QString albumName READ albumName NOTIFY albumNameChanged)
 
 
 
@@ -70,6 +73,13 @@ public:
 
     QString songTitle() const;
 
+    int songReleaseYear() const;
+
+    QString songGenre() const;
+
+    QString albumName() const;
+
+
 private:
 
     void findMediaOnDisk();
@@ -80,11 +90,20 @@ private:
 
     QString m_songTitle;
 
+    int m_songReleaseYear;
+
+    QString m_songGenre;
+
+    QString m_albumName;
+
 signals:
 
 
 void songerNameChanged();
 void songTitleChanged();
+void songReleaseYearChanged();
+void songGenreChanged();
+void albumNameChanged();
 };
 
 #endif // DATAPROVIDER_H

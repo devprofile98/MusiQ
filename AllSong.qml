@@ -218,7 +218,7 @@ Rectangle{
                     anchors.verticalCenter: parent.verticalCenter
 
                     color: parent.colors[Math.floor(Math.random()*6)]
-                    radius: 10
+                    radius: 5
                     Image {
                         id:rowimage
                         height: parent.height
@@ -242,7 +242,7 @@ Rectangle{
                         id:mask
                         width: rowimage.width
                         height: rowimage.height
-                        radius: 10
+                        radius: 5
 
                     }
 

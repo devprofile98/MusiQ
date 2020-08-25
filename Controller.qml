@@ -445,6 +445,7 @@ Rectangle{
 
                 onMoved: {
                     allsong.setSongPos(value)
+                    console.log(allsong.passed)
                 }
 
 

@@ -16,18 +16,24 @@ void DataProvider::extractSongInfo(qint64 id)
 
     m_songTitle = QString::fromStdString(tag->title().toCString());
     m_songerName = QString::fromStdString(tag->artist().toCString());
-
+    m_songReleaseYear = tag->year();
+    m_songGenre = QString::fromStdString(tag->genre().toCString());
+    m_albumName = QString::fromStdString(tag->album().toCString());
     qDebug()<<"\n\n\n\n\n\n"<<m_songTitle<<" "<<m_songerName<<"\n\n\n";
     emit songTitleChanged();
     emit songerNameChanged();
-
+    emit songReleaseYearChanged();
+    emit songGenreChanged();
+    emit albumNameChanged();
 
 }
+
 
 void DataProvider::findMediaOnDisk()
 {
     songPathFinder(QDir(QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0)));
 }
+
 
 void DataProvider::songPathFinder(QDir current)
 {
@@ -64,6 +70,21 @@ QString DataProvider::songerName() const
 QString DataProvider::songTitle() const
 {
     return m_songTitle;
+}
+
+int DataProvider::songReleaseYear() const
+{
+    return m_songReleaseYear;
+}
+
+QString DataProvider::songGenre() const
+{
+    return m_songGenre;
+}
+
+QString DataProvider::albumName() const
+{
+    return m_albumName;
 }
 
 
