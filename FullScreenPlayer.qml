@@ -28,7 +28,7 @@ Rectangle{
     Rectangle{
         width: parent.width/2
         height: parent.height
-        color: "transparent"
+        color: "image://imageprovider/"+allsong.playlistindex ? "transparent" : "orange"
         radius: 20
         anchors.left: parent.left
         id: songCover
@@ -160,7 +160,7 @@ Rectangle{
                     }
                 }
                 Label{
-                   padding: 5
+                    padding: 5
                     text: "genre: "+DataModel.songGenre
                     font{
                         pixelSize: 13
@@ -179,64 +179,92 @@ Rectangle{
 
         }
 
-
-
-    }
-
-
-
-
-
-
-
-
-    Rectangle{
-        id:nextsong
-        height: parent.height
-        width: 90
-        anchors.left: songCover.right
-        color:"transparent"
         Label{
-            anchors.centerIn: parent
+
+            anchors{
+                left: fullscreenimage.right
+                bottom: fullscreenimage.bottom
+                margins: 20
+            }
+
+            padding: 10
+
             font{
                 family: solidfont.name
-                pixelSize:nextsong.width/5
+                pixelSize:13
+            }
+
+            background: Rectangle{
+                color: "#3d3d3a"
+                opacity: 0.4
+                radius: parent.width/2
+
+            }
+
+            text: "\uf051"
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: allsong.nextSong()
+            }
+        }
+
+        Label{
+
+            anchors{
+                right: fullscreenimage.left
+                bottom: fullscreenimage.bottom
+                margins: 20
+
+            }
+
+            padding: 10
+
+            font{
+                family: solidfont.name
+                pixelSize:13
                 //                font.weight: Font.Black
                 //                    font.styleName: "Solid" // this does the trick
 
             }
-            text: "\uf051"
-        }
-        z:2
-    }
-    Rectangle{
-        id:prevsong
-        height: parent.height
-        width: 90
-        anchors.right: songCover.left
-        color:"transparent"
-        Label{
-            anchors.centerIn: parent
-            font{
-                family: solidfont.name
-                pixelSize:nextsong.width/5
-                bold:true
+            background: Rectangle{
+                color: "#3d3d3a"
+                opacity: 0.4
+                radius: parent.width/2
+
             }
+
+
             text: "\uf048"
+
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: allsong.preSong()
+            }
+
+
         }
-        z:2
+
+
+
+
+
     }
 
-//    DropShadow {
-//        anchors.fill: songCover
-//        horizontalOffset: 0
-//        verticalOffset: 0
-//        radius: 15
-//        samples:15
-//        color: "black"
-//        source: songCover
-//        z:2
-//    }
+
+
+
+    //    DropShadow {
+    //        anchors.fill: songCover
+    //        horizontalOffset: 0
+    //        verticalOffset: 0
+    //        radius: 15
+    //        samples:15
+    //        color: "black"
+    //        source: songCover
+    //        z:2
+    //    }
     Rectangle{
         width: 90
         height: 90
@@ -268,33 +296,33 @@ Rectangle{
     }
 
 
-    Rectangle{
-        id:pbar
-        width: 200
-        height: parent.height
+//    Rectangle{
+//        id:pbar
+//        width: 200
+//        height: parent.height
 
-        anchors.left: parent.left
-    }
+//        anchors.left: parent.left
+//    }
 
     FastBlur{
         id:blur
         anchors.fill: background
         source: background
-        radius: 60
+        radius: 100
 
     }
 
-//    ShaderEffectSource{
-//        id:progresShader
-//        sourceItem: blur
-//        width: 200
-//        height: background.height
-//        live: true
-//        anchors{
-//            left: mainrect.left
-//        }
-//        sourceRect: Qt.rect(pbarleftx*mainrect.width ,y, mainrect.width, mainrect.height)
-//    }
+    //    ShaderEffectSource{
+    //        id:progresShader
+    //        sourceItem: blur
+    //        width: 200
+    //        height: background.height
+    //        live: true
+    //        anchors{
+    //            left: mainrect.left
+    //        }
+    //        sourceRect: Qt.rect(pbarleftx*mainrect.width ,y, mainrect.width, mainrect.height)
+    //    }
 
     Colorize {
 
