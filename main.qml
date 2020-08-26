@@ -92,7 +92,7 @@ ApplicationWindow {
             }
         }
 
-        onMessageClicked: console.log("Message clicked")
+        onMessageClicked: console.log()
         Component.onCompleted: showMessage("Message title", "Something important came up. Click this to know more.",iconSource)
     }
 

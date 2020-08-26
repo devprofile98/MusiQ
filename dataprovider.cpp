@@ -4,7 +4,6 @@ DataProvider::DataProvider(QObject *parent) : QObject(parent)
 {
 
     findMediaOnDisk();
-    qDebug()<<"Class Constructed";
 
 }
 
@@ -19,7 +18,6 @@ void DataProvider::extractSongInfo(qint64 id)
     m_songReleaseYear = tag->year();
     m_songGenre = QString::fromStdString(tag->genre().toCString());
     m_albumName = QString::fromStdString(tag->album().toCString());
-    qDebug()<<"\n\n\n\n\n\n"<<m_songTitle<<" "<<m_songerName<<"\n\n\n";
     emit songTitleChanged();
     emit songerNameChanged();
     emit songReleaseYearChanged();

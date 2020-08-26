@@ -181,7 +181,6 @@ Frame{
                 MouseArea{
                     anchors.fill:parent
                     onClicked: {
-                        console.log("Should play previous song");
                         tools.setNowPlayList(monitor.psource);
                     }
                 }
@@ -220,7 +219,6 @@ Frame{
                 MouseArea{
                     anchors.fill:parent
                     onClicked: {
-                        console.log("Should play next song");
                         var getedsource =tools.getNowPlayList();
                         if (getedsource!=="null"){
                             monitor.psource=getedsource;

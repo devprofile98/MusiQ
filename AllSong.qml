@@ -9,7 +9,6 @@ Rectangle{
     id:mainrect
     function nextSong(){
         songmodel.next()
-        print("after calling next")
     }
     function preSong(){
         songmodel.previous()
@@ -45,7 +44,6 @@ Rectangle{
     signal playBtnIconChanged()
 
     onEndPositionChanged:{
-        print("i have changed")
         controller.durationToText();
     }
     onProgressChanged: {
@@ -198,7 +196,6 @@ Rectangle{
                     endPosition = model.duration
                     songmodel.play(model.path,model.index);
                     mainrect.duration()
-                    print("AFTER CHECKING PLAYER")
                     isPlaying : true
                 }
 
@@ -249,7 +246,6 @@ Rectangle{
 
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: console.log(Math.floor(Math.random()*3))
                     }
                 }
                 Label{

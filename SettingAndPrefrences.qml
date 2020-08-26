@@ -145,7 +145,6 @@ Rectangle{
 
             }
             onClicked: {
-                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
                 highlite.y= inseq*100 + home.height/4
 
             }
@@ -177,7 +176,6 @@ Rectangle{
 
             }
             onClicked: {
-                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
                 highlite.y= inseq*100 + home.height/4
             }
         }
@@ -209,7 +207,6 @@ Rectangle{
             }
 
             onClicked: {
-                console.log("I AM CLICKED HERE SO THIS SHOULD WORK",parent.y)
                 highlite.y= inseq*100 + home.height/4
             }
         }

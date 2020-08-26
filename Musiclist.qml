@@ -89,7 +89,6 @@ Frame{
                         Material.foreground = "#971cad"
 
                         text = "is playing"
-                        console.log("salam")
                     }
                     else{
 
@@ -131,7 +130,6 @@ Frame{
                 text:model.name
                 Material.elevation: 2
                 onClicked: {
-//                    console.log(list.currentIndex)
                     monitor.psource = "file:"+model.desc
                     monitor.played = true
 

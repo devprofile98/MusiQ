@@ -24,7 +24,6 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     m_playing_song.setPlaylist(&m_playlist);
 
     connect(tool,&tools::pauseRequested,this,[this](){
-        qDebug()<<"pause requested";
         m_playing_song.pause();
     });
 
@@ -52,7 +51,6 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
 
     connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-        qDebug()<<"song played "<<m_playing_song.metaData("CoverArtUrlSmall")<<m_playing_song.metaData("Title");
         pic = m_playing_song.metaData("CoverArtUrlLarge").value<QUrl>();
         emit dataChanged(createIndex(0,0),createIndex(100,0),QVector<int>()<<5);
 
@@ -128,7 +126,6 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
         if (m_current_position <0)
             return QVariant(false);
         else if (m_current_position == index.row()){
-            qDebug()<<"see this :"<<index.row()<<m_current_position;
             return  QVariant(true);
         }
         else{
@@ -150,7 +147,6 @@ bool songitemmodeler::setData(const QModelIndex &index, const QVariant &value, i
     Q_UNUSED(value)
     if (role == 4){
         int last_index = m_current_position;
-        qDebug()<<"last index is "<<last_index<<" "<<index.row();
         m_current_position = index.row();
         emit dataChanged(createIndex(last_index,0),createIndex(last_index,0),QVector<int>() << role);
         emit dataChanged(createIndex(m_current_position,0),createIndex(m_current_position,0),QVector<int>() << role);
@@ -194,14 +190,12 @@ void songitemmodeler::play(QString path,int currentindex)
     m_playing_song.play();
     //    this->m_duration = this->m_playing_song.duration();
     //    durationChanged();
-    qDebug()<<this->m_playing_song.mediaStatus() << ":::::::::::::::::::::";
 
 
 }
 
 void songitemmodeler::m_status()
 {
-    qDebug()<<m_playing_song.mediaStatus();
 }
 
 void songitemmodeler::next()
@@ -217,15 +211,11 @@ void songitemmodeler::previous()
     m_playlist.previous();
     m_playing_song.play();
 
-    qDebug()<<"pause is not working";
-
 }
 
 void songitemmodeler::pause()
 {
-    qDebug()<<"pause is not working";
     m_playing_song.pause();
-    qDebug()<<"pause is working";
 }
 
 void songitemmodeler::playIndex()
@@ -253,23 +243,18 @@ void songitemmodeler::m_setPosition(qint64 value)
 void songitemmodeler::m_ChangePlaybackMode(int mode)
 {
     if (mode == 1){
-        qDebug()<<"current item in loop playBackMode on";
         m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
     }
     else if (mode == 0){
-        qDebug()<<"current item once playBackMode on";
         m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
     }
     else if (mode == 2){
-        qDebug()<<"sequential playBackMode on";
         m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
     }
     else if (mode == 3){
-        qDebug()<<"loop playBackMode on";
         m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
     }
     else if (mode == 4){
-        qDebug()<<"shuffle playBackMode on";
         m_playlist.setPlaybackMode(QMediaPlaylist::Random);
     }
 }
@@ -281,7 +266,6 @@ qint64 songitemmodeler::findSongDuration(QString path) const
     song.setMedia(QUrl::fromLocalFile(path));
     //    connect(&song,&QMediaPlayer::mediaStatusChanged,this,&QMediaPlayer::media);
     //    QObject::connect(&song,&QMediaPlayer::stateChanged,[](){qDebug()<<"i am here";});
-    qDebug()<<"in cpp   "<<path;
     return song.duration();
 }
 

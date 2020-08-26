@@ -15,7 +15,6 @@ Rectangle{
 
     function durationToText(){
         var insecond =Math.floor((allsong.endPosition/1000))
-        print("chap")
         var second = (insecond % 60)
         var minute = ((insecond - second) / 60)
 
