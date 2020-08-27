@@ -2,9 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>Musiclist.qml</file>
-        <file>Monitor.qml</file>
-        <file>Player.qml</file>
         <file>Fonts.qml</file>
         <file>SettingAndPrefrences.qml</file>
         <file>ShowPage.qml</file>
