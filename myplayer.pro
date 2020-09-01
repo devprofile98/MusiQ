@@ -1,5 +1,5 @@
 QT += quick multimedia quickcontrols2
-#androidextras
+
 
 CONFIG += c++17
 
@@ -60,15 +60,13 @@ PRO_PATH=$$PWD
 INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
 
 
-linux{
-LIBS+=-L/usr/local/lib -ltag -lz
-message("builiding for linux")
 
+
+linux{
+    LIBS+=-L/usr/local/lib -ltag -lz
 }
 
-
 windows{
-
 #    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
 #    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
     debug
@@ -77,8 +75,11 @@ windows{
         LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
     }
 
+}
 
-message("builiding for windows")
+android{
+    QT+=androidextras
+
 }
 
 
