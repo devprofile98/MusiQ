@@ -6,8 +6,9 @@ import QtQuick.Controls.Material 2.3
 import SongFinder 1.0
 import QtQuick.Window 2.3
 import QtGraphicalEffects 1.0
-import QtQuick.Controls.Material 2.3
 import Qt.labs.platform 1.0
+
+
 
 ApplicationWindow {
 
@@ -20,6 +21,8 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
     flags: Qt.FramelessWindowHint
+
+
     onWidthChanged: {
         if (width > 1000){
             sap.state = "desktop_mode";
@@ -40,20 +43,18 @@ ApplicationWindow {
 
 
     FontLoader{
-        //        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
         source: "/fonts/Font Awesome 5 Free-Solid-900.otf"
         name :"solidfont"
         id:solidfont
     }
 
     FontLoader{
-        //        source: "qrc:/fonts/Font Awesome 5 Free-Regular-400.otf"
         source: "qrc:/fonts/Antapani-ExtraBold.otf"
         name :"antapan"
         id:antapan
     }
 
-    property bool isPlaying: true
+    property bool isPlaying: false
 
 
     SettingAndPrefrences{
@@ -98,22 +99,17 @@ ApplicationWindow {
 
 
     Home{
-
         id:home
         visible: true
         anchors.left:sap.right
-        //        Layout.fillWidth: true
-        //        Layout.fillHeight: true
-        //        x:10
         y:-90
     }
+
     Controller{
         id:controller
         anchors.top: home.bottom
         width: parent.width
         height: 90
-
-
     }
 
     Drawer{
@@ -186,26 +182,21 @@ ApplicationWindow {
                      duration: 200
                  }
              }
-
-
-
     }
 
     TimingPage{
         id:timing
         visible: false
     }
+
     HomePage{
         id:homepage
     }
-
 
     AllSong{
         id:allsong
         anchors.right: parent.right
         height: parent.height - 130
-        //        anchors.bottom: controller.top
-        //        anchors.bottomMargin: 20
         Component.onCompleted: {
             onDuration: controller.durationToText()
             playBtnIconChanged.connect(controller.playPauseFromAllSong)
@@ -220,8 +211,6 @@ ApplicationWindow {
     SplashScreen{
         anchors.fill:parent
     }
-
-    //functions
 
     function toggleDrawer(){
         if (fullscreenDrawer.opened){

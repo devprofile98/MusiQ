@@ -29,8 +29,6 @@
 
 
 
-
-
 //#include <QtAndroidExtras>
 //#include <QtAndroid>
 

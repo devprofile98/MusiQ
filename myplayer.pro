@@ -1,19 +1,12 @@
 QT += quick multimedia quickcontrols2
 #androidextras
 
-CONFIG += c++11
+CONFIG += c++17
 
-# The following define makes your compiler emit warnings if you use
-# any Qt feature that has been marked deprecated (the exact warnings
-# depend on your compiler). Refer to the documentation for the
-# deprecated API to know how to port your code away from it.
+
 DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += TAGLIB_STATIC
-# You can also make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
+TARGET = "MusiQ"
 SOURCES += \
         backend.cpp \
         dataprovider.cpp \
@@ -49,10 +42,6 @@ HEADERS += \
     tools.h
 
 DISTFILES += \
-#    ../Documents/fontawesome/fontawesome-free-5.11.2-desktop/otfs/Font Awesome 5 Brands-Regular-400.otf \
-#    ../Documents/fontawesome/fontawesome-free-5.11.2-desktop/otfs/Font Awesome 5 Brands-Regular-400.otf \
-#    ../Documents/fontawesome/fontawesome-free-5.11.2-desktop/otfs/Font Awesome 5 Free-Regular-400.otf \
-#    ../Documents/fontawesome/fontawesome-free-5.11.2-desktop/otfs/Font Awesome 5 Free-Solid-900.otf \
     android/AndroidManifest.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.jar \
@@ -66,34 +55,32 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         $$PWD/android
 }
 
-
-
 PRO_PATH=$$PWD
-#message($${PRO_PATH}/Dependencies/TagLib/include/)
 
 INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
 
 
-
-unix{
-
-
+linux{
 LIBS+=-L/usr/local/lib -ltag -lz
-message("builiding for unix world")
+message("builiding for linux")
 
-    debug{
-        message("from debug point in unix world")
+}
+
+
+windows{
+
+    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
+    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+    debug
+    {
+        LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
+        LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
     }
 
+
+message("builiding for windows")
 }
 
-win32{
-    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
-    #LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
-    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
-    #LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
-
-}
 
 
 

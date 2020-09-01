@@ -12,6 +12,13 @@
 
 class LiveImageProvider;
 
+enum {
+    desc=0,
+    pic,
+};
+
+
+
 //class backend2;
 class songitemmodeler : public QAbstractListModel
 {

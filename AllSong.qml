@@ -30,8 +30,6 @@ Rectangle{
     }
 
 
-
-
     property color clickColor: "transparent"
     property int progress: songmodel.progress
     property int playlistindex: listvi.currentIndex
@@ -55,7 +53,6 @@ Rectangle{
     height: parent.height
     radius: 10
     color:Qt.rgba(61,61, 58,0.05)
-    //        anchors.bottom: controller.top
     anchors.verticalCenter: fillingitem.verticalCenter
     anchors.rightMargin: 20
     anchors.leftMargin: 20
@@ -118,10 +115,7 @@ Rectangle{
                 properties: "width";duration: 300
             }
 
-
         }
-
-
 
     ]
 
@@ -141,6 +135,7 @@ Rectangle{
         }
 
     }
+
     Component {
         id: highlight
 
@@ -156,6 +151,7 @@ Rectangle{
             }
         }
     }
+
     ListView{
         id:listvi
         width:parent.width - 40
@@ -176,6 +172,7 @@ Rectangle{
 
         highlight: highlight
         highlightFollowsCurrentItem: false
+
         delegate: Rectangle{
             height: 70
             width: parent.width
@@ -186,23 +183,23 @@ Rectangle{
                 hoverEnabled: true
                 onClicked: {
 
-                    if (mainwindow.isPlaying === true){
-                        playBtnIconChanged()
-                    }
-                    DataModel.extractSongInfo(model.index);
-                    listvi.currentIndex = model.index
-                    playlistindex = model.index
-                    currentpath = model.path
-                    endPosition = model.duration
-                    songmodel.play(model.path,model.index);
-                    mainrect.duration()
-                    isPlaying : true
+                    //                    if (mainwindow.isPlaying === true){
+                    //                        playBtnIconChanged()
+                    //                    }
+                    //                    DataModel.extractSongInfo(model.index);
+                    //                    listvi.currentIndex = model.index
+                    //                    playlistindex = model.index
+                    //                    currentpath = model.path
+                    //                    endPosition = model.duration
+                    //                    songmodel.play(model.path,model.index);
+                    //                    mainrect.duration()
+                    //                    isPlaying : true
                 }
 
             }
 
             Row{
-                spacing: 10
+                spacing: 50
                 width: parent.width
                 height: parent.height
                 leftPadding: 10
@@ -210,12 +207,13 @@ Rectangle{
                 property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
                 Rectangle{
+                    id:thumbrect
                     height: parent.height -10
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
-
                     color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 5
+
                     Image {
                         id:rowimage
                         height: parent.height
@@ -225,10 +223,8 @@ Rectangle{
                         source: "image://imageprovider/" + model.index
                         asynchronous: true
                         smooth: true
-
                         layer.enabled: true
                         layer.effect: OpacityMask{
-
                             maskSource: mask
                         }
 
@@ -243,22 +239,37 @@ Rectangle{
 
                     }
 
-
-                    MouseArea{
-                        anchors.fill: parent
-                    }
                 }
+
                 Label{
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: rowimage.right
+                    anchors.left: thumbrect.right
+
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: antapan.name
                     }
                     color: "white"
+                    anchors.leftMargin: 10
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        if (mainwindow.isPlaying === true){
+                            playBtnIconChanged()
+                        }
+                        DataModel.extractSongInfo(model.index);
+                        listvi.currentIndex = model.index
+                        playlistindex = model.index
+                        currentpath = model.path
+                        endPosition = model.duration
+                        songmodel.play(model.path,model.index);
+                        mainrect.duration()
+                        isPlaying : true
+                    }
                 }
             }
         }
-
     }
 }

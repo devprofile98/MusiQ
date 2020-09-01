@@ -7,8 +7,6 @@
 songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
-//    DataProvider* dp = new DataProvider(this);
-
     m_index=0;
     searchfilters.append("*.mp3");
     allPath = *(DataProvider::all_path);
@@ -18,9 +16,11 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
         m_playlist.addMedia(QUrl::fromLocalFile(allPath[i]));
 
     }
+
     newclassmember->trytosolve();
+
     m_current_position = -1;
-    m_playlist.setCurrentIndex(0);
+//    m_playlist.setCurrentIndex(0);
     m_playing_song.setPlaylist(&m_playlist);
 
     connect(tool,&tools::pauseRequested,this,[this](){
@@ -43,18 +43,16 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
         Q_UNUSED(this)
         m_passed = value;
         emit passedChanged();
-
-
     });
 
 
     m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
 
-    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-        pic = m_playing_song.metaData("CoverArtUrlLarge").value<QUrl>();
-        emit dataChanged(createIndex(0,0),createIndex(100,0),QVector<int>()<<5);
+//    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
+//        pic = m_playing_song.metaData("CoverArtUrlLarge").value<QUrl>();
+//        emit dataChanged(createIndex(0,0),createIndex(100,0),QVector<int>()<<5);
 
-    });
+//    });
 
 }
 
@@ -69,46 +67,44 @@ int songitemmodeler::rowCount(const QModelIndex &parent) const
     return m_playlist.mediaCount();
 }
 
-void songitemmodeler::songpathfinder(QDir current,QStringList searchFilter,QStringList& allSongPath)
-{
-    if (current.entryList(QDir::AllEntries | QDir::NoDotAndDotDot).count()!=0){
-        QStringList dirs;
-        current.setFilter(QDir::Dirs);
-        dirs    = current.entryList(QDir::Dirs |QDir::NoDotAndDotDot);
-        current.setFilter(QDir::Files);
-        current.setNameFilters(searchFilter);
+//void songitemmodeler::songpathfinder(QDir current,QStringList searchFilter,QStringList& allSongPath)
+//{
+//    if (current.entryList(QDir::AllEntries | QDir::NoDotAndDotDot).count()!=0){
+//        QStringList dirs;
+//        current.setFilter(QDir::Dirs);
+//        dirs    = current.entryList(QDir::Dirs |QDir::NoDotAndDotDot);
+//        current.setFilter(QDir::Files);
+//        current.setNameFilters(searchFilter);
         
-        for(int i =0;i<current.entryList().size();i++){
-            //            allSongPath.append(current.absolutePath()+"/"+current.entryList().at(i));
-            allPath.append(current.absolutePath()+"/"+current.entryList().at(i));
-            m_playlist.addMedia(QUrl::fromLocalFile(current.absolutePath()+"/"+current.entryList().at(i)));
+//        for(int i =0;i<current.entryList().size();i++){
+//            //            allSongPath.append(current.absolutePath()+"/"+current.entryList().at(i));
+//            allPath.append(current.absolutePath()+"/"+current.entryList().at(i));
+//            m_playlist.addMedia(QUrl::fromLocalFile(current.absolutePath()+"/"+current.entryList().at(i)));
             
-        }
+//        }
         
-        for(int i =0;i<dirs.size();i++){
-            QDir cur(current.absolutePath()+"/"+dirs[i]);
-            songpathfinder(cur,searchFilter,allSongPath);
-        }
-        return;
-    }
-    else{
-        return;
-    }
-}
+//        for(int i =0;i<dirs.size();i++){
+//            QDir cur(current.absolutePath()+"/"+dirs[i]);
+//            songpathfinder(cur,searchFilter,allSongPath);
+//        }
+//        return;
+//    }
+//    else{
+//        return;
+//    }
+//}
 
 
 QVariant songitemmodeler::data(const QModelIndex &index, int role) const
 {
-    //    Q_UNUSED(role)
-    
-    
+       
     m_index = index.row();
     
     
     
     if (!index.isValid())
         return QVariant();
-    // FIXME: Implement me!
+
     if (role ==0)
         return QVariant::fromValue(allPath.at(index.row()));
     
@@ -188,9 +184,6 @@ void songitemmodeler::play(QString path,int currentindex)
     Q_UNUSED(path)
     m_playlist.setCurrentIndex(currentindex);
     m_playing_song.play();
-    //    this->m_duration = this->m_playing_song.duration();
-    //    durationChanged();
-
 
 }
 

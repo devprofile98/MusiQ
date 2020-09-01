@@ -15,7 +15,6 @@ Rectangle{
 
     function durationToText(){
         var insecond =Math.floor((allsong.endPosition/1000))
-        print("chap")
         var second = (insecond % 60)
         var minute = ((insecond - second) / 60)
 
@@ -63,6 +62,7 @@ Rectangle{
 
 
     function changeOnPlayBtnPressed(play){
+        console.log(">>>>>>>>>>>>>>>> changeOnPlayBtnPressed")
         if (play){
 
             allsong.pause()
@@ -79,7 +79,7 @@ Rectangle{
 
         ppbtn.text = "\uf28b"
 
-}
+    }
 
 
     property color btncolor: "#855dd4" //#7f05e3
@@ -159,7 +159,7 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 onEntered: {
-//                    pa.start()
+                    //                    pa.start()
                 }
             }
 
@@ -181,7 +181,7 @@ Rectangle{
                 sourceSize.width: 100
                 sourceSize.height: 100
                 id: thumbnail
-//                source:"qrc:/new/prefix1/thumbnail.svg"
+                //                source:"qrc:/new/prefix1/thumbnail.svg"
                 source: "image://imageprovider/"+allsong.playlistindex
                 asynchronous: true
                 fillMode: Image.PreserveAspectFit
@@ -216,38 +216,38 @@ Rectangle{
                 spacing: 10
                 rightPadding: 20
                 anchors.verticalCenter: parent.verticalCenter
-            Label{
+                Label{
 
 
-                id:singerinfo
-                text:DataModel.songerName
-                font{
-                    bold:true
-                    pixelSize: 12
+                    id:singerinfo
+                    text:DataModel.songerName
+                    font{
+                        bold:true
+                        pixelSize: 12
+                    }
+
+                }
+
+                Label{
+                    id:songname
+
+                    font{
+                        bold:true
+                        pixelSize: 12
+                    }
+
+                    anchors{
+                        top: thumbnailinfo.bottom
+
+                    }
+
+                    text:DataModel.songTitle
                 }
 
             }
-
-            Label{
-                id:songname
-
-                font{
-                    bold:true
-                    pixelSize: 12
-                }
-
-                anchors{
-                    top: thumbnailinfo.bottom
-
-                }
-
-                text:DataModel.songTitle
-            }
-
-        }
         }
 
-//         controler panel
+        //         controler panel
         Rectangle{
             id:controlpanel
             color: "transparent"
@@ -288,11 +288,8 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked:{
-                            if (mainwindow.isPlaying)
-                            playBtnPressed(false)
-                            else{
-                                playBtnPressed(true)
-                            }
+
+                            playBtnPressed(!isPlaying)
 
                         }
                     }
@@ -433,7 +430,7 @@ Rectangle{
             //show song progress
             Slider{
                 id:slider
-//                Layout.fillWidth: true
+                //                Layout.fillWidth: true
                 width: 400
                 anchors.verticalCenter: parent.verticalCenter
                 Material.accent: btncolor
