@@ -25,6 +25,13 @@
 #include<QList>
 
 
+struct song{
+    QString title;
+    QString duration;
+    QString artist;
+};
+
+
 class ImageFile : public TagLib::File
 {
 public:
@@ -43,6 +50,7 @@ private:
     virtual TagLib::Tag* tag() const { return 0; }
     virtual TagLib::AudioProperties* audioProperties() const { return 0; }
     virtual bool save() { return false; }
+
 };
 
 

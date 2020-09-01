@@ -89,3 +89,5 @@ QString DataProvider::albumName() const
 QStringList* DataProvider::all_path = new QStringList();
 QStringList DataProvider::search_filter("*.mp3");
 
+
+

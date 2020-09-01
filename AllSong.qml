@@ -163,6 +163,12 @@ Rectangle{
             onSongchanged: {
                 listvi.currentIndex = index;
             }
+
+            onDurationChanged: {
+                endPosition = value;
+                controller.durationToText();
+            }
+
         }
         clip: true
         boundsBehavior: Flickable.FollowBoundsBehavior
@@ -181,21 +187,7 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: {
-
-                    //                    if (mainwindow.isPlaying === true){
-                    //                        playBtnIconChanged()
-                    //                    }
-                    //                    DataModel.extractSongInfo(model.index);
-                    //                    listvi.currentIndex = model.index
-                    //                    playlistindex = model.index
-                    //                    currentpath = model.path
-                    //                    endPosition = model.duration
-                    //                    songmodel.play(model.path,model.index);
-                    //                    mainrect.duration()
-                    //                    isPlaying : true
-                }
-
+                onClicked: {}
             }
 
             Row{
@@ -261,7 +253,7 @@ Rectangle{
                         }
                         DataModel.extractSongInfo(model.index);
                         listvi.currentIndex = model.index
-                        playlistindex = model.index
+//                        playlistindex = model.index
                         currentpath = model.path
                         endPosition = model.duration
                         songmodel.play(model.path,model.index);

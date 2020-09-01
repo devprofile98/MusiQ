@@ -24,8 +24,8 @@ class songitemmodeler : public QAbstractListModel
 {
     Q_OBJECT
     //    Q_PROPERTY(backend2 *list READ list WRITE setList )
-    Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
-    Q_PROPERTY(int duration READ duration NOTIFY durationChanged)
+    Q_PROPERTY(qint64 progress READ progress NOTIFY progressChanged)
+    Q_PROPERTY(qint64 duration READ duration NOTIFY durationChanged)
     Q_PROPERTY(qint64 passed READ passed NOTIFY passedChanged)
     Q_PROPERTY(qint64 check NOTIFY songchanged)
 public:
@@ -47,7 +47,7 @@ public slots:
 
 signals:
     void progressChanged();
-    void durationChanged();
+    void durationChanged(qint64 value);
 
     void passedChanged();
 
@@ -64,7 +64,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     virtual QHash<int,QByteArray> roleNames() const override;
 
-    int duration() const
+    qint64 duration() const
     {
         return m_duration;
     }
@@ -88,7 +88,7 @@ private:
     QUrl pic;
     tools tool;
 
-    LiveImageProvider* newclassmember;
+//    LiveImageProvider* newclassmember;
 
     int m_duration = 0;
     qint64 m_passed = 0;

@@ -5,7 +5,8 @@ import QtGraphicalEffects 1.0
 
 
 
-Rectangle{
+Rectangle
+{
     id:mainrect
     Material.theme: Material.Dark
     color: "#242323"
@@ -14,18 +15,16 @@ Rectangle{
 
     property int pbarleftx: allsong.passed / allsong.endPosition
 
-    Image {
+    Image
+    {
         id: background
         source: "image://imageprovider/"+allsong.playlistindex
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-
     }
 
-
-
-
-    Rectangle{
+    Rectangle
+    {
         width: parent.width/2
         height: parent.height
         color: "image://imageprovider/"+allsong.playlistindex ? "transparent" : "orange"
@@ -35,7 +34,8 @@ Rectangle{
         clip: true
         z:3
 
-        Image {
+        Image
+        {
             id:fullscreenimage
             width: parent.width/2
             height: width
@@ -45,10 +45,12 @@ Rectangle{
             //            z:2
             fillMode: Image.PreserveAspectCrop
             layer.enabled: true
-            layer.effect: OpacityMask{
+            layer.effect: OpacityMask
+            {
                 maskSource: mask
             }
-            MouseArea{
+            MouseArea
+            {
                 anchors.fill: fullscreenimage
                 onClicked: mask.radius == 20 ? mask.radius = 0 : mask.radius = 20
                 z:5
@@ -57,15 +59,18 @@ Rectangle{
 
 
         }
-        Rectangle {
+        Rectangle
+        {
             id: mask
             width: fullscreenimage.width
             height:fullscreenimage.height
             radius: 20
             visible: false
 
-            Behavior on radius {
-                NumberAnimation{
+            Behavior on radius
+            {
+                NumberAnimation
+                {
                     duration: 200
                 }
             }
@@ -74,7 +79,8 @@ Rectangle{
         }
 
 
-        Rectangle {
+        Rectangle
+        {
             z:4
             id: songinformation
             width: 200
@@ -84,22 +90,26 @@ Rectangle{
             color: "transparent"
             anchors.verticalCenter:fullscreenimage.verticalCenter
 
-            Column{
+            Column
+            {
                 anchors.verticalCenter:parent.verticalCenter
                 spacing: 10
 
-                Label{
+                Label
+                {
                     padding: 5
 
 
                     text:"artist: "+ DataModel.songerName
-                    font{
+                    font
+                    {
                         pixelSize: 13
                         bold:true
                     }
                     color: "white"
 
-                    background: Rectangle{
+                    background: Rectangle
+                    {
                         color: "#3d3d3a"
                         opacity: 0.4
                         radius: 4
@@ -112,13 +122,15 @@ Rectangle{
                     padding: 5
 
                     text: "title: "+DataModel.songTitle
-                    font{
+                    font
+                    {
                         pixelSize: 13
                         bold:true
                     }
                     color: "white"
 
-                    background: Rectangle{
+                    background: Rectangle
+                    {
                         color: "#3d3d3a"
                         opacity: 0.4
                         radius: 4
@@ -129,13 +141,15 @@ Rectangle{
                     padding: 5
 
                     text: "album: "+DataModel.albumName
-                    font{
+                    font
+                    {
                         pixelSize: 13
                         bold:true
                     }
                     color: "white"
 
-                    background: Rectangle{
+                    background: Rectangle
+                    {
                         color: "#3d3d3a"
                         opacity: 0.4
                         radius: 4
@@ -152,7 +166,8 @@ Rectangle{
                     }
                     color: "white"
 
-                    background: Rectangle{
+                    background: Rectangle
+                    {
                         color: "#3d3d3a"
                         opacity: 0.4
                         radius: 4
@@ -162,13 +177,15 @@ Rectangle{
                 Label{
                     padding: 5
                     text: "genre: "+DataModel.songGenre
-                    font{
+                    font
+                    {
                         pixelSize: 13
                         bold:true
                     }
                     color: "white"
 
-                    background: Rectangle{
+                    background: Rectangle
+                    {
                         color: "#3d3d3a"
                         opacity: 0.4
                         radius: 4
@@ -181,7 +198,8 @@ Rectangle{
 
         Label{
 
-            anchors{
+            anchors
+            {
                 left: fullscreenimage.right
                 bottom: fullscreenimage.bottom
                 margins: 20
@@ -189,12 +207,14 @@ Rectangle{
 
             padding: 10
 
-            font{
+            font
+            {
                 family: solidfont.name
                 pixelSize:13
             }
 
-            background: Rectangle{
+            background: Rectangle
+            {
                 color: "#3d3d3a"
                 opacity: 0.4
                 radius: parent.width/2
@@ -203,82 +223,71 @@ Rectangle{
 
             text: "\uf051"
 
-            MouseArea{
+            MouseArea
+            {
                 anchors.fill: parent
-                onClicked: allsong.nextSong()
+                onClicked:
+                {
+                    allsong.nextSong();
+                    DataModel.extractSongInfo(allsong.playlistindex);
+                }
             }
         }
 
-        Label{
 
-            anchors{
+        Label{
+            anchors
+            {
                 right: fullscreenimage.left
                 bottom: fullscreenimage.bottom
                 margins: 20
 
             }
-
             padding: 10
-
             font{
                 family: solidfont.name
                 pixelSize:13
-                //                font.weight: Font.Black
-                //                    font.styleName: "Solid" // this does the trick
-
             }
-            background: Rectangle{
+
+            background: Rectangle
+            {
                 color: "#3d3d3a"
                 opacity: 0.4
                 radius: parent.width/2
-
             }
-
-
             text: "\uf048"
-
-
             MouseArea{
                 anchors.fill: parent
-                onClicked: allsong.preSong()
+                onClicked:
+                {
+                    allsong.preSong();
+                    DataModel.extractSongInfo(allsong.playlistindex);
+                }
             }
 
-
         }
-
-
-
-
 
     }
 
 
-
-
-    //    DropShadow {
-    //        anchors.fill: songCover
-    //        horizontalOffset: 0
-    //        verticalOffset: 0
-    //        radius: 15
-    //        samples:15
-    //        color: "black"
-    //        source: songCover
-    //        z:2
-    //    }
-    Rectangle{
+    Rectangle
+    {
         width: 90
         height: 90
         z:2
         color: "transparent"
-        anchors{
+        anchors
+        {
             top: parent.top
             right: parent.right
         }
-        Label{
+        Label
+        {
             anchors.centerIn: parent
 
             text: "\uf103"
-            font{
+            font
+            {
                 family: solidfont.name
                 bold:true
                 pixelSize: parent.width/5
@@ -286,9 +295,11 @@ Rectangle{
         }
 
 
-        MouseArea{
+        MouseArea
+        {
             anchors.fill: parent
-            onClicked: {
+            onClicked:
+            {
                 fullscreenDrawer.close();
             }
         }
@@ -296,15 +307,8 @@ Rectangle{
     }
 
 
-//    Rectangle{
-//        id:pbar
-//        width: 200
-//        height: parent.height
-
-//        anchors.left: parent.left
-//    }
-
-    FastBlur{
+    FastBlur
+    {
         id:blur
         anchors.fill: background
         source: background
@@ -312,20 +316,9 @@ Rectangle{
 
     }
 
-    //    ShaderEffectSource{
-    //        id:progresShader
-    //        sourceItem: blur
-    //        width: 200
-    //        height: background.height
-    //        live: true
-    //        anchors{
-    //            left: mainrect.left
-    //        }
-    //        sourceRect: Qt.rect(pbarleftx*mainrect.width ,y, mainrect.width, mainrect.height)
-    //    }
 
-    Colorize {
-
+    Colorize
+    {
         anchors.fill: blur
         source: blur
         hue: 0.0

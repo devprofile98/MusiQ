@@ -20,7 +20,7 @@ ApplicationWindow {
     title: qsTr("MusiQ")
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
-    flags: Qt.FramelessWindowHint
+//    flags: Qt.FramelessWindowHint
 
 
     onWidthChanged: {

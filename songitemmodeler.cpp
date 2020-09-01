@@ -17,26 +17,24 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
 
     }
 
-    newclassmember->trytosolve();
-
+//    newclassmember->trytosolve();
     m_current_position = -1;
 //    m_playlist.setCurrentIndex(0);
     m_playing_song.setPlaylist(&m_playlist);
-
     connect(tool,&tools::pauseRequested,this,[this](){
         m_playing_song.pause();
     });
 
     connect(&m_playlist,&QMediaPlaylist::currentIndexChanged,&m_playing_song,[this](){
         emit songchanged(m_playlist.currentIndex());
-
     });
+
     auto check_var = connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
+        qDebug()<<"MEDIA STATUS IS :"<<m_playing_song.mediaStatus();
         if (m_playing_song.mediaStatus() == 6){
             m_duration = m_playing_song.duration();
-            emit durationChanged();
+            emit durationChanged(m_playing_song.duration());
         }
-        //        m_playing_song.play();
     });
 
     connect(&m_playing_song,&QMediaPlayer::positionChanged,[this](qint64 value){
@@ -48,13 +46,8 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
 
     m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
 
-//    connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-//        pic = m_playing_song.metaData("CoverArtUrlLarge").value<QUrl>();
-//        emit dataChanged(createIndex(0,0),createIndex(100,0),QVector<int>()<<5);
-
-//    });
-
 }
+
 
 int songitemmodeler::rowCount(const QModelIndex &parent) const
 {
@@ -66,33 +59,6 @@ int songitemmodeler::rowCount(const QModelIndex &parent) const
     
     return m_playlist.mediaCount();
 }
-
-//void songitemmodeler::songpathfinder(QDir current,QStringList searchFilter,QStringList& allSongPath)
-//{
-//    if (current.entryList(QDir::AllEntries | QDir::NoDotAndDotDot).count()!=0){
-//        QStringList dirs;
-//        current.setFilter(QDir::Dirs);
-//        dirs    = current.entryList(QDir::Dirs |QDir::NoDotAndDotDot);
-//        current.setFilter(QDir::Files);
-//        current.setNameFilters(searchFilter);
-        
-//        for(int i =0;i<current.entryList().size();i++){
-//            //            allSongPath.append(current.absolutePath()+"/"+current.entryList().at(i));
-//            allPath.append(current.absolutePath()+"/"+current.entryList().at(i));
-//            m_playlist.addMedia(QUrl::fromLocalFile(current.absolutePath()+"/"+current.entryList().at(i)));
-            
-//        }
-        
-//        for(int i =0;i<dirs.size();i++){
-//            QDir cur(current.absolutePath()+"/"+dirs[i]);
-//            songpathfinder(cur,searchFilter,allSongPath);
-//        }
-//        return;
-//    }
-//    else{
-//        return;
-//    }
-//}
 
 
 QVariant songitemmodeler::data(const QModelIndex &index, int role) const
