@@ -62,7 +62,6 @@ Rectangle{
 
 
     function changeOnPlayBtnPressed(play){
-        console.log(">>>>>>>>>>>>>>>> changeOnPlayBtnPressed")
         if (play){
 
             allsong.pause()
@@ -181,7 +180,6 @@ Rectangle{
                 sourceSize.width: 100
                 sourceSize.height: 100
                 id: thumbnail
-                //                source:"qrc:/new/prefix1/thumbnail.svg"
                 source: "image://imageprovider/"+allsong.playlistindex
                 asynchronous: true
                 fillMode: Image.PreserveAspectFit
@@ -221,6 +219,8 @@ Rectangle{
 
                     id:singerinfo
                     text:DataModel.songerName
+
+                    wrapMode: Label.WordWrap
                     font{
                         bold:true
                         pixelSize: 12
@@ -262,8 +262,7 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            isPlaying = true
-
+//                            isPlaying = true
                             allsong.preSong()
 
                             //                            tools.m_pauseRequested()
@@ -307,7 +306,7 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            isPlaying = true
+//                            isPlaying = true
                             allsong.nextSong()
                         }
                     }

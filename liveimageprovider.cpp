@@ -24,12 +24,14 @@ QImage LiveImageProvider::requestImage(const QString &id, QSize *size, const QSi
 
     TagLib::ID3v2::AttachedPictureFrame *f =
             static_cast<TagLib::ID3v2::AttachedPictureFrame *>(l.front());
+
     image.loadFromData((const uchar *) f->picture().data(), f->picture().size());
     image.scaled( requestedSize.width(), requestedSize.height(),Qt::KeepAspectRatio);
+//    delete f;
     if (!image.isNull())
         return image;
 
-    return QImage();
+    return default_image;
 
 
 }

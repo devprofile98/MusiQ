@@ -9,9 +9,13 @@ Rectangle{
     id:mainrect
     function nextSong(){
         songmodel.next()
+        DataModel.extractSongInfo(listvi.currentIndex)
+
     }
     function preSong(){
         songmodel.previous()
+        DataModel.extractSongInfo(listvi.currentIndex)
+
     }
     function play(){
         songmodel.playIndex()
@@ -162,6 +166,9 @@ Rectangle{
             id:songmodel
             onSongchanged: {
                 listvi.currentIndex = index;
+                console.log("THE INDEX IS ",index)
+                playlistindex = index
+                DataModel.extractSongInfo(index)
             }
 
             onDurationChanged: {
@@ -251,13 +258,14 @@ Rectangle{
                         if (mainwindow.isPlaying === true){
                             playBtnIconChanged()
                         }
-                        DataModel.extractSongInfo(model.index);
-                        listvi.currentIndex = model.index
-//                        playlistindex = model.index
+//                        listvi.currentIndex = model.index
+                        playlistindex = model.index
                         currentpath = model.path
                         endPosition = model.duration
                         songmodel.play(model.path,model.index);
                         mainrect.duration()
+                        DataModel.extractSongInfo(model.index);
+
                         isPlaying : true
                     }
                 }

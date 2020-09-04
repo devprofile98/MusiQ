@@ -1,28 +1,30 @@
 #include "dataprovider.h"
-
+#include<QThread>
 DataProvider::DataProvider(QObject *parent) : QObject(parent)
 {
 
     findMediaOnDisk();
 
+
 }
 
 void DataProvider::extractSongInfo(qint64 id)
 {
-
+    qDebug()<<"in qdebug in extract song info ";
     TagLib::MPEG::File audiofile(all_path[0][id].toStdString().c_str());
     TagLib::ID3v2::Tag* tag = audiofile.ID3v2Tag(true);
-
+    if (!audiofile.isOpen()){
+    }
     m_songTitle = QString::fromStdString(tag->title().toCString());
     m_songerName = QString::fromStdString(tag->artist().toCString());
     m_songReleaseYear = tag->year();
     m_songGenre = QString::fromStdString(tag->genre().toCString());
     m_albumName = QString::fromStdString(tag->album().toCString());
-    emit songTitleChanged();
-    emit songerNameChanged();
-    emit songReleaseYearChanged();
-    emit songGenreChanged();
-    emit albumNameChanged();
+    emit songTitleChanged(QString::fromStdString(tag->title().toCString()));
+    emit songerNameChanged(QString::fromStdString(tag->artist().toCString()));
+    emit songReleaseYearChanged(tag->year());
+    emit songGenreChanged(QString::fromStdString(tag->genre().toCString()));
+    emit albumNameChanged(QString::fromStdString(tag->album().toCString()));
 
 }
 

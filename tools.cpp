@@ -3,6 +3,7 @@
 tools::tools()
 {
     playerCounter = 0;
+    qDebug()<<"tools created%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ";
 }
 
 QString tools::getNowPlayList()

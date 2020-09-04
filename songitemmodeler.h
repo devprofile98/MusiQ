@@ -56,6 +56,7 @@ signals:
 public:
 
     explicit songitemmodeler(QObject *parent = nullptr,tools *tool = nullptr);
+    ~songitemmodeler();
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -85,11 +86,11 @@ private:
     QMediaPlayer m_playing_song;
     QMediaPlaylist m_playlist;
     int m_current_position;
-    QUrl pic;
+//    QUrl pic;
     tools tool;
 
 //    LiveImageProvider* newclassmember;
-
+//    DataProvider* dp = new DataProvider{};
     int m_duration = 0;
     qint64 m_passed = 0;
     qint64 m_check;

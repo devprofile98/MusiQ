@@ -106,12 +106,11 @@ private:
 
 signals:
 
-
-void songerNameChanged();
-void songTitleChanged();
-void songReleaseYearChanged();
-void songGenreChanged();
-void albumNameChanged();
+void songerNameChanged(QString song_name);
+void songTitleChanged(QString song_title);
+void songReleaseYearChanged(int song_release_year);
+void songGenreChanged(QString song_genre);
+void albumNameChanged(QString song_album_name);
 };
 
 #endif // DATAPROVIDER_H

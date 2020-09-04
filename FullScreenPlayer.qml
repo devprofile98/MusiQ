@@ -41,6 +41,10 @@ Rectangle
             height: width
 
             source: "image://imageprovider/"+allsong.playlistindex
+            onSourceChanged: {
+                console.log(source)
+            }
+
             anchors.centerIn: parent
             //            z:2
             fillMode: Image.PreserveAspectCrop
@@ -229,7 +233,7 @@ Rectangle
                 onClicked:
                 {
                     allsong.nextSong();
-                    DataModel.extractSongInfo(allsong.playlistindex);
+//                    DataModel.extractSongInfo(allsong.playlistindex);
                 }
             }
         }
@@ -261,7 +265,7 @@ Rectangle
                 onClicked:
                 {
                     allsong.preSong();
-                    DataModel.extractSongInfo(allsong.playlistindex);
+//                    DataModel.extractSongInfo(allsong.playlistindex);
                 }
             }
 

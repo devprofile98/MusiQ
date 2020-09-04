@@ -55,6 +55,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     DataProvider* dp = new DataProvider(&app);
+
+    app.dumpObjectTree();
+
     app.setWindowIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
 
 //    backend2 bend;
@@ -65,7 +68,7 @@ int main(int argc, char *argv[])
 //    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
     engine.addImageProvider("imageprovider", &liveimage);
 //    engine.rootContext()->setContextProperty("backend",&bend);
-    engine.rootContext()->setContextProperty("tools",&tools);
+//    engine.rootContext()->setContextProperty("tools",&tools);
     engine.rootContext()->setContextProperty("DataModel",dp);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

@@ -26,11 +26,12 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     });
 
     connect(&m_playlist,&QMediaPlaylist::currentIndexChanged,&m_playing_song,[this](){
+//        dp->extractSongInfo(m_playlist.currentIndex());
+//        emit dp->songTitleChanged();
         emit songchanged(m_playlist.currentIndex());
     });
 
     auto check_var = connect(&m_playing_song,&QMediaPlayer::mediaStatusChanged,&m_playing_song,[this](){
-        qDebug()<<"MEDIA STATUS IS :"<<m_playing_song.mediaStatus();
         if (m_playing_song.mediaStatus() == 6){
             m_duration = m_playing_song.duration();
             emit durationChanged(m_playing_song.duration());
@@ -45,6 +46,12 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
 
 
     m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
+
+}
+
+songitemmodeler::~songitemmodeler()
+{
+//    delete dp;
 
 }
 
@@ -150,6 +157,7 @@ void songitemmodeler::play(QString path,int currentindex)
     Q_UNUSED(path)
     m_playlist.setCurrentIndex(currentindex);
     m_playing_song.play();
+
 
 }
 
