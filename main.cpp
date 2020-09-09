@@ -34,6 +34,8 @@
 
 int main(int argc, char *argv[])
 {
+    QThread::currentThread()->setObjectName("Main Thread");
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 //    auto result = QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE"));
 //    if (result == QtAndroid::PermissionResult::Denied){
@@ -46,9 +48,8 @@ int main(int argc, char *argv[])
 //    else{
 //        qDebug()<<"have this permission";
 //    }
-    tools tools;
+//    tools tools;
     qmlRegisterType<songitemmodeler>("SongFinder",1,0,"Songfinder");
-
 
     QQuickStyle::setStyle("Material");
 //    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
@@ -59,17 +60,17 @@ int main(int argc, char *argv[])
     app.dumpObjectTree();
 
     app.setWindowIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
-
+//    QWindow::setIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
 //    backend2 bend;
 //    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
     LiveImageProvider liveimage;
 
     QQmlApplicationEngine engine;
 //    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
-    engine.addImageProvider("imageprovider", &liveimage);
 //    engine.rootContext()->setContextProperty("backend",&bend);
 //    engine.rootContext()->setContextProperty("tools",&tools);
     engine.rootContext()->setContextProperty("DataModel",dp);
+    engine.addImageProvider("imageprovider", &liveimage);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

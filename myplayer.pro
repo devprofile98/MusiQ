@@ -67,12 +67,12 @@ linux{
 }
 
 windows{
-    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
-    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+#    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
+#    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
     debug
     {
-#        LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
-#        LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
+        LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
+        LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
     }
 
 }
