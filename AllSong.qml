@@ -29,8 +29,8 @@ Rectangle{
     function setSongPos(value){
         songmodel.m_setPosition(value)
     }
-    function changePlaybackMode(value){
-        songmodel.m_ChangePlaybackMode(value);
+    function changePlaybackMode(mode){
+        songmodel.m_ChangePlaybackMode(mode);
     }
 
 
@@ -149,8 +149,8 @@ Rectangle{
             y: listvi.currentItem.y
             Behavior on y {
                 SpringAnimation {
-                    spring: 3
-                    damping: 0.2
+                    spring: 4
+                    damping: 0.3
                 }
             }
         }
@@ -166,14 +166,17 @@ Rectangle{
             id:songmodel
             onSongchanged: {
                 listvi.currentIndex = index;
-                console.log("THE INDEX IS ",index)
                 playlistindex = index
+                console.log("from listview model index is ",index)
                 DataModel.extractSongInfo(index)
             }
 
             onDurationChanged: {
                 endPosition = value;
                 controller.durationToText();
+            }
+            onPlaybackmodeChanged: {
+                controller.playbackmode = playbackmode;
             }
 
         }
@@ -190,7 +193,7 @@ Rectangle{
             height: 70
             width: parent.width
             radius: 10
-            color: model.selected ? "#3d3d3a" : "transparent"
+            color:  "transparent" //model.selected ? "#3d3d3a" :
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true

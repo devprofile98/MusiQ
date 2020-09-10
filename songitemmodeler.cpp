@@ -4,30 +4,26 @@
 #include<QMetaDataReaderControl>
 #include "liveimageprovider.h"
 
+
 songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
     m_index=0;
+    m_playback_mode=0;
     searchfilters.append("*.mp3");
     allPath = *(DataProvider::all_path);
 
     for(int i =0;i<allPath.length();i++){
-
         m_playlist.addMedia(QUrl::fromLocalFile(allPath[i]));
-
     }
 
-//    newclassmember->trytosolve();
-    m_current_position = -1;
-//    m_playlist.setCurrentIndex(0);
+//    m_current_position = 0;
     m_playing_song.setPlaylist(&m_playlist);
     connect(tool,&tools::pauseRequested,this,[this](){
         m_playing_song.pause();
     });
 
     connect(&m_playlist,&QMediaPlaylist::currentIndexChanged,&m_playing_song,[this](){
-//        dp->extractSongInfo(m_playlist.currentIndex());
-//        emit dp->songTitleChanged();
         emit songchanged(m_playlist.currentIndex());
     });
 
@@ -44,14 +40,12 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
         emit passedChanged();
     });
 
-
     m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
 
 }
 
 songitemmodeler::~songitemmodeler()
 {
-//    delete dp;
 
 }
 
@@ -70,9 +64,8 @@ int songitemmodeler::rowCount(const QModelIndex &parent) const
 
 QVariant songitemmodeler::data(const QModelIndex &index, int role) const
 {
-       
+
     m_index = index.row();
-    
     
     
     if (!index.isValid())
@@ -92,14 +85,15 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
         return  QVariant(allPath.at(index.row()));
     }
     else if (role == 4){
-        if (m_current_position <0)
-            return QVariant(false);
-        else if (m_current_position == index.row()){
-            return  QVariant(true);
-        }
-        else{
-            return  QVariant(false);
-        }
+//        if (m_current_position <0)
+//            return QVariant(false);
+//        else if (m_current_position == index.row()){
+//            return  QVariant(true);
+//        }
+//        else{
+//            return  QVariant(false);
+//        }
+        return QVariant();
     }
     else if (role == 5){
         return QVariant();
@@ -113,14 +107,14 @@ QVariant songitemmodeler::data(const QModelIndex &index, int role) const
 
 bool songitemmodeler::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    Q_UNUSED(value)
-    if (role == 4){
-        int last_index = m_current_position;
-        m_current_position = index.row();
-        emit dataChanged(createIndex(last_index,0),createIndex(last_index,0),QVector<int>() << role);
-        emit dataChanged(createIndex(m_current_position,0),createIndex(m_current_position,0),QVector<int>() << role);
-        return true;
-    }
+//    Q_UNUSED(value)
+//    if (role == 4){
+//        int last_index = m_current_position;
+//        m_current_position = index.row();
+//        emit dataChanged(createIndex(last_index,0),createIndex(last_index,0),QVector<int>() << role);
+//        emit dataChanged(createIndex(m_current_position,0),createIndex(m_current_position,0),QVector<int>() << role);
+//        return true;
+//    }
     return false;
 }
 
@@ -147,9 +141,10 @@ QHash<int, QByteArray> songitemmodeler::roleNames() const
 
 QVariant songitemmodeler::ahmad()
 {
-    int curr = m_index;
-    m_index++;
-    return allPath.at(curr);
+//    int curr = m_index;
+//    m_index++;
+//    return allPath.at(curr);
+    return QVariant();
 }
 
 void songitemmodeler::play(QString path,int currentindex)
@@ -165,17 +160,15 @@ void songitemmodeler::m_status()
 
 void songitemmodeler::next()
 {
+    qDebug()<< "current item in NEXT method"<< m_playlist.currentIndex();
     m_playlist.next();
     m_playing_song.play();
-
-
 }
 
 void songitemmodeler::previous()
 {
     m_playlist.previous();
     m_playing_song.play();
-
 }
 
 void songitemmodeler::pause()
@@ -207,21 +200,40 @@ void songitemmodeler::m_setPosition(qint64 value)
 
 void songitemmodeler::m_ChangePlaybackMode(int mode)
 {
-    if (mode == 1){
+
+    m_playback_mode++;
+    // toggle playback mode to shuffle
+    if (mode == 4){
+        m_playback_mode = 4;
+    }
+
+    // check for invalid play back mode and set to 0
+    if (m_playback_mode >4 || m_playback_mode <0 )
+        m_playback_mode = 0;
+
+
+    if (m_playback_mode == 1){
         m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+
     }
-    else if (mode == 0){
+    else if (m_playback_mode == 0){
         m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
+        qDebug()<<"CURRENT ITEM IN PLAYLIST IS :"<<m_playlist.currentIndex();
+//        m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+
     }
-    else if (mode == 2){
+    else if (m_playback_mode == 2){
         m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
     }
-    else if (mode == 3){
+    else if (m_playback_mode == 3){
         m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
     }
-    else if (mode == 4){
+    // shuffle mode
+    else if (m_playback_mode == 4){
         m_playlist.setPlaybackMode(QMediaPlaylist::Random);
     }
+
+    emit playbackmodeChanged(m_playback_mode);
 }
 
 
@@ -229,11 +241,8 @@ qint64 songitemmodeler::findSongDuration(QString path) const
 {
     QMediaPlayer song;
     song.setMedia(QUrl::fromLocalFile(path));
-    //    connect(&song,&QMediaPlayer::mediaStatusChanged,this,&QMediaPlayer::media);
-    //    QObject::connect(&song,&QMediaPlayer::stateChanged,[](){qDebug()<<"i am here";});
     return song.duration();
 }
-
 
 
 QVariant songitemmodeler::findImageSource(QString path) const

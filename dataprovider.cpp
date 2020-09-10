@@ -61,7 +61,6 @@ QVariant DataProvider::access_manager(qint64 id, uint request_type)
 {
     m_mutex.lock();    // lock mutex to manage access to file on disk
 
-    qDebug() << "serving "<<QThread::currentThread()<<" request";
     if (request_type == DataProvider::REQUEST_INFORMATION){
         QStringList data = DataProvider::get_id3v2_tag(id , request_type).value<QStringList>();
         m_mutex.unlock();
@@ -90,7 +89,6 @@ void DataProvider::extractSongInfo(qint64 id,uint request_type)
     Q_UNUSED(request_type)
     QStringList data = DataProvider::access_manager(id,0).value<QStringList>();
     if (data.length() <5){
-        qDebug()<<data.length();
         return;
     }
     m_songTitle = QString::fromStdString(data[0].toStdString());

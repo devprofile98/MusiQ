@@ -27,6 +27,8 @@ class songitemmodeler : public QAbstractListModel
     Q_PROPERTY(qint64 duration READ duration NOTIFY durationChanged)
     Q_PROPERTY(qint64 passed READ passed NOTIFY passedChanged)
     Q_PROPERTY(qint64 check NOTIFY songchanged)
+    Q_PROPERTY(quint8 playbackmode READ playbackmode NOTIFY playbackmodeChanged)
+
 
 public:
     Q_INVOKABLE QVariant ahmad();
@@ -53,9 +55,14 @@ public:
     qint64 passed() const{return m_passed;}
 
 
+    quint8 playbackmode() const
+    {
+        return m_playback_mode;
+    }
+
 public slots:
     void m_setPosition(qint64 value);
-    void m_ChangePlaybackMode(int mode);
+    void m_ChangePlaybackMode(int mode=-2);
 
 
 signals:
@@ -63,7 +70,7 @@ signals:
     void durationChanged(qint64 value);
     void passedChanged();
     void songchanged(qint64 index);
-
+    void playbackmodeChanged(quint8 playbackmode);
 
 private:
     qint64 findSongDuration(QString path) const;
@@ -76,7 +83,7 @@ private:
     QMediaPlaylist m_playlist;
     int m_current_position;
     tools tool;
-
+    quint8 m_playback_mode;
     int m_duration = 0;
     qint64 m_passed = 0;
     qint64 m_check;

@@ -83,7 +83,18 @@ Rectangle{
 
     property color btncolor: "#855dd4" //#7f05e3
     property string endPosition: "00:00"
+    property int playbackmode: 0
     signal playBtnPressed(bool play);
+
+    onPlaybackmodeChanged: {
+        if (playbackmode === 4){
+            shufflebtn.state = "shuffle_on"
+        }
+        else{
+            shufflebtn.state = "shuffle_off"
+        }
+    }
+
 
     width:parent.width
     height:parent.height
@@ -262,7 +273,7 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-//                            isPlaying = true
+                            //                            isPlaying = true
                             allsong.preSong()
 
                             //                            tools.m_pauseRequested()
@@ -306,7 +317,7 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-//                            isPlaying = true
+                            //                            isPlaying = true
                             allsong.nextSong()
                         }
                     }
@@ -344,7 +355,7 @@ Rectangle{
 
                         anchors.fill: parent
                         onClicked: {
-                            allsong.changePlaybackMode(0);
+                            allsong.changePlaybackMode();
                         }
                     }
 
@@ -360,6 +371,7 @@ Rectangle{
                     text:"\uf074"
 
                     font{
+
                         bold:true
                         family:solidfont.name
                         pixelSize: parent.height/5
@@ -368,9 +380,76 @@ Rectangle{
 
                         anchors.fill: parent
                         onClicked: {
-                            allsong.changePlaybackMode(4);
+                            if (playbackmode===4){
+                                allsong.changePlaybackMode();
+                            }
+                            else{
+                                allsong.changePlaybackMode(4);
+                            }
                         }
                     }
+
+                    state: "shuffle_off"
+
+                    states: [
+
+                        State {
+                            name: "shuffle_on"
+                            PropertyChanges {
+                                target: shufflebtn
+                                color:btncolor
+
+                            }
+                        },
+                        State {
+                            name: "shuffle_off"
+
+                            PropertyChanges {
+                                target: shufflebtn
+                                color:"white"
+                            }
+                            PropertyChanges {
+                                target: shufflebtn.font
+                                pixelSize:parent.height/5 +100
+
+                            }
+                        }
+
+                    ]
+
+                    transitions: [
+                        Transition {
+                            from: "shuffle_off"
+                            to: "shuffle_on"
+
+                            ParallelAnimation{
+                                ColorAnimation {
+                                    from: "white"
+                                    to: btncolor
+                                    duration: 100
+                                }
+                                PropertyAnimation{
+                                    target: shufflebtn.font
+                                    properties: "pixelSize"
+                                    easing.type: Easing.InOutQuad
+                                }
+                            }
+
+
+                        },
+                        Transition {
+                            from: "shuffle_on"
+                            to: "shuffle_off"
+
+                            ColorAnimation {
+                                to: "white"
+                                duration: 100
+                            }
+
+                        }
+                    ]
+
+
                 }
 
                 //add to favorite

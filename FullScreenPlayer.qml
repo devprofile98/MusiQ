@@ -42,7 +42,6 @@ Rectangle
 
             source: "image://imageprovider/"+allsong.playlistindex
             onSourceChanged: {
-                console.log(source)
             }
 
             anchors.centerIn: parent
