@@ -157,8 +157,6 @@ void songitemmodeler::play(QString path,int currentindex)
     Q_UNUSED(path)
     m_playlist.setCurrentIndex(currentindex);
     m_playing_song.play();
-
-
 }
 
 void songitemmodeler::m_status()

@@ -5,16 +5,19 @@
 QVariant DataProvider::get_id3v2_tag(qint64 id,uint request_type)
 {
     if (request_type == DataProvider::REQUEST_INFORMATION){
-        qDebug()<<"in qdebug in extract song info ";
+
         TagLib::MPEG::File audiofile(all_path[0][id].toStdString().c_str());
+
+        if (!audiofile.hasID3v2Tag())
+            return QStringList();
+
         TagLib::ID3v2::Tag* tag = audiofile.ID3v2Tag(true);
-        //    TagLib::ID3v2::Tag* tag  = get_id3v2_tag(id);
         QStringList info;
-        info << tag->title().toCString() <<
-                tag->artist().toCString() <<
-                QString::number(tag->year()) <<
-                tag->genre().toCString() <<
-                tag->album().toCString();
+        info << tag->title().toCString()        // song title
+             << tag->artist().toCString()       // song artist
+             << QString::number(tag->year())    // song release year
+             << tag->genre().toCString()        // song genre
+             << tag->album().toCString();       // song album name
 
         if (!tag){
             return QStringList(); // invalid case
@@ -22,15 +25,22 @@ QVariant DataProvider::get_id3v2_tag(qint64 id,uint request_type)
 
         return info;  // valider than your mother milk
     }
-    else if (request_type == DataProvider::REQUEST_IMAGE ){
+
+    else if (request_type == DataProvider::REQUEST_IMAGE){
         QImage image;
+
         if (id >= DataProvider::all_path->size() || id < 0){
             return QImage();
         }
+
         TagLib::MPEG::File audioFile( DataProvider::all_path[0][id].toUtf8().toStdString().c_str());
+
+        if (!audioFile.hasID3v2Tag())
+            return QImage();
+
         TagLib::ID3v2::Tag* tag = audioFile.ID3v2Tag(true);
-        //    TagLib::ID3v2::Tag* tag = DataProvider::get_id3v2_tag(id.toInt());
         TagLib::ID3v2::FrameList l = tag->frameList("APIC");
+
         if(l.isEmpty())
             return QImage();
 
@@ -38,32 +48,29 @@ QVariant DataProvider::get_id3v2_tag(qint64 id,uint request_type)
                 static_cast<TagLib::ID3v2::AttachedPictureFrame *>(l.front());
 
         image.loadFromData((const uchar *) f->picture().data(), f->picture().size());
-        //        image.scaled( requestedSize.width(), requestedSize.height(),Qt::KeepAspectRatio);
-        //    delete f;
         if (!image.isNull())
             return image;
 
-        return QVariant();
+        return QImage();
 
     }
-
 }
+
 
 QVariant DataProvider::access_manager(qint64 id, uint request_type)
 {
-    m_mutex.lock();
+    m_mutex.lock();    // lock mutex to manage access to file on disk
+
     qDebug() << "serving "<<QThread::currentThread()<<" request";
     if (request_type == DataProvider::REQUEST_INFORMATION){
-
         QStringList data = DataProvider::get_id3v2_tag(id , request_type).value<QStringList>();
         m_mutex.unlock();
-
         return data;
     }
     else if (request_type == DataProvider::REQUEST_IMAGE ){
+        QVariant data = DataProvider::get_id3v2_tag(id , request_type);
         m_mutex.unlock();
-        return DataProvider::get_id3v2_tag(id , request_type);
-
+        return data;
     }
     else{
         m_mutex.unlock();
@@ -71,38 +78,21 @@ QVariant DataProvider::access_manager(qint64 id, uint request_type)
     }
 }
 
+
 DataProvider::DataProvider(QObject *parent) : QObject(parent)
 {
     findMediaOnDisk();
 }
 
-//void DataProvider::extractSongInfo(qint64 id)
-//{
-//    qDebug()<<"in qdebug in extract song info ";
-//    TagLib::MPEG::File audiofile(all_path[0][id].toStdString().c_str());
-//    TagLib::ID3v2::Tag* tag = audiofile.ID3v2Tag(true);
-////    TagLib::ID3v2::Tag* tag  = get_id3v2_tag(id);
-//    if (!tag){
-//        return;
-//    }
-
-//    m_songTitle = QString::fromStdString(tag->title().toCString());
-//    m_songerName = QString::fromStdString(tag->artist().toCString());
-//    m_songReleaseYear = tag->year();
-//    m_songGenre = QString::fromStdString(tag->genre().toCString());
-//    m_albumName = QString::fromStdString(tag->album().toCString());
-//    emit songTitleChanged(QString::fromStdString(tag->title().toCString()));
-//    emit songerNameChanged(QString::fromStdString(tag->artist().toCString()));
-//    emit songReleaseYearChanged(tag->year());
-//    emit songGenreChanged(QString::fromStdString(tag->genre().toCString()));
-//    emit albumNameChanged(QString::fromStdString(tag->album().toCString()));
-
-//}
 
 void DataProvider::extractSongInfo(qint64 id,uint request_type)
 {
     Q_UNUSED(request_type)
     QStringList data = DataProvider::access_manager(id,0).value<QStringList>();
+    if (data.length() <5){
+        qDebug()<<data.length();
+        return;
+    }
     m_songTitle = QString::fromStdString(data[0].toStdString());
     m_songerName = QString::fromStdString(data[1].toStdString());
     m_songReleaseYear = data[2].toInt();
