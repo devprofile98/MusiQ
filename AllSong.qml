@@ -4,17 +4,18 @@ import QtQuick.Controls.Material 2.3
 import SongFinder 1.0
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.12
+import QtQuick.Layouts 1.3
 
 Rectangle{
     id:mainrect
     function nextSong(){
         songmodel.next()
-//        DataModel.extractSongInfo(listvi.currentIndex)
+        //        DataModel.extractSongInfo(listvi.currentIndex)
 
     }
     function preSong(){
         songmodel.previous()
-//        DataModel.extractSongInfo(listvi.currentIndex)
+        //        DataModel.extractSongInfo(listvi.currentIndex)
 
     }
     function play(){
@@ -200,19 +201,21 @@ Rectangle{
                 onClicked: {}
             }
 
-            Row{
-                spacing: 50
+            RowLayout{
+                spacing: 10
                 width: parent.width
                 height: parent.height
-                leftPadding: 10
 
                 property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
                 Rectangle{
                     id:thumbrect
-                    height: parent.height -10
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
+                    //                    height: parent.height -10
+                    Layout.preferredHeight: parent.height -10
+                    Layout.preferredWidth: height
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.leftMargin: 5
+                    //                    anchors.verticalCenter: parent.verticalCenter
                     color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 5
 
@@ -244,30 +247,34 @@ Rectangle{
                 }
 
                 Label{
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: thumbrect.right
+                    //                    anchors.verticalCenter: parent.verticalCenter
+                    //                    Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
+                    //                    anchors.left: thumbrect.right
+                    Layout.fillWidth: implicitWidth
 
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: antapan.name
                     }
                     color: "white"
-                    anchors.leftMargin: 10
+                    //                    anchors.leftMargin: 10
                 }
 
                 MouseArea{
                     anchors.fill: parent
+
                     onClicked: {
                         if (mainwindow.isPlaying === true){
                             playBtnIconChanged()
                         }
-//                        listvi.currentIndex = model.index
+                        //                        listvi.currentIndex = model.index
                         playlistindex = model.index
                         currentpath = model.path
                         endPosition = model.duration
                         songmodel.play(model.path,model.index);
                         mainrect.duration()
-//                        DataModel.extractSongInfo(model.index);
+                        //                        DataModel.extractSongInfo(model.index);
 
                         isPlaying : true
                     }

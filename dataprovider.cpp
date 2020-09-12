@@ -12,6 +12,7 @@ QVariant DataProvider::get_id3v2_tag(qint64 id,uint request_type)
             return QStringList();
 
         TagLib::ID3v2::Tag* tag = audiofile.ID3v2Tag(true);
+
         QStringList info;
         info << tag->title().toCString()        // song title
              << tag->artist().toCString()       // song artist
