@@ -77,7 +77,7 @@ Rectangle{
     function playPauseFromAllSong(){
 
         ppbtn.text = "\uf28b"
-
+        mainwindow.isPlaying =!mainwindow.isPlaying
     }
 
 

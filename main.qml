@@ -76,7 +76,7 @@ ApplicationWindow {
             text:"X"
             anchors.centerIn: parent
             font.bold: true
-            font.pixelSize: 18
+            font.pixelSize: 15
             color: "#855dd4"
         }
 

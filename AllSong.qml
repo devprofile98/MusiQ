@@ -9,10 +9,16 @@ import QtQuick.Layouts 1.3
 Rectangle{
     id:mainrect
     function nextSong(){
+        if (mainwindow.isPlaying === true){
+            playBtnIconChanged()
+        }
         songmodel.next()
 
     }
     function preSong(){
+        if (mainwindow.isPlaying === true){
+            playBtnIconChanged()
+        }
         songmodel.previous()
 
     }
@@ -245,21 +251,13 @@ Rectangle{
                 }
 
                 Label{
-                    //                    anchors.verticalCenter: parent.verticalCenter
-                    //                    Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
-                    //                    anchors.left: thumbrect.right
                     Layout.fillWidth: implicitWidth
-//                    wrapMode: Text.WordWrap
-//                    elide: Text.ElideMiddle
-//                    maximumLineCount: 1
-//                     NumberAnimation on x { running: true; from: 0; to: -parent.width; duration: 3000; loops: Animation.Infinite }
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: antapan.name
                     }
                     color: "white"
-                    //                    anchors.leftMargin: 10
                 }
 
                 MouseArea{
@@ -269,15 +267,13 @@ Rectangle{
                         if (mainwindow.isPlaying === true){
                             playBtnIconChanged()
                         }
-                        //                        listvi.currentIndex = model.index
                         playlistindex = model.index
                         currentpath = model.path
                         endPosition = model.duration
                         songmodel.play(model.path,model.index);
                         mainrect.duration()
-                        //                        DataModel.extractSongInfo(model.index);
 
-                        isPlaying : true
+//                        isPlaying : true
                     }
                 }
             }

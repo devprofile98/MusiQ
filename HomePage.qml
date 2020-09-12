@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 Page{
     property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
-    property real elementSize: 220
+    property real elementSize: 200
     id: mainView
     clip: true
     background: Rectangle{
@@ -53,7 +53,7 @@ Page{
                 radius: 10
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: 20
-                width: mostplayed.currentIndex === model.index ?elementSize+20 : elementSize
+                width: mostplayed.currentIndex === model.index ?elementSize+14 : elementSize
                 height: width
                 color:mainView.colors[Math.floor(Math.random()*6)]
 
@@ -81,7 +81,7 @@ Page{
             Layout.fillWidth: true
             Layout.preferredHeight: elementSize //mainView.width/5
             Layout.margins: 20
-            Layout.topMargin: 40
+            Layout.topMargin: 20
             orientation: ListView.Horizontal
             model:4
             spacing: 10
