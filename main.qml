@@ -20,7 +20,10 @@ ApplicationWindow {
     title: qsTr("MusiQ")
     Material.theme: Material.Dark
     Material.background:  "#3d3d3a"
-//    flags: Qt.FramelessWindowHint
+    flags:  Qt.FramelessWindowHint
+//    flags: /*Qt.FramelessWindowHint |*/
+////           Qt.WindowMinimizeButtonHint |
+//           Qt.Window
 
 
     onWidthChanged: {
@@ -56,6 +59,59 @@ ApplicationWindow {
 
     property bool isPlaying: false
 
+    Rectangle{
+        id:closebtn
+        width: 20
+        height: width
+        color:"#242323"
+//        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.right: allsong.right
+
+        z:10
+        radius: 3
+        anchors.margins: 5
+
+        Label{
+            text:"X"
+            anchors.centerIn: parent
+            font.bold: true
+            font.pixelSize: 18
+            color: "#855dd4"
+        }
+
+        MouseArea{
+            anchors.fill: parent
+            onClicked: Qt.quit()
+        }
+    }
+    Rectangle{
+        id:minimizebtn
+        width: 20
+        height: width
+        color:"#242323"
+//        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.right: closebtn.left
+
+        z:10
+        radius: 3
+        anchors.margins: 5
+
+        Label{
+            text:"-"
+            anchors.centerIn: parent
+            font.bold: true
+            font.pixelSize: 18
+            color: "#855dd4"
+        }
+
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {mainwindow.width = 500;mainwindow.height=500}
+
+        }
+    }
 
     SettingAndPrefrences{
         id:sap
@@ -126,8 +182,9 @@ ApplicationWindow {
         anchors.right: allsong.left
         anchors.left: sap.right
         anchors.bottom: controller.top
-        anchors.top: parent.top
+        anchors.top: closebtn.bottom
         anchors.margins: 20
+        anchors.topMargin: 5
 
         initialItem: homepage
         pushEnter: Transition {
@@ -196,7 +253,12 @@ ApplicationWindow {
     AllSong{
         id:allsong
         anchors.right: parent.right
+        anchors.top: closebtn.bottom
+        anchors.bottom: controller.top
         height: parent.height - 130
+        anchors.margins: 20
+        anchors.topMargin: 5
+
         Component.onCompleted: {
             onDuration: controller.durationToText()
             playBtnIconChanged.connect(controller.playPauseFromAllSong)

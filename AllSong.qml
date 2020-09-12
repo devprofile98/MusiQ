@@ -10,12 +10,10 @@ Rectangle{
     id:mainrect
     function nextSong(){
         songmodel.next()
-        //        DataModel.extractSongInfo(listvi.currentIndex)
 
     }
     function preSong(){
         songmodel.previous()
-        //        DataModel.extractSongInfo(listvi.currentIndex)
 
     }
     function play(){
@@ -251,7 +249,10 @@ Rectangle{
                     //                    Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
                     //                    anchors.left: thumbrect.right
                     Layout.fillWidth: implicitWidth
-
+//                    wrapMode: Text.WordWrap
+//                    elide: Text.ElideMiddle
+//                    maximumLineCount: 1
+//                     NumberAnimation on x { running: true; from: 0; to: -parent.width; duration: 3000; loops: Animation.Infinite }
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{

@@ -273,11 +273,7 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            //                            isPlaying = true
                             allsong.preSong()
-
-                            //                            tools.m_pauseRequested()
-
                         }
                     }
                     anchors.right: ppbtn.left
@@ -317,7 +313,6 @@ Rectangle{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            //                            isPlaying = true
                             allsong.nextSong()
                         }
                     }
