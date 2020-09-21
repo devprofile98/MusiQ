@@ -26,9 +26,6 @@
 #include <mp4/mp4coverart.h>
 
 
-
-
-
 //#include <QtAndroidExtras>
 //#include <QtAndroid>
 

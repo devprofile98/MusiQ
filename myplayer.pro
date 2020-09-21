@@ -77,15 +77,14 @@ windows{
 
 android{
     QT+=androidextras
+    message("compiling for android")
+    LIBS+=-L/home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android -ltag
 
 }
 
 
 
-
-
-
-
+message($${PRO_PATH})
 
 
 
