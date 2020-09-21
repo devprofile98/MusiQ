@@ -177,7 +177,7 @@ Rectangle{
         width:parent.width - 40
         height: parent.height - 45
         anchors.top: labelrect.bottom
-        anchors.bottomMargin: 5
+        
         anchors.horizontalCenter: parent.horizontalCenter
         model: Songfinder{
             id:songmodel

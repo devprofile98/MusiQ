@@ -31,16 +31,19 @@ ApplicationWindow {
             sap.state = "desktop_mode";
             allsong.state = "desktop_mode";
             controller.state = "desktop_mode";
+            fullscreenplayer.state="desktop_mode"
         }
         else if (width <= 1000 && width >700 ){
             sap.state = "middle_mode";
             allsong.state ="middle_mode";
             controller.state ="middle_mode";
+            fullscreenplayer.state="middle_mode"
         }
         else{
             sap.state = "mobile_mode";
             allsong.state = "mobile_mode";
             controller.state = "mobile_mode";
+            fullscreenplayer.state="mobile_mode"
             closebtn.visible = false;
             closebtn.width=0;
             minimizebtn.visible = false;

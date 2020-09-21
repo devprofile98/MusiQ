@@ -22,13 +22,23 @@ Rectangle
                 target: songCover
                 width: mainrect.width/2
             }
+            PropertyChanges {
+                target: fullscreenimage
+                width:songCover.width/2
+                anchors.centerIn: songCover
+                height:width
+            }
+            AnchorChanges{
+                target:songCover
+                anchors.left:undefind
+                anchors.right:undefind
+            }
         },
         State {
             name: "middle_mode"
             PropertyChanges {
                 target: songCover
                 width: mainrect.width/2
-
             }
         },
         State {
@@ -48,21 +58,11 @@ Rectangle
                 height:width
             }
 
-            //            AnchorChanges{
-            //                target: prevbtn
-            //                anchors.left:fullscreenimage.right
-            //                anchors.top:fullscreenimage.bottom
-            //            }
-            //            AnchorChanges{
-            //                target: nextbtn
-            //                anchors.right: fullscreenimage.left
-            //                anchors.top:fullscreenimage.bottom
-            //            }
         }
 
     ]
 
-    state: "mobile_mode"
+    state: "desktop_mode"
 
 
     Image
