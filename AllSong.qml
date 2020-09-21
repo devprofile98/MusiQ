@@ -101,7 +101,8 @@ Rectangle{
             AnchorChanges {
                 target: mainrect
                 //                anchors.right: parent.right
-                anchors.left: parent.left
+//                anchors.left: parent.left
+                anchors.left: sap.right
             }
             PropertyChanges {
                 target: mainrect

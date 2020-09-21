@@ -148,6 +148,12 @@ Rectangle{
                 width:0
 
             }
+            PropertyChanges {
+                target: thumbnailinfo
+                visible:false
+                width:0
+
+            }
 
         }
     ]
