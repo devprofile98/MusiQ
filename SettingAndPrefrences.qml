@@ -26,6 +26,11 @@ Rectangle{
                 iconsize: root.width/4
 
             }
+            PropertyChanges {
+                target: highlite
+                width:8
+
+            }
         },
         State{
             name:"mobile_mode"
@@ -35,6 +40,11 @@ Rectangle{
                 btnsize:50
                 iconsize: 20
             }
+            PropertyChanges {
+                target: highlite
+                width:6
+
+            }
         },
         State{
             name:"middle_mode"
@@ -43,7 +53,10 @@ Rectangle{
                 width:90
                 btnsize:100
                 iconsize: root.width/4
-
+            }
+            PropertyChanges {
+                target: highlite
+                width:8
 
             }
         }

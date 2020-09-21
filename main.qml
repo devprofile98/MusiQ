@@ -41,6 +41,10 @@ ApplicationWindow {
             sap.state = "mobile_mode";
             allsong.state = "mobile_mode";
             controller.state = "mobile_mode";
+            closebtn.visible = false;
+            closebtn.width=0;
+            minimizebtn.visible = false;
+            minimizebtn.width=0;
         }
     }
 

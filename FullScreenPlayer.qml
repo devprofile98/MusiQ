@@ -15,6 +15,56 @@ Rectangle
 
     property int pbarleftx: allsong.passed / allsong.endPosition
 
+    states:[
+        State {
+            name: "desktop_mode"
+            PropertyChanges {
+                target: songCover
+                width: mainrect.width/2
+            }
+        },
+        State {
+            name: "middle_mode"
+            PropertyChanges {
+                target: songCover
+                width: mainrect.width/2
+
+            }
+        },
+        State {
+            name: "mobile_mode"
+            PropertyChanges {
+                target: songCover
+                width: mainrect.width
+                anchors.right: mainrect.right
+                anchors.left: mainrect.left
+                anchors.leftMargin: 30
+                anchors.rightMargin: 30
+
+            }
+            PropertyChanges {
+                target: fullscreenimage
+                width:songCover.width
+                height:width
+            }
+
+            //            AnchorChanges{
+            //                target: prevbtn
+            //                anchors.left:fullscreenimage.right
+            //                anchors.top:fullscreenimage.bottom
+            //            }
+            //            AnchorChanges{
+            //                target: nextbtn
+            //                anchors.right: fullscreenimage.left
+            //                anchors.top:fullscreenimage.bottom
+            //            }
+        }
+
+    ]
+
+    state: "mobile_mode"
+
+
     Image
     {
         id: background
@@ -25,12 +75,12 @@ Rectangle
 
     Rectangle
     {
+        id: songCover
         width: parent.width/2
         height: parent.height
-        color: "image://imageprovider/"+allsong.playlistindex ? "transparent" : "orange"
-        radius: 20
+        color: fullscreenimage.source ? "transparent" : "orange"
+        radius: 15
         anchors.left: parent.left
-        id: songCover
         clip: true
         z:3
 
@@ -45,7 +95,6 @@ Rectangle
             }
 
             anchors.centerIn: parent
-            //            z:2
             fillMode: Image.PreserveAspectCrop
             layer.enabled: true
             layer.effect: OpacityMask
@@ -55,13 +104,11 @@ Rectangle
             MouseArea
             {
                 anchors.fill: fullscreenimage
-                onClicked: mask.radius == 20 ? mask.radius = 0 : mask.radius = 20
+                onClicked: mask.radius == 15 ? mask.radius = 0 : mask.radius = 15
                 z:5
             }
-
-
-
         }
+
         Rectangle
         {
             id: mask
@@ -85,6 +132,7 @@ Rectangle
         Rectangle
         {
             z:4
+            visible: false
             id: songinformation
             width: 200
             height: fullscreenimage.height
@@ -200,73 +248,87 @@ Rectangle
         }
 
         Label{
-
+            id:nextbtn
             anchors
             {
-                left: fullscreenimage.right
-                bottom: fullscreenimage.bottom
-                margins: 20
+                right: fullscreenimage.right
+                top: fullscreenimage.bottom
+                topMargin:25
+                rightMargin:25
             }
-
-            padding: 10
 
             font
             {
                 family: solidfont.name
-                pixelSize:13
+                pixelSize:18
             }
+
+            padding: 5
 
             background: Rectangle
             {
+                height:parent.height
+                width:height
+
                 color: "#3d3d3a"
                 opacity: 0.4
-                radius: parent.width/2
+                radius: 5
 
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        allsong.nextSong();
+                        //                    DataModel.extractSongInfo(allsong.playlistindex);
+                    }
+                }
             }
 
             text: "\uf051"
 
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    allsong.nextSong();
-//                    DataModel.extractSongInfo(allsong.playlistindex);
-                }
-            }
+
         }
 
 
         Label{
+            id:prevbtn
             anchors
             {
-                right: fullscreenimage.left
-                bottom: fullscreenimage.bottom
-                margins: 20
-
+                left: fullscreenimage.left
+                top: fullscreenimage.bottom
+                topMargin:25
+                leftMargin:25
             }
-            padding: 10
+
+            padding: 5
+
             font{
                 family: solidfont.name
-                pixelSize:13
+                pixelSize:18
             }
 
             background: Rectangle
             {
+
+                height:parent.height
+                width:height
+
                 color: "#3d3d3a"
                 opacity: 0.4
-                radius: parent.width/2
-            }
-            text: "\uf048"
-            MouseArea{
-                anchors.fill: parent
-                onClicked:
-                {
-                    allsong.preSong();
-//                    DataModel.extractSongInfo(allsong.playlistindex);
+                radius: 5
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        allsong.preSong();
+                        //                    DataModel.extractSongInfo(allsong.playlistindex);
+                    }
                 }
             }
+            z:1000
+            text: "\uf048"
+
 
         }
 
@@ -275,10 +337,12 @@ Rectangle
 
     Rectangle
     {
-        width: 90
-        height: 90
+        width: 30
+        height: 30
+        anchors.margins: 10
         z:2
-        color: "transparent"
+        color: Qt.rgba(100,100,100,0.4)
+        radius: 8
         anchors
         {
             top: parent.top
@@ -293,7 +357,7 @@ Rectangle
             {
                 family: solidfont.name
                 bold:true
-                pixelSize: parent.width/5
+                pixelSize: 18
             }
         }
 
