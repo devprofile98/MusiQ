@@ -32,18 +32,21 @@ ApplicationWindow {
             allsong.state = "desktop_mode";
             controller.state = "desktop_mode";
             fullscreenplayer.state="desktop_mode"
+            mainstackview.state="desktop_mode"
         }
         else if (width <= 1000 && width >700 ){
             sap.state = "middle_mode";
             allsong.state ="middle_mode";
             controller.state ="middle_mode";
             fullscreenplayer.state="middle_mode"
+            mainstackview.state = "middle_mode";
         }
         else{
             sap.state = "mobile_mode";
             allsong.state = "mobile_mode";
             controller.state = "mobile_mode";
             fullscreenplayer.state="mobile_mode"
+            mainstackview.state = "mobile_mode";
             closebtn.visible = false;
             closebtn.width=0;
             minimizebtn.visible = false;
@@ -193,6 +196,47 @@ ApplicationWindow {
         anchors.margins: 20
         anchors.topMargin: 5
 
+        states:[
+            State {
+                name: "desktop_mode"
+                PropertyChanges {
+                    target: mainstackview
+
+                }
+                AnchorChanges{
+                    target: mainstackview
+                    anchors.right: allsong.left
+
+
+                }
+            },
+            State {
+                name: "middle_mode"
+                PropertyChanges {
+                    target: mainstackview
+                }
+                AnchorChanges{
+                    target: mainstackview
+                    anchors.right: allsong.left
+
+                }
+            },
+            State {
+                name: "mobile_mode"
+                PropertyChanges {
+                    target: mainstackview
+                    visible:sap.listCurrentIndex !== 0
+                }
+                AnchorChanges{
+                    target: mainstackview
+                    anchors.right: controller.right
+                }
+            }
+
+        ]
+
+        state:"desktop_mode"
+
         initialItem: homepage
         pushEnter: Transition {
                  PropertyAnimation {
@@ -255,6 +299,9 @@ ApplicationWindow {
 
     HomePage{
         id:homepage
+    }
+    SettingPage{
+        id:settingpage
     }
 
     AllSong{

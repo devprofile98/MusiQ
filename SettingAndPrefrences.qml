@@ -11,6 +11,7 @@ Rectangle{
     property color btncolor: "#855dd4" //"#7f05e3"
     property int btnsize: 100
     property int iconsize: width/4
+    property int listCurrentIndex: 0
     id:root
     color: "#3d3d3a"
     width: parent.width
@@ -74,7 +75,22 @@ Rectangle{
 
         }
     ]
+    Rectangle{
+        width: btnsize; height: btnsize
+        color: "transparent"
+        anchors.horizontalCenter: parent.horizontalCenter
+        Label{
+            anchors.centerIn: parent
+            font.family: solidfont.name
+            text: "\uf013"
+            font.pixelSize: iconsize
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {mainstackview.replace(settingpage);listCurrentIndex= -1;}
 
+        }
+    }
 
     TabBar{
         id:sandp
@@ -129,7 +145,7 @@ Rectangle{
 
             onClicked: {
                 highlite.y= inseq*root.btnsize +root.btnsize/4
-
+                listCurrentIndex=0;
                 if (mainstackview.currentItem != homepage){
                     mainstackview.replace(homepage)
                 }
@@ -168,7 +184,7 @@ Rectangle{
             onClicked: {
 //                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
-
+                listCurrentIndex=1;
 
             }
         }
@@ -201,6 +217,7 @@ Rectangle{
             onClicked: {
 //                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=2;
 
             }
         }
@@ -234,6 +251,7 @@ Rectangle{
             onClicked: {
 //                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=3;
 
             }
         }
@@ -267,7 +285,7 @@ Rectangle{
             onClicked: {
 //                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
-
+                listCurrentIndex=4;
                 mainstackview.replace(timing)
             }
         }

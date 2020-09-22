@@ -8,6 +8,7 @@ import QtQuick.Layouts 1.3
 
 Rectangle{
     id:mainrect
+
     function nextSong(){
         if (mainwindow.isPlaying === true){
             playBtnIconChanged()
@@ -75,6 +76,7 @@ Rectangle{
                 target: mainrect
                 //                anchors.right: parent.right
                 anchors.left: undefined
+                anchors.right: controller.right
             }
             PropertyChanges {
                 target: mainrect
@@ -88,6 +90,7 @@ Rectangle{
                 target: mainrect
                 //                anchors.right: parent.right
                 anchors.left: undefined
+                anchors.right: controller.right
             }
             PropertyChanges {
                 target: mainrect
@@ -107,9 +110,13 @@ Rectangle{
                 anchors.right:mainwindow.right
                 anchors.top:sap.top
 
+
             }
             PropertyChanges {
                 target: mainrect
+                visible:sap.listCurrentIndex === 0;
+
+
                 anchors.leftMargin: 15
                 anchors.topMargin: 0
                 anchors.bottomMargin: 15
