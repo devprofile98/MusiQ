@@ -27,6 +27,8 @@ Rectangle{
         songmodel.playIndex()
     }
     function pause(){
+//        mainwindow.isPlaying = !mainwindow.isPlaying
+//        playBtnIconChanged();
         songmodel.pause()
     }
     function getPath(){
