@@ -42,6 +42,8 @@ int main(int argc, char *argv[])
 
 
 #ifdef Q_OS_ANDROID
+        QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
+
         auto result = QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE"));
         if (result == QtAndroid::PermissionResult::Denied){
         qDebug()<<"dont have permission";
