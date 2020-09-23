@@ -1,6 +1,5 @@
 QT += quick multimedia quickcontrols2
 
-
 CONFIG += c++17
 
 

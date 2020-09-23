@@ -30,8 +30,8 @@ Rectangle
             }
             AnchorChanges{
                 target:songCover
-                anchors.left:undefind
-                anchors.right:undefind
+                anchors.left: undefined
+                anchors.right:undefined
             }
         },
         State {
@@ -39,6 +39,11 @@ Rectangle
             PropertyChanges {
                 target: songCover
                 width: mainrect.width/2
+            }
+            AnchorChanges{
+                target:songCover
+                anchors.left: undefined
+                anchors.right:undefined
             }
         },
         State {
@@ -80,7 +85,6 @@ Rectangle
         height: parent.height
         color: fullscreenimage.source ? "transparent" : "orange"
         radius: 15
-        anchors.left: parent.left
         clip: true
         z:3
 

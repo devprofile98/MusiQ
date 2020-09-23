@@ -491,11 +491,12 @@ Rectangle{
         //progress bar
         Row{
             id:pbarlayout
-            anchors.leftMargin: 200
+//            anchors.leftMargin: 200
+            Layout.leftMargin: 200
             height: 90
             width: height*10
-            anchors.left: controlpanel.right
-
+//            anchors.left: controlpanel.right
+            Layout.alignment: Qt.AlignLeft
             //Label for progres
             Label{
                 text: passedToText()
@@ -544,9 +545,12 @@ Rectangle{
 
         Label{
             id:fullscrbtn
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.rightMargin: parent.height/4
+//            anchors.right: parent.right
+//            anchors.verticalCenter: parent.verticalCenter
+//            anchors.rightMargin: parent.height/4
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+            Layout.rightMargin: parent.height/4
+
 
             text:"\uf102"
 

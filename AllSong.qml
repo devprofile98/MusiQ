@@ -217,7 +217,7 @@ Rectangle{
 
         delegate: Rectangle{
             height: 70
-            width: parent.width
+            width: listvi.width
             radius: 10
             color:  "transparent" //model.selected ? "#3d3d3a" :
             MouseArea{
@@ -283,6 +283,7 @@ Rectangle{
 
                 MouseArea{
                     anchors.fill: parent
+
 
                     onClicked: {
                         if (mainwindow.isPlaying === true){

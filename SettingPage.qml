@@ -1,11 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
+
 Rectangle{
     id:mainrect
     visible: false
     radius: 10
-    anchors.fill: parent
+//    anchors.fill: parent
     color: Qt.rgba(61,61, 58,0.05)
     //    color:"/*red*/"
     clip:true
@@ -101,4 +103,6 @@ Rectangle{
         }
 
     }
+
+
 }

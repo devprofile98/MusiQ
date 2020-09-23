@@ -45,6 +45,7 @@ Page{
             currentIndex: 4
             Layout.fillWidth: true
             Layout.preferredHeight: elementSize //mainView.width/5
+            Layout.alignment: Qt.AlignVCenter
             Layout.margins: 20
             Layout.topMargin: 40
             orientation: ListView.Horizontal
@@ -52,7 +53,7 @@ Page{
             spacing: 10
             delegate: Rectangle{
                 radius: 10
-                anchors.verticalCenter: parent.verticalCenter
+//                anchors.verticalCenter: mostplayed.verticalCenter
                 anchors.margins: 20
                 width: mostplayed.currentIndex === model.index ?elementSize+14 : elementSize
                 height: width
@@ -81,6 +82,7 @@ Page{
             currentIndex: 2
             Layout.fillWidth: true
             Layout.preferredHeight: elementSize //mainView.width/5
+            Layout.alignment: Qt.AlignVCenter
             Layout.margins: 20
             Layout.topMargin: 20
             orientation: ListView.Horizontal
@@ -88,8 +90,9 @@ Page{
             spacing: 10
             delegate: Rectangle{
                 radius: 10
-                anchors.verticalCenter: parent.verticalCenter
+//                anchors.verticalCenter: queue.verticalCenter
                 anchors.margins: 20
+                anchors.topMargin: 0
                 width: queue.currentIndex === model.index ?elementSize+20 : elementSize
                 height: width
                 color:mainView.colors[Math.floor(Math.random()*6)]

@@ -10,11 +10,11 @@
 #include <QQuickStyle>
 #include <QDebug>
 #include <QScopedPointer>
+#include <QSGRendererInterface>
+#include <QQuickView>
+
 #include "liveimageprovider.h"
 #include"dataprovider.h"
-
-
-
 
 #include<fileref.h>
 #include<tag.h>
@@ -25,26 +25,37 @@
 #include <mp4/mp4tag.h>
 #include <mp4/mp4coverart.h>
 
+#ifdef Q_OS_ANDROID
+    #include <QtAndroidExtras>
+    #include <QtAndroid>
+#endif
 
-//#include <QtAndroidExtras>
-//#include <QtAndroid>
 
 int main(int argc, char *argv[])
 {
     QThread::currentThread()->setObjectName("Main Thread");
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-//    auto result = QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE"));
-//    if (result == QtAndroid::PermissionResult::Denied){
-//    qDebug()<<"dont have permission";
-//    QtAndroid::PermissionResultMap resulthash = QtAndroid::requestPermissionsSync(QStringList({"android.permission.READ_EXTERNAL_STORAGE"}));
-//    if(resulthash["android.permission.READ_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied){
-//        return 0;
-//    }
-//    }
-//    else{
-//        qDebug()<<"have this permission";
-//    }
+//#ifdef Q_OS_WINDOWS
+//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
+//#endif
+
+
+#ifdef Q_OS_ANDROID
+        auto result = QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE"));
+        if (result == QtAndroid::PermissionResult::Denied){
+        qDebug()<<"dont have permission";
+        QtAndroid::PermissionResultMap resulthash = QtAndroid::requestPermissionsSync(QStringList({"android.permission.READ_EXTERNAL_STORAGE"}));
+        if(resulthash["android.permission.READ_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied){
+            return 0;
+        }
+        }
+        else{
+            qDebug()<<"have this permission";
+        }
+#endif
+
+
 //    tools tools;
     qmlRegisterType<songitemmodeler>("SongFinder",1,0,"Songfinder");
 

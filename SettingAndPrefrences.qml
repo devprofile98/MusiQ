@@ -96,6 +96,7 @@ Rectangle{
         id:sandp
         anchors.verticalCenter: parent.verticalCenter
         height:5* home.height
+        width: btnsize
         background: Rectangle{
             anchors.fill: parent
             color: "transparent"
