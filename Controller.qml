@@ -161,10 +161,6 @@ Rectangle{
     state:"desktop_mode"
 
 
-
-
-
-
     RowLayout{
         width:parent.width
         height:parent.height

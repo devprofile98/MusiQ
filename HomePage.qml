@@ -55,7 +55,7 @@ Page{
                 radius: 10
 //                anchors.verticalCenter: mostplayed.verticalCenter
                 anchors.margins: 20
-                width: mostplayed.currentIndex === model.index ?elementSize+14 : elementSize
+                width: mostplayed.currentIndex === model.index ?elementSize : elementSize
                 height: width
                 color:mainView.colors[Math.floor(Math.random()*6)]
 
@@ -93,7 +93,7 @@ Page{
 //                anchors.verticalCenter: queue.verticalCenter
                 anchors.margins: 20
                 anchors.topMargin: 0
-                width: queue.currentIndex === model.index ?elementSize+20 : elementSize
+                width: queue.currentIndex === model.index ?elementSize : elementSize
                 height: width
                 color:mainView.colors[Math.floor(Math.random()*6)]
 

@@ -97,7 +97,7 @@ Rectangle{
                 id:terminatetimer
                 running: false
                 onTriggered: {
-                    allsong.pause()
+                    controller.changeOnPlayBtnPressed(!mainwindow.isPlaying)
                 }
             }
         }

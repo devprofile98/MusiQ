@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.3
 import QtGraphicalEffects 1.0
 
@@ -14,19 +15,32 @@ Rectangle
     height: parent.height
 
     property int pbarleftx: allsong.passed / allsong.endPosition
-
+    property int iconsize: 18
     states:[
         State {
             name: "desktop_mode"
             PropertyChanges {
+                target: mainrect
+                iconsize:18
+            }
+            PropertyChanges {
                 target: songCover
                 width: mainrect.width/2
+            }
+            PropertyChanges {
+                target: songinformation
+                visible:true;
             }
             PropertyChanges {
                 target: fullscreenimage
                 width:songCover.width/2
                 anchors.centerIn: songCover
                 height:width
+            }
+            PropertyChanges {
+                target: controlrow
+                spacing:20
+
             }
             AnchorChanges{
                 target:songCover
@@ -37,8 +51,17 @@ Rectangle
         State {
             name: "middle_mode"
             PropertyChanges {
+                target: mainrect
+                iconsize:18
+            }
+            PropertyChanges {
                 target: songCover
                 width: mainrect.width/2
+            }
+            PropertyChanges {
+                target: controlrow
+                spacing:10
+
             }
             AnchorChanges{
                 target:songCover
@@ -49,6 +72,10 @@ Rectangle
         State {
             name: "mobile_mode"
             PropertyChanges {
+                target: mainrect
+                iconsize:14
+            }
+            PropertyChanges {
                 target: songCover
                 width: mainrect.width
                 anchors.right: mainrect.right
@@ -57,6 +84,13 @@ Rectangle
                 anchors.rightMargin: 30
 
             }
+
+            PropertyChanges {
+                target: controlrow
+                spacing:6
+
+            }
+
             PropertyChanges {
                 target: fullscreenimage
                 width:songCover.width
@@ -97,6 +131,16 @@ Rectangle
             source: "image://imageprovider/"+allsong.playlistindex
             onSourceChanged: {
             }
+            onStatusChanged: {
+                if(fullscreenimage.status === Image.Error || fullscreenimage.state === Image.Null){
+                    defaultCover.visible = true;
+                    console.log("from error status")
+                }
+                else{
+                    defaultCover.visible = false;
+                    console.log("from else status")
+                }
+            }
 
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectCrop
@@ -111,6 +155,20 @@ Rectangle
                 onClicked: mask.radius == 15 ? mask.radius = 0 : mask.radius = 15
                 z:5
             }
+        }
+
+        Rectangle{
+            id:defaultCover
+            width: fullscreenimage.width
+            height:fullscreenimage.height
+            radius: 20
+            visible: false
+            color: "#d3aaf2"
+            z:10
+            anchors{
+                fill:fullscreenimage
+            }
+
         }
 
         Rectangle
@@ -153,8 +211,6 @@ Rectangle
                 Label
                 {
                     padding: 5
-
-
                     text:"artist: "+ DataModel.songerName
                     font
                     {
@@ -162,20 +218,16 @@ Rectangle
                         bold:true
                     }
                     color: "white"
-
                     background: Rectangle
                     {
                         color: "#3d3d3a"
                         opacity: 0.4
                         radius: 4
-
                     }
-
-
                 }
+
                 Label{
                     padding: 5
-
                     text: "title: "+DataModel.songTitle
                     font
                     {
@@ -183,7 +235,6 @@ Rectangle
                         bold:true
                     }
                     color: "white"
-
                     background: Rectangle
                     {
                         color: "#3d3d3a"
@@ -194,7 +245,6 @@ Rectangle
                 }
                 Label{
                     padding: 5
-
                     text: "album: "+DataModel.albumName
                     font
                     {
@@ -213,14 +263,12 @@ Rectangle
                 }
                 Label{
                     padding: 5
-
                     text:"year: "+ DataModel.songReleaseYear
                     font{
                         pixelSize: 13
                         bold:true
                     }
                     color: "white"
-
                     background: Rectangle
                     {
                         color: "#3d3d3a"
@@ -238,7 +286,6 @@ Rectangle
                         bold:true
                     }
                     color: "white"
-
                     background: Rectangle
                     {
                         color: "#3d3d3a"
@@ -251,93 +298,163 @@ Rectangle
 
         }
 
-        Label{
-            id:nextbtn
-            anchors
-            {
-                right: fullscreenimage.right
+        RowLayout{
+            id:controlrow
+            width: implicitWidth //fullscreenimage.width
+            height: implicitHeight
+            anchors{
+                horizontalCenter: songCover.horizontalCenter
                 top: fullscreenimage.bottom
-                topMargin:25
-                rightMargin:25
+                topMargin: 25
             }
+            spacing: 20
 
-            font
-            {
-                family: solidfont.name
-                pixelSize:18
-            }
-
-            padding: 5
-
-            background: Rectangle
-            {
-                height:parent.height
-                width:height
-
-                color: "#3d3d3a"
-                opacity: 0.4
-                radius: 5
-
-                MouseArea
+            Label{
+                id:rptbtn
+//                anchors{
+//                    right: prevbtn.left
+//                    verticalCenter:ppbtn.verticalCenter
+//                    rightMargin: 25
+//                }
+                text:"\uf2f9"
+                padding:5
+                background: Rectangle
                 {
-                    anchors.fill: parent
-                    onClicked:
-                    {
-                        allsong.nextSong();
-                        //                    DataModel.extractSongInfo(allsong.playlistindex);
+
+                    height:parent.height
+                    width:height
+                    color: "#3d3d3a"
+                    opacity: 0.4
+                    radius: 5
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            allsong.changePlaybackMode();
+                        }
                     }
+                }
+
+                font{
+                    bold:true
+                    family:solidfont.name
+                    pixelSize: iconsize
                 }
             }
 
-            text: "\uf051"
+            Label{
+                id:prevbtn
+//                anchors
+//                {
+//                    right:ppbtn.left
+//                    verticalCenter:ppbtn.verticalCenter
+//                    rightMargin:25
+//                }
+                padding: 5
+                font{
+                    family: solidfont.name
+                    pixelSize:iconsize
+                }
+                background: Rectangle
+                {
+                    height:parent.height
+                    width:height
 
-
-        }
-
-
-        Label{
-            id:prevbtn
-            anchors
-            {
-                left: fullscreenimage.left
-                top: fullscreenimage.bottom
-                topMargin:25
-                leftMargin:25
+                    color: "#3d3d3a"
+                    opacity: 0.4
+                    radius: 5
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            allsong.preSong();
+                        }
+                    }
+                }
+                z:1000
+                text: "\uf048"
             }
 
-            padding: 5
+            Label{
+                id:ppbtn
+                font
+                {
+                    family: solidfont.name
+                    pixelSize:iconsize*3
+                }
+//                anchors{
+//                    topMargin: 25
+//                    horizontalCenter: fullscreenimage.horizontalCenter
+//                    top: fullscreenimage.bottom
+//                }
 
-            font{
-                family: solidfont.name
-                pixelSize:18
-            }
-
-            background: Rectangle
-            {
-
-                height:parent.height
-                width:height
-
-                color: "#3d3d3a"
-                opacity: 0.4
-                radius: 5
+                color: "white"
+                text: mainwindow.isPlaying ? "\uf144" : "\uf28b"
                 MouseArea{
                     anchors.fill: parent
-                    onClicked:
-                    {
-                        allsong.preSong();
-                        //                    DataModel.extractSongInfo(allsong.playlistindex);
-                    }
+                    onClicked: controller.changeOnPlayBtnPressed(!mainwindow.isPlaying)
                 }
             }
-            z:1000
-            text: "\uf048"
 
+            Label{
+                id:nextbtn
+//                anchors
+//                {
+//                    left: ppbtn.right
+//                    verticalCenter:ppbtn.verticalCenter
+//                    leftMargin:25
+//                }
+                font
+                {
+                    family: solidfont.name
+                    pixelSize:iconsize
+                }
+                padding: 5
+                background: Rectangle
+                {
+                    height:parent.height
+                    width:height
+                    color: "#3d3d3a"
+                    opacity: 0.4
+                    radius: 5
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            allsong.nextSong();
+                        }
+                    }
+                }
 
+                text: "\uf051"
+            }
+
+            Label{
+                id:shufflebtn
+//                anchors{
+//                    left: nextbtn.right
+//                    leftMargin: 25
+//                    verticalCenter: ppbtn.verticalCenter
+//                }
+                padding: 5
+                text:"\uf074"
+                font{
+                    bold:true
+                    family:solidfont.name
+                    pixelSize: iconsize
+                }
+                background: Rectangle
+                {
+                    height:parent.height
+                    width:height
+                    color: "#3d3d3a"
+                    opacity: 0.4
+                    radius: 5
+                }
+            }
         }
 
     }
-
 
     Rectangle
     {
@@ -345,7 +462,8 @@ Rectangle
         height: 30
         anchors.margins: 10
         z:2
-        color: Qt.rgba(100,100,100,0.4)
+        color: "#3d3d3a"
+        opacity: 0.4
         radius: 8
         anchors
         {
@@ -377,7 +495,6 @@ Rectangle
 
     }
 
-
     FastBlur
     {
         id:blur
@@ -386,7 +503,6 @@ Rectangle
         radius: 100
 
     }
-
 
     Colorize
     {

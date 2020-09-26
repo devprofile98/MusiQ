@@ -76,6 +76,7 @@ Rectangle{
         }
     ]
     Rectangle{
+//        property int inseq: 0
         width: btnsize; height: btnsize
         color: "transparent"
         anchors.horizontalCenter: parent.horizontalCenter
@@ -87,7 +88,12 @@ Rectangle{
         }
         MouseArea{
             anchors.fill: parent
-            onClicked: {mainstackview.replace(settingpage);listCurrentIndex= -1;}
+            onClicked: {
+                mainstackview.replace(settingpage);
+                listCurrentIndex= -1;
+                highlite.y= 0 + root.btnsize/4;
+
+            }
 
         }
     }
