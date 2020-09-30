@@ -54,6 +54,9 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         $$PWD/android
 }
 
+#ANDROID_EXTRA_LIBS=\
+#    /home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android/libtag.a
+
 PRO_PATH=$$PWD
 
 INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
@@ -80,8 +83,6 @@ android{
     LIBS+=-L/home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android -ltag
 
 }
-
-
 
 message($${PRO_PATH})
 

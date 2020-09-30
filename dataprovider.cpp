@@ -53,8 +53,8 @@ QVariant DataProvider::get_id3v2_tag(qint64 id,uint request_type)
             return image;
 
         return QImage();
-
     }
+    return QVariant();
 }
 
 
@@ -102,6 +102,28 @@ void DataProvider::extractSongInfo(qint64 id,uint request_type)
     emit songReleaseYearChanged(m_songReleaseYear);
     emit songGenreChanged(m_songGenre);
     emit albumNameChanged(m_albumName);
+}
+
+
+bool DataProvider::editSongInfo(int songid,QString singer_name, QString song_title, QString album_name,unsigned int release_year, QString genre)
+{
+    TagLib::MPEG::File audioFile( DataProvider::all_path[0][songid].toUtf8().toStdString().c_str());
+
+    if (!audioFile.hasID3v2Tag())
+        return false;
+
+    TagLib::ID3v2::Tag* tag = audioFile.ID3v2Tag(true);
+//    TagLib::ID3v2::FrameList l = tag->frameList("APIC");
+
+    tag->setAlbum(album_name.toStdString());
+    tag->setYear(release_year);
+    tag->setGenre(genre.toStdString());
+    tag->setTitle(song_title.toStdString());
+    tag->setArtist(singer_name.toStdString());
+
+    audioFile.save();
+    return true;
+
 }
 
 

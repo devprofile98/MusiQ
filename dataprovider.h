@@ -70,6 +70,7 @@ public:
 
     Q_INVOKABLE static QVariant access_manager(qint64 id,uint request_type = 0);
     Q_INVOKABLE void extractSongInfo(qint64 id,uint request_type = 0);
+    Q_INVOKABLE bool editSongInfo(int songid,QString singer_name, QString song_title, QString album_name,unsigned int release_year,QString genre);
 //    QImage extractSongImage(qint64 id);
 
     QString songerName() const;

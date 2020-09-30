@@ -13,6 +13,7 @@
         <file>TimingPage.qml</file>
         <file>HomePage.qml</file>
         <file>SettingPage.qml</file>
+        <file>SongInfoEditPage.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>

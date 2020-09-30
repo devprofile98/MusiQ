@@ -108,8 +108,8 @@ Rectangle
     {
         id: background
         source: "image://imageprovider/"+allsong.playlistindex
-        anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
+        anchors.fill: parent
     }
 
     Rectangle
@@ -311,11 +311,11 @@ Rectangle
 
             Label{
                 id:rptbtn
-//                anchors{
-//                    right: prevbtn.left
-//                    verticalCenter:ppbtn.verticalCenter
-//                    rightMargin: 25
-//                }
+                //                anchors{
+                //                    right: prevbtn.left
+                //                    verticalCenter:ppbtn.verticalCenter
+                //                    rightMargin: 25
+                //                }
                 text:"\uf2f9"
                 padding:5
                 background: Rectangle
@@ -343,12 +343,12 @@ Rectangle
 
             Label{
                 id:prevbtn
-//                anchors
-//                {
-//                    right:ppbtn.left
-//                    verticalCenter:ppbtn.verticalCenter
-//                    rightMargin:25
-//                }
+                //                anchors
+                //                {
+                //                    right:ppbtn.left
+                //                    verticalCenter:ppbtn.verticalCenter
+                //                    rightMargin:25
+                //                }
                 padding: 5
                 font{
                     family: solidfont.name
@@ -381,11 +381,11 @@ Rectangle
                     family: solidfont.name
                     pixelSize:iconsize*3
                 }
-//                anchors{
-//                    topMargin: 25
-//                    horizontalCenter: fullscreenimage.horizontalCenter
-//                    top: fullscreenimage.bottom
-//                }
+                //                anchors{
+                //                    topMargin: 25
+                //                    horizontalCenter: fullscreenimage.horizontalCenter
+                //                    top: fullscreenimage.bottom
+                //                }
 
                 color: "white"
                 text: mainwindow.isPlaying ? "\uf144" : "\uf28b"
@@ -397,12 +397,12 @@ Rectangle
 
             Label{
                 id:nextbtn
-//                anchors
-//                {
-//                    left: ppbtn.right
-//                    verticalCenter:ppbtn.verticalCenter
-//                    leftMargin:25
-//                }
+                //                anchors
+                //                {
+                //                    left: ppbtn.right
+                //                    verticalCenter:ppbtn.verticalCenter
+                //                    leftMargin:25
+                //                }
                 font
                 {
                     family: solidfont.name
@@ -431,11 +431,11 @@ Rectangle
 
             Label{
                 id:shufflebtn
-//                anchors{
-//                    left: nextbtn.right
-//                    leftMargin: 25
-//                    verticalCenter: ppbtn.verticalCenter
-//                }
+                //                anchors{
+                //                    left: nextbtn.right
+                //                    leftMargin: 25
+                //                    verticalCenter: ppbtn.verticalCenter
+                //                }
                 padding: 5
                 text:"\uf074"
                 font{
@@ -458,6 +458,7 @@ Rectangle
 
     Rectangle
     {
+        id:closedrawer
         width: 30
         height: 30
         anchors.margins: 10
@@ -492,6 +493,52 @@ Rectangle
                 fullscreenDrawer.close();
             }
         }
+
+    }
+    Rectangle
+    {
+        id:editbtn
+        width: 30
+        height: 30
+        anchors.margins: 10
+        z:2
+        color: "#3d3d3a"
+        opacity: 0.4
+        radius: 8
+        anchors
+        {
+            top: parent.top
+            right: closedrawer.left
+        }
+        Label
+        {
+            anchors.centerIn: parent
+
+            text: "edit"
+            font
+            {
+                family: solidfont.name
+                bold:true
+                pixelSize: 18
+            }
+        }
+
+
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                songinfoedit.open();
+            }
+        }
+
+    }
+
+    SongInfoEditPage
+    {
+        id:songinfoedit
+//        anchors.fill: parent
 
     }
 
