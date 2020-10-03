@@ -309,6 +309,29 @@ Rectangle{
                         pixelSize: parent.height/2
                     }
                 }
+                Canvas{
+                    id:durationslider
+                    function clearR(){
+                        var ctx = getContext("2d");
+                        ctx.clearRect(0,0,mainwindow.width,mainwindow.height);
+                    }
+                    anchors.fill: ppbtn
+                    anchors.centerIn: ppbtn.Center
+                    z:200
+                    onPaint: {
+                        var ctx = getContext("2d")
+                        ctx.fillStyle = "#f59869"
+                        //            ctx.arc(100, 100, 50, 0, 2 * Math.PI,true)
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.strokeStyle = "pink"
+                        ctx.lineWidth=5
+                        ctx.arc(100,100,50,0,2*Math.PI,true)
+                        //Number(slider.value)
+                        ctx.stroke();
+
+                    }
+                }
 
                 // next song button
                 Label{
@@ -487,11 +510,11 @@ Rectangle{
         //progress bar
         Row{
             id:pbarlayout
-//            anchors.leftMargin: 200
+            //            anchors.leftMargin: 200
             Layout.leftMargin: 200
             height: 90
             width: height*10
-//            anchors.left: controlpanel.right
+            //            anchors.left: controlpanel.right
             Layout.alignment: Qt.AlignLeft
             //Label for progres
             Label{
@@ -541,9 +564,9 @@ Rectangle{
 
         Label{
             id:fullscrbtn
-//            anchors.right: parent.right
-//            anchors.verticalCenter: parent.verticalCenter
-//            anchors.rightMargin: parent.height/4
+            //            anchors.right: parent.right
+            //            anchors.verticalCenter: parent.verticalCenter
+            //            anchors.rightMargin: parent.height/4
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             Layout.rightMargin: parent.height/4
 
