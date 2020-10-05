@@ -195,6 +195,7 @@ ApplicationWindow {
         anchors.top: closebtn.bottom
         anchors.margins: 20
         anchors.topMargin: 5
+        visible: true
 
         states:[
             State {

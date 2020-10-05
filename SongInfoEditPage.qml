@@ -21,6 +21,7 @@ Popup{
         anchors.fill: parent
         color: "#242323"
     }
+
     ColumnLayout{
         width: parent.width*(3/4)
         height: parent.height

@@ -107,13 +107,14 @@ Rectangle{
             PropertyChanges {
                 target: pbarlayout
                 anchors.leftMargin: 200
-
-
             }
             PropertyChanges {
                 target: thumbnailpic
                 visible:true
-
+            }
+            PropertyChanges {
+                target: durationcanvas
+                visible:false
             }
 
         },
@@ -129,6 +130,10 @@ Rectangle{
                 target: thumbnailpic
                 visible:true
 
+            }
+            PropertyChanges {
+                target: durationcanvas
+                visible:false
             }
 
         },
@@ -153,6 +158,10 @@ Rectangle{
                 visible:false
                 width:0
 
+            }
+            PropertyChanges {
+                target: durationcanvas
+                visible:true
             }
 
         }
@@ -268,10 +277,12 @@ Rectangle{
             Layout.preferredWidth: height*3
             Layout.leftMargin: 0 //height
 
+
             Row{
                 anchors.fill: parent
                 // previous song button
                 Label{
+                    id:prev
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
@@ -308,30 +319,9 @@ Rectangle{
                         family:solidfont.name
                         pixelSize: parent.height/2
                     }
-                }
-                Canvas{
-                    id:durationslider
-                    function clearR(){
-                        var ctx = getContext("2d");
-                        ctx.clearRect(0,0,mainwindow.width,mainwindow.height);
-                    }
-                    anchors.fill: ppbtn
-                    anchors.centerIn: ppbtn.Center
-                    z:200
-                    onPaint: {
-                        var ctx = getContext("2d")
-                        ctx.fillStyle = "#f59869"
-                        //            ctx.arc(100, 100, 50, 0, 2 * Math.PI,true)
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.strokeStyle = "pink"
-                        ctx.lineWidth=5
-                        ctx.arc(100,100,50,0,2*Math.PI,true)
-                        //Number(slider.value)
-                        ctx.stroke();
 
-                    }
                 }
+
 
                 // next song button
                 Label{
@@ -501,6 +491,32 @@ Rectangle{
                         bold:true
                         family:solidfont.name
                         pixelSize: parent.height/5
+                    }
+                }
+                Canvas{
+                    id:durationcanvas
+                    width: ppbtn.width+10
+                    height: ppbtn.height+10
+                    anchors.verticalCenter: ppbtn.verticalCenter
+                    anchors.horizontalCenter: ppbtn.horizontalCenter
+                    z:200
+
+                    onPaint: {
+                        var ctx = getContext("2d")
+                        ctx.fillStyle = "#f59869"
+                        //            ctx.arc(100, 100, 50, 0, 2 * Math.PI,true)
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.strokeStyle = "#855dd4"
+                        ctx.lineWidth=5
+                        ctx.arc(width/2, height/2, ppbtn.width/2+2.5,Math.PI,3*Math.PI,true)
+                        //Number(slider.value)
+                        ctx.stroke();
+
+                    }
+
+                    Component.onCompleted: {
+                        console.log(ppbtn.x, ppbtn.y,ppbtn.width,ppbtn.height)
                     }
                 }
 

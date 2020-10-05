@@ -155,6 +155,7 @@ Rectangle
                 onClicked: mask.radius == 15 ? mask.radius = 0 : mask.radius = 15
                 z:5
             }
+
         }
 
         Rectangle{
@@ -495,6 +496,8 @@ Rectangle
         }
 
     }
+
+
     Rectangle
     {
         id:editbtn
@@ -538,7 +541,7 @@ Rectangle
     SongInfoEditPage
     {
         id:songinfoedit
-//        anchors.fill: parent
+        //        anchors.fill: parent
 
     }
 
