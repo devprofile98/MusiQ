@@ -4,23 +4,31 @@ import QtQuick.Controls.Material 2.3
 import SongFinder 1.0
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.12
+import QtQuick.Layouts 1.3
 
 Rectangle{
     id:mainrect
+
     function nextSong(){
+        if (mainwindow.isPlaying === true){
+            playBtnIconChanged()
+        }
         songmodel.next()
-        DataModel.extractSongInfo(listvi.currentIndex)
 
     }
     function preSong(){
+        if (mainwindow.isPlaying === true){
+            playBtnIconChanged()
+        }
         songmodel.previous()
-        DataModel.extractSongInfo(listvi.currentIndex)
 
     }
     function play(){
         songmodel.playIndex()
     }
     function pause(){
+//        mainwindow.isPlaying = !mainwindow.isPlaying
+//        playBtnIconChanged();
         songmodel.pause()
     }
     function getPath(){
@@ -29,8 +37,8 @@ Rectangle{
     function setSongPos(value){
         songmodel.m_setPosition(value)
     }
-    function changePlaybackMode(value){
-        songmodel.m_ChangePlaybackMode(value);
+    function changePlaybackMode(mode){
+        songmodel.m_ChangePlaybackMode(mode);
     }
 
 
@@ -62,6 +70,7 @@ Rectangle{
     anchors.leftMargin: 20
     anchors.right: parent.right
 
+
     states:[
         State {
             name: "desktop_mode"
@@ -69,6 +78,7 @@ Rectangle{
                 target: mainrect
                 //                anchors.right: parent.right
                 anchors.left: undefined
+                anchors.right: controller.right
             }
             PropertyChanges {
                 target: mainrect
@@ -82,6 +92,7 @@ Rectangle{
                 target: mainrect
                 //                anchors.right: parent.right
                 anchors.left: undefined
+                anchors.right: controller.right
             }
             PropertyChanges {
                 target: mainrect
@@ -96,13 +107,27 @@ Rectangle{
             AnchorChanges {
                 target: mainrect
                 //                anchors.right: parent.right
-                anchors.left: parent.left
+//                anchors.left: parent.left
+                anchors.left: sap.right
+                anchors.right:mainwindow.right
+                anchors.top:sap.top
+
+
             }
             PropertyChanges {
                 target: mainrect
-                anchors.leftMargin: 20
+                visible:sap.listCurrentIndex === 0;
 
 
+                anchors.leftMargin: 15
+                anchors.topMargin: 0
+                anchors.bottomMargin: 15
+                anchors.rightMargin: 15
+
+            }
+
+            PropertyChanges {
+                target:mainrect
             }
 
         }
@@ -149,8 +174,8 @@ Rectangle{
             y: listvi.currentItem.y
             Behavior on y {
                 SpringAnimation {
-                    spring: 3
-                    damping: 0.2
+                    spring: 4
+                    damping: 0.3
                 }
             }
         }
@@ -161,19 +186,23 @@ Rectangle{
         width:parent.width - 40
         height: parent.height - 45
         anchors.top: labelrect.bottom
+        
         anchors.horizontalCenter: parent.horizontalCenter
         model: Songfinder{
             id:songmodel
             onSongchanged: {
                 listvi.currentIndex = index;
-                console.log("THE INDEX IS ",index)
                 playlistindex = index
+                console.log("from listview model index is ",index)
                 DataModel.extractSongInfo(index)
             }
 
             onDurationChanged: {
                 endPosition = value;
                 controller.durationToText();
+            }
+            onPlaybackmodeChanged: {
+                controller.playbackmode = playbackmode;
             }
 
         }
@@ -188,28 +217,30 @@ Rectangle{
 
         delegate: Rectangle{
             height: 70
-            width: parent.width
+            width: listvi.width
             radius: 10
-            color: model.selected ? "#3d3d3a" : "transparent"
+            color:  "transparent" //model.selected ? "#3d3d3a" :
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {}
             }
 
-            Row{
-                spacing: 50
+            RowLayout{
+                spacing: 10
                 width: parent.width
                 height: parent.height
-                leftPadding: 10
 
                 property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
                 Rectangle{
                     id:thumbrect
-                    height: parent.height -10
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
+                    //                    height: parent.height -10
+                    Layout.preferredHeight: parent.height -10
+                    Layout.preferredWidth: height
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.leftMargin: 5
+                    //                    anchors.verticalCenter: parent.verticalCenter
                     color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 5
 
@@ -241,32 +272,30 @@ Rectangle{
                 }
 
                 Label{
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: thumbrect.right
-
+                    Layout.fillWidth: implicitWidth
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: antapan.name
                     }
                     color: "white"
-                    anchors.leftMargin: 10
                 }
 
                 MouseArea{
                     anchors.fill: parent
+
+
                     onClicked: {
                         if (mainwindow.isPlaying === true){
                             playBtnIconChanged()
                         }
-//                        listvi.currentIndex = model.index
                         playlistindex = model.index
                         currentpath = model.path
                         endPosition = model.duration
                         songmodel.play(model.path,model.index);
                         mainrect.duration()
-                        DataModel.extractSongInfo(model.index);
 
-                        isPlaying : true
+//                        isPlaying : true
                     }
                 }
             }

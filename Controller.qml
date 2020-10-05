@@ -77,13 +77,24 @@ Rectangle{
     function playPauseFromAllSong(){
 
         ppbtn.text = "\uf28b"
-
+        mainwindow.isPlaying =!mainwindow.isPlaying
     }
 
 
     property color btncolor: "#855dd4" //#7f05e3
     property string endPosition: "00:00"
+    property int playbackmode: 0
     signal playBtnPressed(bool play);
+
+    onPlaybackmodeChanged: {
+        if (playbackmode === 4){
+            shufflebtn.state = "shuffle_on"
+        }
+        else{
+            shufflebtn.state = "shuffle_off"
+        }
+    }
+
 
     width:parent.width
     height:parent.height
@@ -96,13 +107,14 @@ Rectangle{
             PropertyChanges {
                 target: pbarlayout
                 anchors.leftMargin: 200
-
-
             }
             PropertyChanges {
                 target: thumbnailpic
                 visible:true
-
+            }
+            PropertyChanges {
+                target: durationcanvas
+                visible:false
             }
 
         },
@@ -118,6 +130,10 @@ Rectangle{
                 target: thumbnailpic
                 visible:true
 
+            }
+            PropertyChanges {
+                target: durationcanvas
+                visible:false
             }
 
         },
@@ -137,15 +153,21 @@ Rectangle{
                 width:0
 
             }
+            PropertyChanges {
+                target: thumbnailinfo
+                visible:false
+                width:0
+
+            }
+            PropertyChanges {
+                target: durationcanvas
+                visible:true
+            }
 
         }
     ]
 
     state:"desktop_mode"
-
-
-
-
 
 
     RowLayout{
@@ -255,18 +277,16 @@ Rectangle{
             Layout.preferredWidth: height*3
             Layout.leftMargin: 0 //height
 
+
             Row{
                 anchors.fill: parent
                 // previous song button
                 Label{
+                    id:prev
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-//                            isPlaying = true
                             allsong.preSong()
-
-                            //                            tools.m_pauseRequested()
-
                         }
                     }
                     anchors.right: ppbtn.left
@@ -299,14 +319,15 @@ Rectangle{
                         family:solidfont.name
                         pixelSize: parent.height/2
                     }
+
                 }
+
 
                 // next song button
                 Label{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-//                            isPlaying = true
                             allsong.nextSong()
                         }
                     }
@@ -344,7 +365,7 @@ Rectangle{
 
                         anchors.fill: parent
                         onClicked: {
-                            allsong.changePlaybackMode(0);
+                            allsong.changePlaybackMode();
                         }
                     }
 
@@ -360,6 +381,7 @@ Rectangle{
                     text:"\uf074"
 
                     font{
+
                         bold:true
                         family:solidfont.name
                         pixelSize: parent.height/5
@@ -368,9 +390,76 @@ Rectangle{
 
                         anchors.fill: parent
                         onClicked: {
-                            allsong.changePlaybackMode(4);
+                            if (playbackmode===4){
+                                allsong.changePlaybackMode();
+                            }
+                            else{
+                                allsong.changePlaybackMode(4);
+                            }
                         }
                     }
+
+                    state: "shuffle_off"
+
+                    states: [
+
+                        State {
+                            name: "shuffle_on"
+                            PropertyChanges {
+                                target: shufflebtn
+                                color:btncolor
+
+                            }
+                        },
+                        State {
+                            name: "shuffle_off"
+
+                            PropertyChanges {
+                                target: shufflebtn
+                                color:"white"
+                            }
+                            PropertyChanges {
+                                target: shufflebtn.font
+                                pixelSize:parent.height/5 +100
+
+                            }
+                        }
+
+                    ]
+
+                    transitions: [
+                        Transition {
+                            from: "shuffle_off"
+                            to: "shuffle_on"
+
+                            ParallelAnimation{
+                                ColorAnimation {
+                                    from: "white"
+                                    to: btncolor
+                                    duration: 100
+                                }
+                                PropertyAnimation{
+                                    target: shufflebtn.font
+                                    properties: "pixelSize"
+                                    easing.type: Easing.InOutQuad
+                                }
+                            }
+
+
+                        },
+                        Transition {
+                            from: "shuffle_on"
+                            to: "shuffle_off"
+
+                            ColorAnimation {
+                                to: "white"
+                                duration: 100
+                            }
+
+                        }
+                    ]
+
+
                 }
 
                 //add to favorite
@@ -404,6 +493,32 @@ Rectangle{
                         pixelSize: parent.height/5
                     }
                 }
+                Canvas{
+                    id:durationcanvas
+                    width: ppbtn.width+10
+                    height: ppbtn.height+10
+                    anchors.verticalCenter: ppbtn.verticalCenter
+                    anchors.horizontalCenter: ppbtn.horizontalCenter
+                    z:200
+
+                    onPaint: {
+                        var ctx = getContext("2d")
+                        ctx.fillStyle = "#f59869"
+                        //            ctx.arc(100, 100, 50, 0, 2 * Math.PI,true)
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.strokeStyle = "#855dd4"
+                        ctx.lineWidth=5
+                        ctx.arc(width/2, height/2, ppbtn.width/2+2.5,Math.PI,3*Math.PI,true)
+                        //Number(slider.value)
+                        ctx.stroke();
+
+                    }
+
+                    Component.onCompleted: {
+                        console.log(ppbtn.x, ppbtn.y,ppbtn.width,ppbtn.height)
+                    }
+                }
 
             }
         }
@@ -411,11 +526,12 @@ Rectangle{
         //progress bar
         Row{
             id:pbarlayout
-            anchors.leftMargin: 200
+            //            anchors.leftMargin: 200
+            Layout.leftMargin: 200
             height: 90
             width: height*10
-            anchors.left: controlpanel.right
-
+            //            anchors.left: controlpanel.right
+            Layout.alignment: Qt.AlignLeft
             //Label for progres
             Label{
                 text: passedToText()
@@ -464,9 +580,12 @@ Rectangle{
 
         Label{
             id:fullscrbtn
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.rightMargin: parent.height/4
+            //            anchors.right: parent.right
+            //            anchors.verticalCenter: parent.verticalCenter
+            //            anchors.rightMargin: parent.height/4
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+            Layout.rightMargin: parent.height/4
+
 
             text:"\uf102"
 

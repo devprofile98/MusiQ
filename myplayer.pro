@@ -1,6 +1,5 @@
 QT += quick multimedia quickcontrols2
 
-
 CONFIG += c++17
 
 
@@ -55,11 +54,12 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         $$PWD/android
 }
 
+#ANDROID_EXTRA_LIBS=\
+#    /home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android/libtag.a
+
 PRO_PATH=$$PWD
 
 INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
-
-
 
 
 linux{
@@ -67,27 +67,24 @@ linux{
 }
 
 windows{
-    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
-    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+#    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
+#    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
     debug
     {
-#        LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
-#        LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
+        LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
+        LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltagd
     }
 
 }
 
 android{
     QT+=androidextras
+    message("compiling for android")
+    LIBS+=-L/home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android -ltag
 
 }
 
-
-
-
-
-
-
+message($${PRO_PATH})
 
 
 

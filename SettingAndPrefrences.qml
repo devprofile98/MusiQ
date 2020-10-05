@@ -9,6 +9,9 @@ import QtQuick.Controls.Material 2.3
 
 Rectangle{
     property color btncolor: "#855dd4" //"#7f05e3"
+    property int btnsize: 100
+    property int iconsize: width/4
+    property int listCurrentIndex: 0
     id:root
     color: "#3d3d3a"
     width: parent.width
@@ -20,6 +23,13 @@ Rectangle{
             PropertyChanges {
                 target: root
                 width:90
+                btnsize:100
+                iconsize: root.width/4
+
+            }
+            PropertyChanges {
+                target: highlite
+                width:8
 
             }
         },
@@ -27,7 +37,13 @@ Rectangle{
             name:"mobile_mode"
             PropertyChanges {
                 target: root
-                width:0
+                width:50
+                btnsize:50
+                iconsize: 20
+            }
+            PropertyChanges {
+                target: highlite
+                width:6
 
             }
         },
@@ -36,6 +52,12 @@ Rectangle{
             PropertyChanges {
                 target: root
                 width:90
+                btnsize:100
+                iconsize: root.width/4
+            }
+            PropertyChanges {
+                target: highlite
+                width:8
 
             }
         }
@@ -53,7 +75,28 @@ Rectangle{
 
         }
     ]
+    Rectangle{
+//        property int inseq: 0
+        width: btnsize; height: btnsize
+        color: "transparent"
+        anchors.horizontalCenter: parent.horizontalCenter
+        Label{
+            anchors.centerIn: parent
+            font.family: solidfont.name
+            text: "\uf013"
+            font.pixelSize: iconsize
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                mainstackview.replace(settingpage);
+                listCurrentIndex= -1;
+                highlite.y= 0 + root.btnsize/4;
 
+            }
+
+        }
+    }
 
     TabBar{
         id:sandp
@@ -69,8 +112,8 @@ Rectangle{
             id:home
             property int inseq: 0
             property real indicatory: y + height/4
-            width: 100
-            height: 100
+            width: btnsize
+            height: btnsize
             anchors.horizontalCenter: parent.horizontalCenter
             background: Rectangle{
                 anchors.fill: parent
@@ -83,7 +126,7 @@ Rectangle{
                 font{
                     family: solidfont.name
                     bold  :true
-                    pixelSize: parent.width/4
+                    pixelSize: iconsize
                 }
                 text: '\uf015'
 
@@ -107,8 +150,8 @@ Rectangle{
             }
 
             onClicked: {
-                highlite.y= inseq*100 +home.height/4
-
+                highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=0;
                 if (mainstackview.currentItem != homepage){
                     mainstackview.replace(homepage)
                 }
@@ -121,8 +164,8 @@ Rectangle{
         TabButton{
             id:favorite
             property int inseq: 1
-            width: 100
-            height: 100
+            width: btnsize
+            height: btnsize
             anchors{
                 top:home.bottom
                 left: parent.left
@@ -139,21 +182,23 @@ Rectangle{
                 font{
                     family: solidfont.name
                     //                bold  :true
-                    pixelSize: parent.width/4
+                    pixelSize: iconsize
                 }
                 text: '\uf004'
 
             }
             onClicked: {
-                highlite.y= inseq*100 + home.height/4
+//                highlite.y= inseq*100 + home.height/4
+                highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=1;
 
             }
         }
         TabButton{
             id:artist
             property int inseq:2
-            width: 100
-            height: 100
+            width: btnsize
+            height: btnsize
             anchors{
                 top:favorite.bottom
                 left: parent.left
@@ -170,20 +215,23 @@ Rectangle{
                 font{
                     family: solidfont.name
                     bold  :true
-                    pixelSize: parent.width/4
+                    pixelSize: iconsize
                 }
                 text: '\uf007'
 
             }
             onClicked: {
-                highlite.y= inseq*100 + home.height/4
+//                highlite.y= inseq*100 + home.height/4
+                highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=2;
+
             }
         }
         TabButton{
             id:songs
             property int inseq: 3
-            width: 100
-            height: 100
+            width: btnsize
+            height: btnsize
             anchors{
                 top:artist.bottom
                 left: parent.left
@@ -200,21 +248,24 @@ Rectangle{
                 font{
                     family: solidfont.name
                     bold  :true
-                    pixelSize: parent.width/4
+                    pixelSize: iconsize
                 }
                 text: '\uf001'
 
             }
 
             onClicked: {
-                highlite.y= inseq*100 + home.height/4
+//                highlite.y= inseq*100 + home.height/4
+                highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=3;
+
             }
         }
         TabButton{
             id:recent
             property int inseq: 4
-            width: 100
-            height: 100
+            width: btnsize
+            height: btnsize
             anchors{
                 top:songs.bottom
                 left: parent.left
@@ -231,14 +282,16 @@ Rectangle{
                 font{
                     family: solidfont.name
                     //                    bold  :true
-                    pixelSize: parent.width/4
+                    pixelSize: iconsize
                 }
                 text: '\uf017'
 
             }
 
             onClicked: {
-                highlite.y= inseq*100 + home.height/4
+//                highlite.y= inseq*100 + home.height/4
+                highlite.y= inseq*root.btnsize +root.btnsize/4
+                listCurrentIndex=4;
                 mainstackview.replace(timing)
             }
         }

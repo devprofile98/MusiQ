@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 Item {
 Rectangle{
-
     color: "#fff"
     width: parent.width
     height: parent.height
