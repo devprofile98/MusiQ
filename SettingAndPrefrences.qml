@@ -77,6 +77,7 @@ Rectangle{
     ]
     Rectangle{
 //        property int inseq: 0
+        id:settingbtn
         width: btnsize; height: btnsize
         color: "transparent"
         anchors.horizontalCenter: parent.horizontalCenter
@@ -96,6 +97,19 @@ Rectangle{
             }
 
         }
+    }
+
+    Rectangle{
+        anchors{
+            top:settingbtn.bottom
+            topMargin: 5
+            horizontalCenter: root.horizontalCenter
+
+        }
+
+        width:btnsize*(3/4)
+        height: 1
+        color: Qt.rgba(61, 61, 58,0.1)
     }
 
     TabBar{
