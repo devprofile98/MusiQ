@@ -457,45 +457,44 @@ Rectangle
 
     }
 
-    Rectangle
-    {
-        id:closedrawer
-        width: 30
-        height: 30
-        anchors.margins: 10
-        z:2
-        color: "#3d3d3a"
-        opacity: 0.4
-        radius: 8
-        anchors
+        Rectangle
         {
-            top: parent.top
-            right: parent.right
-        }
-        Label
-        {
-            anchors.centerIn: parent
-
-            text: "\uf103"
-            font
+            id:closedrawer
+            width: 30
+            height: 30
+            anchors.margins: 10
+            z:2
+            color:Qt.rgba(61, 61, 58,0.1)// "#3d3d3a"//        opacity: 0.4
+            radius: 8
+            anchors
             {
-                family: solidfont.name
-                bold:true
-                pixelSize: 18
+                top: parent.top
+                right: parent.right
             }
-        }
-
-
-        MouseArea
-        {
-            anchors.fill: parent
-            onClicked:
+            Label
             {
-                fullscreenDrawer.close();
+                anchors.centerIn: parent
+                color: "white"
+                text: "\uf103"
+                font
+                {
+                    family: solidfont.name
+                    bold:true
+                    pixelSize: 18
+                }
             }
-        }
 
-    }
+
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    fullscreenDrawer.close();
+                }
+            }
+
+        }
 
 
     Rectangle
@@ -505,8 +504,9 @@ Rectangle
         height: 30
         anchors.margins: 10
         z:2
-        color: "#3d3d3a"
-        opacity: 0.4
+        color:Qt.rgba(61, 61, 58,0.1)// "#3d3d3a"
+
+        //        opacity: 0.4
         radius: 8
         anchors
         {
@@ -516,7 +516,7 @@ Rectangle
         Label
         {
             anchors.centerIn: parent
-
+            color: "white"
             text: "edit"
             font
             {
@@ -541,8 +541,6 @@ Rectangle
     SongInfoEditPage
     {
         id:songinfoedit
-        //        anchors.fill: parent
-
     }
 
     FastBlur

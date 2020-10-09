@@ -48,6 +48,7 @@ Rectangle{
     property string currentpath: ""
     property real endPosition: songmodel.duration
     property real passed: songmodel.passed
+    property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
 
     signal duration()
@@ -231,7 +232,7 @@ Rectangle{
                 width: parent.width
                 height: parent.height
 
-                property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
+//                property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
                 Rectangle{
                     id:thumbrect
@@ -241,7 +242,7 @@ Rectangle{
                     Layout.alignment: Qt.AlignVCenter
                     Layout.leftMargin: 5
                     //                    anchors.verticalCenter: parent.verticalCenter
-                    color: parent.colors[Math.floor(Math.random()*6)]
+//                    color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 5
 
                     Image {
@@ -251,11 +252,24 @@ Rectangle{
                         anchors.fill: parent
                         anchors.centerIn: parent
                         source: "image://imageprovider/" + model.index
+                        sourceSize: {
+                            width:rowimage.width
+                            height:rowimage.height
+                        }
+
                         asynchronous: true
                         smooth: true
                         layer.enabled: true
                         layer.effect: OpacityMask{
                             maskSource: mask
+                        }
+                        onStatusChanged: {
+                            if(rowimage.status === Image.Ready ){
+                                thumbrect.color="transparent"
+                            }
+                            else{
+                                thumbrect.color = mainrect.colors[Math.floor(Math.random()*6)]
+                            }
                         }
 
                     }

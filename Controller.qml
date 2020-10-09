@@ -80,6 +80,14 @@ Rectangle{
         mainwindow.isPlaying =!mainwindow.isPlaying
     }
 
+    property real allsongend: allsong.endPosition
+    onAllsongendChanged: {
+        anim.stop();
+        anim.duration = allsongend;
+        console.log("the allsong end position is :", allsongend)
+        durationcanvas.clear();
+        anim.start();
+    }
 
     property color btncolor: "#855dd4" //#7f05e3
     property string endPosition: "00:00"
@@ -495,7 +503,23 @@ Rectangle{
                 }
                 Canvas{
                     id:durationcanvas
-                    width: ppbtn.width+10
+                    property real duration: 0
+
+                    function clear(){
+                        var ctx = getContext("2d");
+                        ctx.clearRect(durationcanvas.x,durationcanvas.y,durationcanvas.x+durationcanvas.width,durationcanvas.y+durationcanvas.height)
+
+                    }
+
+                    NumberAnimation on duration {
+                        id:anim
+                        from: 1
+                        to:3
+                        duration: allsongend
+
+                    }
+
+                    width: ppbtn.width+ 10
                     height: ppbtn.height+10
                     anchors.verticalCenter: ppbtn.verticalCenter
                     anchors.horizontalCenter: ppbtn.horizontalCenter
@@ -509,7 +533,7 @@ Rectangle{
                         ctx.beginPath();
                         ctx.strokeStyle = "#855dd4"
                         ctx.lineWidth=5
-                        ctx.arc(width/2, height/2, ppbtn.width/2+2.5,Math.PI,3*Math.PI,true)
+                        ctx.arc(width/2, height/2, ppbtn.width/2+2.5,Math.PI,duration*Math.PI,true)
                         //Number(slider.value)
                         ctx.stroke();
 
