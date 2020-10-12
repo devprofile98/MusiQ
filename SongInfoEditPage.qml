@@ -17,6 +17,7 @@ Popup{
     id:settingpopup
     implicitHeight:parent.height
     implicitWidth:parent.width
+    anchors.centerIn: parent
     background: Rectangle{
         anchors.fill: parent
         color: "#242323"
@@ -30,6 +31,7 @@ Popup{
         Label{
             id:label
             text:"edit song info"
+            color:Qt.rgba(61,61, 58,0.3)
             font {
                 bold:true
             }
@@ -42,52 +44,105 @@ Popup{
             source: "image://imageprovider/"+allsong.playlistindex
             fillMode: Image.PreserveAspectCrop
             Layout.preferredWidth: 200//parent.width
-            Layout.preferredHeight: 200/parent.width
+            Layout.preferredHeight: 200//parent.width
             Layout.maximumHeight: 200//parent.width
+            sourceSize{
+                width: songCover.width
+                height: songCover.height
+            }
 
         }
 
 
-        TextField{
-            id:singername
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: implicitHeight
-            Material.accent: "#d18bf0"
+        //        TextField{
+        //            id:singername
+        //            Layout.alignment: Qt.AlignHCenter
+        //            Layout.preferredHeight: implicitHeight
+        //            Material.accent: "#d18bf0"
+        //            Layout.preferredWidth: parent.width*(3/4)
+        //            text: DataModel.songerName
+        //        }
+        MyTextField{
+            Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
+            labelvalue: "singer"
             Layout.preferredWidth: parent.width*(3/4)
-            text: DataModel.songerName
-        }
-        TextField{
-            id:songtitle
-            Material.accent: "#d18bf0"
-            Layout.preferredWidth: parent.width*(3/4)
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             Layout.preferredHeight: implicitHeight
-            text: DataModel.songTitle
-        }
-        TextField{
-            id:albumname
+            backColor: Qt.rgba(61,61, 58,0.04)
             Material.accent: "#d18bf0"
-            Layout.preferredWidth: parent.width*(3/4)
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-            Layout.preferredHeight: implicitHeight
-            text: DataModel.albumName
+            frontColor: "#d18bf0"
+
         }
-        TextField{
-            id:releaseyear
+        //        TextField{
+        //            id:songtitle
+        //            Material.accent: "#d18bf0"
+        //            Layout.preferredWidth: parent.width*(3/4)
+        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+        //            Layout.preferredHeight: implicitHeight
+        //            text: DataModel.songTitle
+        //        }
+        MyTextField{
+            Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
+            labelvalue: "title"
+            Layout.preferredWidth: parent.width*(3/4)
+            Layout.preferredHeight: implicitHeight
+            backColor: Qt.rgba(61,61, 58,0.04)
             Material.accent: "#d18bf0"
-            Layout.preferredWidth: parent.width*(3/4)
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-            Layout.preferredHeight: implicitHeight
-            text: DataModel.songReleaseYear
+            frontColor: "#d18bf0"
         }
-        TextField{
-            id:genre
+        //        TextField{
+        //            id:albumname
+        //            Material.accent: "#d18bf0"
+        //            Layout.preferredWidth: parent.width*(3/4)
+        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+        //            Layout.preferredHeight: implicitHeight
+        //            text: DataModel.albumName
+        //        }
+        MyTextField{
+            Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
+            labelvalue: "album"
+            Layout.preferredWidth: parent.width*(3/4)
+            Layout.preferredHeight: implicitHeight
+            backColor: Qt.rgba(61,61, 58,0.04)
             Material.accent: "#d18bf0"
-            Layout.preferredWidth: parent.width*(3/4)
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-            Layout.preferredHeight: implicitHeight
-            text: DataModel.songGenre
+            frontColor: "#d18bf0"
         }
+        //        TextField{
+        //            id:releaseyear
+        //            Material.accent: "#d18bf0"
+        //            Layout.preferredWidth: parent.width*(3/4)
+        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+        //            Layout.preferredHeight: implicitHeight
+        //            text: DataModel.songReleaseYear
+        //        }
+        MyTextField{
+            Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
+            labelvalue: "release"
+            Layout.preferredWidth: parent.width*(3/4)
+            Layout.preferredHeight: implicitHeight
+            backColor: Qt.rgba(61,61, 58,0.04)
+            Material.accent: "#d18bf0"
+            frontColor: "#d18bf0"
+        }
+        //        TextField{
+        //            id:genre
+        //            Material.accent: "#d18bf0"
+        //
+        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+        //        Layout.preferredWidth: parent.width*(3/4)
+        //            Layout.preferredHeight: implicitHeight
+        //            text: DataModel.songGenre
+        //        }
+        MyTextField{
+            Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
+            labelvalue: "genre"
+            Layout.preferredWidth: parent.width*(3/4)
+            Layout.preferredHeight: implicitHeight
+            backColor: Qt.rgba(61,61, 58,0.04)
+            Material.accent: "#d18bf0"
+            frontColor: "#d18bf0"
+
+        }
+
         Button{
             width: 100
             height: 30

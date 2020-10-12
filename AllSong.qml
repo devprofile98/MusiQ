@@ -194,7 +194,6 @@ Rectangle{
             onSongchanged: {
                 listvi.currentIndex = index;
                 playlistindex = index
-                console.log("from listview model index is ",index)
                 DataModel.extractSongInfo(index)
             }
 
