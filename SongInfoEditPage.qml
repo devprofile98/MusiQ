@@ -2,22 +2,11 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.3
-//Rectangle {
-//    width: parent.width
-//    height: parent.height
-//    id:songinfoeditpage
-//    function open(){
-//        if (settingpopup.opened){
-//            return;
-//        }
-//        settingpopup.open();
-//    }
+
+
 
 Popup{
     id:settingpopup
-    implicitHeight:parent.height
-    implicitWidth:parent.width
-    anchors.centerIn: parent
     background: Rectangle{
         anchors.fill: parent
         color: "#242323"
@@ -30,8 +19,8 @@ Popup{
 
         Label{
             id:label
-            text:"edit song info"
-            color:Qt.rgba(61,61, 58,0.3)
+            text:"Edit Song Info"
+            color:Qt.rgba(61,61, 58,0.5)
             font {
                 bold:true
             }
@@ -53,91 +42,63 @@ Popup{
 
         }
 
-
-        //        TextField{
-        //            id:singername
-        //            Layout.alignment: Qt.AlignHCenter
-        //            Layout.preferredHeight: implicitHeight
-        //            Material.accent: "#d18bf0"
-        //            Layout.preferredWidth: parent.width*(3/4)
-        //            text: DataModel.songerName
-        //        }
         MyTextField{
+            id:singername
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "singer"
+            labelvalue: "Singer"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
+            maintext:DataModel.songerName
             Material.accent: "#d18bf0"
             frontColor: "#d18bf0"
 
         }
-        //        TextField{
-        //            id:songtitle
-        //            Material.accent: "#d18bf0"
-        //            Layout.preferredWidth: parent.width*(3/4)
-        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-        //            Layout.preferredHeight: implicitHeight
-        //            text: DataModel.songTitle
-        //        }
+
         MyTextField{
+            id:songtitle
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "title"
+            labelvalue: "Title"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
+            maintext:DataModel.songTitle
             Material.accent: "#d18bf0"
             frontColor: "#d18bf0"
         }
-        //        TextField{
-        //            id:albumname
-        //            Material.accent: "#d18bf0"
-        //            Layout.preferredWidth: parent.width*(3/4)
-        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-        //            Layout.preferredHeight: implicitHeight
-        //            text: DataModel.albumName
-        //        }
+
         MyTextField{
+            id:albumname
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "album"
+            labelvalue: "Album"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
+            maintext:DataModel.albumName
             Material.accent: "#d18bf0"
             frontColor: "#d18bf0"
         }
-        //        TextField{
-        //            id:releaseyear
-        //            Material.accent: "#d18bf0"
-        //            Layout.preferredWidth: parent.width*(3/4)
-        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-        //            Layout.preferredHeight: implicitHeight
-        //            text: DataModel.songReleaseYear
-        //        }
+
         MyTextField{
+            id:releaseyear
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "release"
+            labelvalue: "Release"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
+            maintext:DataModel.songReleaseYear
             Material.accent: "#d18bf0"
             frontColor: "#d18bf0"
         }
-        //        TextField{
-        //            id:genre
-        //            Material.accent: "#d18bf0"
-        //
-        //            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-        //        Layout.preferredWidth: parent.width*(3/4)
-        //            Layout.preferredHeight: implicitHeight
-        //            text: DataModel.songGenre
-        //        }
+
         MyTextField{
+            id:genre
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "genre"
+            labelvalue: "Genre"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
+            maintext:DataModel.songGenre
             Material.accent: "#d18bf0"
             frontColor: "#d18bf0"
 
