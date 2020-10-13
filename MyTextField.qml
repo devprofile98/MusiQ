@@ -6,8 +6,15 @@ import QtQuick.Controls 2.5
         property alias labelvalue: lbl.text
         property alias backColor: background.color
         property alias frontColor: lbl.color
+        property alias maintext: maintext.text
         id: control
-        leftInset:-10
+        leftInset:lbl.right
+        color: "transparent"
+        font{
+            bold:true
+            pixelSize: 15
+        }
+
         states: [
             State {
                 name: "focus_on"
@@ -20,6 +27,14 @@ import QtQuick.Controls 2.5
                     anchors.top:undefined
                     anchors.bottom: control.top
                     anchors.verticalCenter: undefined
+                }
+                AnchorChanges{
+                    target: maintext
+                    anchors.left: control.left
+                }
+                PropertyChanges {
+                    target: maintext
+                    text:control.text
 
                 }
             },
@@ -28,11 +43,15 @@ import QtQuick.Controls 2.5
 
                 AnchorChanges{
                     target: lbl
-//                    anchors.top:control.top
                     anchors.verticalCenter: control.verticalCenter
 
                     anchors.bottom: undefined
                 }
+                AnchorChanges{
+                    target: maintext
+                    anchors.left: lbl.right
+                }
+
             }
         ]
         state: "focus_off"
@@ -64,7 +83,7 @@ import QtQuick.Controls 2.5
             implicitWidth: 200
             implicitHeight: 40
             color: "gray"
-            radius: 10
+            radius: 5
 
         }
 
@@ -77,6 +96,18 @@ import QtQuick.Controls 2.5
             anchors.leftMargin:20
             font{
                 bold:true
+            }
+        }
+
+        Label{
+            id:maintext
+            text:""
+            anchors.left: lbl.right
+            anchors.verticalCenter: control.verticalCenter
+//            anchors.leftMargin:20
+            font{
+                bold:true
+                pixelSize: 15
             }
         }
     }

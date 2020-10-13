@@ -12,6 +12,19 @@ Rectangle{
     property int btnsize: 100
     property int iconsize: width/4
     property int listCurrentIndex: 0
+
+    onListCurrentIndexChanged: {
+        if (listCurrentIndex!==-1){
+
+            settinglbl.color="white"
+            highlite.visible = true
+        }
+        else{
+            settinglbl.color = btncolor;
+            highlite.visible = false;
+        }
+    }
+
     id:root
     color: "#3d3d3a"
     width: parent.width
@@ -82,6 +95,7 @@ Rectangle{
         color: "transparent"
         anchors.horizontalCenter: parent.horizontalCenter
         Label{
+            id:settinglbl
             anchors.centerIn: parent
             font.family: solidfont.name
             text: "\uf013"
@@ -89,11 +103,13 @@ Rectangle{
         }
         MouseArea{
             anchors.fill: parent
+
             onClicked: {
+
+
                 mainstackview.replace(settingpage);
                 listCurrentIndex= -1;
-                highlite.y= 0 + root.btnsize/4;
-
+                highlite.y= home.inseq*root.btnsize +root.btnsize/4
             }
 
         }
@@ -164,6 +180,7 @@ Rectangle{
             }
 
             onClicked: {
+                highlite.visible = true
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=0;
                 if (mainstackview.currentItem != homepage){
@@ -202,7 +219,6 @@ Rectangle{
 
             }
             onClicked: {
-//                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=1;
 
@@ -235,7 +251,6 @@ Rectangle{
 
             }
             onClicked: {
-//                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=2;
 
@@ -269,7 +284,6 @@ Rectangle{
             }
 
             onClicked: {
-//                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=3;
 
@@ -295,7 +309,6 @@ Rectangle{
                 anchors.centerIn: parent
                 font{
                     family: solidfont.name
-                    //                    bold  :true
                     pixelSize: iconsize
                 }
                 text: '\uf017'
@@ -303,7 +316,6 @@ Rectangle{
             }
 
             onClicked: {
-//                highlite.y= inseq*100 + home.height/4
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=4;
                 mainstackview.replace(timing)
@@ -314,213 +326,5 @@ Rectangle{
         state:"desktop_mode"
 
     }
-
-
-
-//    Column{
-//        width: parent.width
-//        anchors.topMargin: 20
-//        anchors.leftMargin: 20
-//        anchors.verticalCenter: parent.verticalCenter
-
-//        Rectangle{
-//            width: parent.width
-//            height: width
-//            color:"transparent"
-
-//            Label{
-//                id:homelabel
-//                anchors.centerIn: parent
-//                font{
-//                    family: solidfont.name
-//                    bold  :true
-//                    pixelSize: parent.width/4
-//                }
-//                text: '\uf015'
-
-//            }
-//            ToolTip{
-//                id:hometip
-//                delay: 1000
-//                text: "home"
-//                parent: parent
-//            }
-//            MouseArea{
-//                anchors.fill: parent
-//                hoverEnabled: true
-//                onEntered: {
-//                    homelabel.color = btncolor
-////                    hometip.visible = true
-
-//                }
-//                onExited: {
-//                    homelabel.color = 'white'
-//                    hometip.visible = false
-
-//                }
-
-//            }
-//        }
-
-
-//        Rectangle{
-//            id:favoritebtn
-//            color:"transparent"
-//            width: parent.width
-//            height: width
-//            //            anchors.topMargin: 20
-//            Label{
-//                id:favoritelabel
-//                anchors.centerIn: parent
-//                font{
-//                    family: solidfont.name
-//                    //                bold  :true
-//                    pixelSize: parent.width/4
-//                }
-//                text: '\uf004'
-
-//            }
-//            ToolTip{
-//                id:liketip
-//                delay: 1000
-//                text: "home"
-//                parent: parent
-//            }
-//            MouseArea{
-//                anchors.fill: parent
-//                hoverEnabled: true
-//                onEntered: {
-//                    favoritelabel.color = btncolor
-//                    favoritelabel.font.bold = true
-////                    liketip.visible = true
-
-//                }
-//                onExited: {
-//                    favoritelabel.font.bold = false
-//                    favoritelabel.color = 'white'
-//                    liketip.visible = false
-
-//                }
-
-//            }
-//        }
-
-//        Rectangle{
-//            width: parent.width
-//            height: width
-//            color:"transparent"
-//            Label{
-//                id:artistlabel
-//                anchors.centerIn: parent
-//                font{
-//                    family: solidfont.name
-//                    bold  :true
-//                    pixelSize: parent.width/4
-//                }
-//                text: '\uf007'
-
-//            }
-//            ToolTip{
-//                id:artisttip
-//                delay: 1000
-//                text: "home"
-//                parent: parent
-//            }
-//            MouseArea{
-//                anchors.fill: parent
-//                hoverEnabled: true
-//                onEntered: {
-//                    artistlabel.color = btncolor
-////                    artisttip.visible = true
-
-//                }
-//                onExited: {
-//                    artistlabel.color = 'white'
-//                    artisttip.visible = false
-
-//                }
-
-//            }
-//        }
-
-
-//        Rectangle{
-//            width: parent.width
-//            height: width
-//            color:"transparent"
-//            Label{
-//                id:songslabel
-//                anchors.centerIn: parent
-//                font{
-//                    family: solidfont.name
-//                    bold  :true
-//                    pixelSize: parent.width/4
-//                }
-//                text: '\uf001'
-
-//            }
-//            ToolTip{
-//                id:songstip
-//                delay: 1000
-//                text: "home"
-//                parent: parent
-//            }
-//            MouseArea{
-//                anchors.fill: parent
-//                hoverEnabled: true
-//                onEntered: {
-//                    songslabel.color = btncolor
-////                    songstip.visible = true
-
-//                }
-//                onExited: {
-//                    songslabel.color = 'white'
-//                    songstip.visible = false
-
-//                }
-
-//            }
-//        }
-//        Rectangle{
-
-//            width: parent.width
-//            height: width
-//            color:"transparent"
-//            Label{
-//                id:recentlylabel
-//                anchors.centerIn: parent
-//                font{
-//                    family: solidfont.name
-//                    //                    bold  :true
-//                    pixelSize: parent.width/4
-//                }
-//                text: '\uf017'
-
-//            }
-//            ToolTip{
-//                id:recentlytip
-//                delay: 1000
-//                text: "home"
-//                parent: parent
-//            }
-//            MouseArea{
-//                anchors.fill: parent
-//                hoverEnabled: true
-//                onEntered: {
-//                    recentlylabel.color = btncolor
-////                    recentlytip.visible = true
-
-//                }
-//                onExited: {
-//                    recentlylabel.color = 'white'
-//                    recentlytip.visible = false
-
-//                }
-
-//            }
-//        }
-//    }
-
 }
-
 

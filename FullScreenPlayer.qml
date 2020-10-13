@@ -541,6 +541,9 @@ Rectangle
     SongInfoEditPage
     {
         id:songinfoedit
+        implicitWidth: parent.width
+        implicitHeight: parent.height
+        anchors.centerIn: parent.Center
     }
 
     FastBlur

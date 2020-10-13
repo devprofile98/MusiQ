@@ -48,19 +48,31 @@ Rectangle{
         Tumbler{
             id:htumbler
             model:12
+            font
+            {
+                bold:true
+            }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignLeft
 
         }
         Tumbler{
             id:mtumbler
-            model:12
+            model:59
+            font
+            {
+                bold:true
+            }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignLeft
         }
         Tumbler{
             id:stumbler
-            model:12
+            model:59
+            font
+            {
+                bold:true
+            }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignRight
         }
