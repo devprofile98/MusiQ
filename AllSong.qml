@@ -50,6 +50,10 @@ Rectangle{
     property real passed: songmodel.passed
     property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
+    property color mainFront: globalstyle.mainFG
+    property color mainBack: globalstyle.mainBG
+    property color mainItem: globalstyle.itemBG
+
 
     signal duration()
     signal playBtnIconChanged()
@@ -65,7 +69,7 @@ Rectangle{
     width: parent.width
     height: parent.height
     radius: 10
-    color:Qt.rgba(61,61, 58,0.05)
+    color: mainItem //Qt.rgba(61,61, 58,0.05)
     anchors.verticalCenter: fillingitem.verticalCenter
     anchors.rightMargin: 20
     anchors.leftMargin: 20

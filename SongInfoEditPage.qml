@@ -51,7 +51,7 @@ Popup{
             backColor: Qt.rgba(61,61, 58,0.04)
             maintext:DataModel.songerName
             Material.accent: "#d18bf0"
-            frontColor: "#d18bf0"
+            frontColor: globalstyle.mainFG
 
         }
 
@@ -64,7 +64,7 @@ Popup{
             backColor: Qt.rgba(61,61, 58,0.04)
             maintext:DataModel.songTitle
             Material.accent: "#d18bf0"
-            frontColor: "#d18bf0"
+            frontColor: globalstyle.mainFG
         }
 
         MyTextField{
@@ -76,7 +76,7 @@ Popup{
             backColor: Qt.rgba(61,61, 58,0.04)
             maintext:DataModel.albumName
             Material.accent: "#d18bf0"
-            frontColor: "#d18bf0"
+            frontColor: globalstyle.mainFG
         }
 
         MyTextField{
@@ -88,7 +88,7 @@ Popup{
             backColor: Qt.rgba(61,61, 58,0.04)
             maintext:DataModel.songReleaseYear
             Material.accent: "#d18bf0"
-            frontColor: "#d18bf0"
+            frontColor: globalstyle.mainFG
         }
 
         MyTextField{
@@ -100,7 +100,7 @@ Popup{
             backColor: Qt.rgba(61,61, 58,0.04)
             maintext:DataModel.songGenre
             Material.accent: "#d18bf0"
-            frontColor: "#d18bf0"
+            frontColor: globalstyle.mainFG
 
         }
 

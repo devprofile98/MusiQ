@@ -19,7 +19,7 @@ ApplicationWindow {
     visibility: "Maximized"
     title: qsTr("MusiQ")
     Material.theme: Material.Dark
-    Material.background:  "#3d3d3a"
+    Material.background:globalstyle.itemBG
 //    flags:  Qt.FramelessWindowHint
 //    flags: /*Qt.FramelessWindowHint |*/
 ////           Qt.WindowMinimizeButtonHint |
@@ -67,6 +67,11 @@ ApplicationWindow {
         id:antapan
     }
 
+    Styles{
+        id:globalstyle
+    }
+
+
     property bool isPlaying: false
 
     Rectangle{
@@ -87,7 +92,7 @@ ApplicationWindow {
             anchors.centerIn: parent
             font.bold: true
             font.pixelSize: 15
-            color: "#855dd4"
+            color: globalstyle.mainFG
         }
 
         MouseArea{
@@ -113,7 +118,7 @@ ApplicationWindow {
             anchors.centerIn: parent
             font.bold: true
             font.pixelSize: 18
-            color: "#855dd4"
+            color: globalstyle.mainFG
         }
 
         MouseArea{
