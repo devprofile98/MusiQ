@@ -107,6 +107,12 @@ Rectangle{
     property color mainBack:globalstyle.mainBG
     property color mainItem: globalstyle.itemBG
 
+
+    onMainFrontChanged: {
+        durationcanvas.clear();
+        durationcanvas.requestPaint();
+    }
+
     width:parent.width
     height:parent.height
     color: mainItem
@@ -529,13 +535,13 @@ Rectangle{
 
                     onPaint: {
                         var ctx = getContext("2d")
-                        ctx.fillStyle = "#f59869"
+                        ctx.fillStyle = globalstyle.mainFG
                         //            ctx.arc(100, 100, 50, 0, 2 * Math.PI,true)
                         ctx.lineWidth = 1;
                         ctx.beginPath();
-                        ctx.strokeStyle = "#855dd4"
-                        ctx.lineWidth=5
-                        ctx.arc(width/2, height/2, ppbtn.width/2+2.5,Math.PI,duration*Math.PI,true)
+                        ctx.strokeStyle = globalstyle.mainFG
+                        ctx.lineWidth=4
+                        ctx.arc(width/2, height/2, ppbtn.width/2+2.5,Math.PI,3*Math.PI,true)
                         //Number(slider.value)
                         ctx.stroke();
 
