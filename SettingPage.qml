@@ -5,10 +5,13 @@ import QtQuick.Dialogs 1.2
 
 Rectangle{
     id:mainrect
+
+    property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
+
     visible: false
     radius: 10
-//    anchors.fill: parent
-    color: Qt.rgba(61,61, 58,0.05)
+    //    anchors.fill: parent
+    color: globalstyle.itemBG
     //    color:"/*red*/"
     clip:true
     states:[
@@ -41,9 +44,12 @@ Rectangle{
 
     state: "desktop_mode"
     RowLayout{
+        id:killersec
         width: implicitWidth
         height: implicitHeight
-        anchors.centerIn: parent
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 20
         spacing: 10
         Tumbler{
             id:htumbler
@@ -90,7 +96,7 @@ Rectangle{
                     family: solidfont.name
 
                 }
-                color:"#855dd4"
+                color:globalstyle.mainFG
                 MouseArea{
                     anchors.fill: parent
 
@@ -116,5 +122,76 @@ Rectangle{
 
     }
 
+    //    RowLayout{
+    //        id:frontColorsec
+    //        anchors.top:killersec.bottom
+    //        anchors.horizontalCenter: killersec.horizontalCenter
+    //        anchors.topMargin: 20
 
+    //    }
+
+    Row{
+
+        id:settingsep
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: killersec.bottom
+        anchors.topMargin: 20
+        width: parent.width - 100
+        spacing: 20
+
+        Label{
+            id:lblid
+            text: "Appearence"
+            font{
+                bold: true
+            }
+            color:Qt.rgba(61,61, 58,0.5)
+            width: implicitWidth
+        }
+
+        Rectangle{
+
+            width: settingsep.width - lblid.width
+            anchors.verticalCenter: lblid.verticalCenter
+
+            height: 2
+            color:Qt.rgba(61,61, 58,0.5)
+        }
+    }
+
+
+    ListView{
+        height: 100
+        width: 6*60
+        id: frontColorSec
+        anchors.top:settingsep.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        anchors.topMargin: 20
+        orientation: Qt.Horizontal
+        model: 6
+        spacing:10
+
+
+        delegate: Rectangle {
+            height: 50
+            width: 50
+            radius: frontColorSec.currentIndex === model.index ? 15 : 25
+            color: colors[model.index]
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    globalstyle.mainFG = colors[model.index];
+            }
+        }
+            NumberAnimation on radius {
+                duration: 200
+
+            }
+
+    }
+
+
+}
 }

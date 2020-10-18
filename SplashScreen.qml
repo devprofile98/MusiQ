@@ -23,13 +23,15 @@ Rectangle {
 
         ParallelAnimation{
             id:anim
+            running: true
         ColorAnimation {
 
             target: first
             property: "color"
             from: "#d3aaf2"
-            to: "#d3aaf2"
+            to: "#20e6d5"
             duration: 2500
+
         }
 
         ColorAnimation {

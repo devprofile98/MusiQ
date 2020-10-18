@@ -5,10 +5,14 @@ import QtQuick.Layouts 1.3
 Page{
     property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
     property real elementSize: 200
+    property color mainFront: globalstyle.mainFG
+    property color mainBack: globalstyle.mainBG
+    property color mainItem: globalstyle.itemBG
+
     id: mainView
     clip: true
     background: Rectangle{
-        color:Qt.rgba(61,61, 58,0.05)
+        color:mainItem//Qt.rgba(61,61, 58,0.05)
         radius: 10
     }
 

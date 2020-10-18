@@ -103,11 +103,13 @@ Rectangle{
         }
     }
 
+    property color mainFront:globalstyle.mainFG
+    property color mainBack:globalstyle.mainBG
+    property color mainItem: globalstyle.itemBG
 
     width:parent.width
     height:parent.height
-    color: "transparent"
-
+    color: mainItem
 
     states:[
         State {
@@ -415,7 +417,7 @@ Rectangle{
                             name: "shuffle_on"
                             PropertyChanges {
                                 target: shufflebtn
-                                color:btncolor
+                                color:mainFront
 
                             }
                         },
@@ -443,7 +445,7 @@ Rectangle{
                             ParallelAnimation{
                                 ColorAnimation {
                                     from: "white"
-                                    to: btncolor
+                                    to: mainFront
                                     duration: 100
                                 }
                                 PropertyAnimation{
@@ -572,7 +574,7 @@ Rectangle{
                 //                Layout.fillWidth: true
                 width: 400
                 anchors.verticalCenter: parent.verticalCenter
-                Material.accent: btncolor
+                Material.accent: mainFront
                 value: allsong.passed  // allsong.endPosition
                 from:0
                 to:allsong.endPosition

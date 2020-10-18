@@ -8,7 +8,12 @@ import QtQuick.Controls.Material 2.3
 
 
 Rectangle{
-    property color btncolor: "#855dd4" //"#7f05e3"
+//    property color btncolor: globalstyle.mainFG //"#7f05e3"
+
+    property color mainFront: globalstyle.mainFG
+    property color mainBack: globalstyle.mainBG
+    property color mainItem: globalstyle.itemBG
+
     property int btnsize: 100
     property int iconsize: width/4
     property int listCurrentIndex: 0
@@ -20,13 +25,13 @@ Rectangle{
             highlite.visible = true
         }
         else{
-            settinglbl.color = btncolor;
+            settinglbl.color = globalstyle.mainFG;
             highlite.visible = false;
         }
     }
 
     id:root
-    color: "#3d3d3a"
+    color: mainItem
     width: parent.width
     height:parent.height
 
@@ -168,7 +173,7 @@ Rectangle{
                 anchors.left: parent.left
                 width: 8; height: parent.height/2
 
-                color: btncolor;
+                color: globalstyle.mainFG;
                 y: home.height/4
                 Behavior on y {
                     SpringAnimation {
