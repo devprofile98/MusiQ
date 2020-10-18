@@ -30,6 +30,16 @@ Rectangle{
         }
     }
 
+
+    function settingbtncolor(){
+        settinglbl.color = globalstyle.mainFG;
+    }
+
+
+
+
+
+
     id:root
     color: mainItem
     width: parent.width
