@@ -31,8 +31,9 @@ ApplicationWindow {
             sap.state = "desktop_mode";
             allsong.state = "desktop_mode";
             controller.state = "desktop_mode";
-            fullscreenplayer.state="desktop_mode"
-            mainstackview.state="desktop_mode"
+            fullscreenplayer.state="desktop_mode";
+            mainstackview.state="desktop_mode";
+            settingpage.state = "desktop_mode";
         }
         else if (width <= 1000 && width >700 ){
             sap.state = "middle_mode";
@@ -40,6 +41,7 @@ ApplicationWindow {
             controller.state ="middle_mode";
             fullscreenplayer.state="middle_mode"
             mainstackview.state = "middle_mode";
+            settingpage.state = "middle_mode";
         }
         else{
             sap.state = "mobile_mode";
@@ -47,6 +49,7 @@ ApplicationWindow {
             controller.state = "mobile_mode";
             fullscreenplayer.state="mobile_mode"
             mainstackview.state = "mobile_mode";
+            settingpage.state = "mobile_mode";
             closebtn.visible = false;
             closebtn.width=0;
             minimizebtn.visible = false;
