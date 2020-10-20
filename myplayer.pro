@@ -62,9 +62,9 @@ PRO_PATH=$$PWD
 INCLUDEPATH+= $${PRO_PATH}/Dependencies/TagLib/include/ $${PRO_PATH}/Dependencies/zlib/include/ $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v1 $${PRO_PATH}/Dependencies/TagLib/include/mpeg/id3v2
 
 
-#linux{
-#    LIBS+=-L/usr/local/lib -ltag -lz
-#}
+linux:!android{
+    LIBS+=-L/usr/local/lib -ltag -lz
+}
 
 windows{
 #    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag

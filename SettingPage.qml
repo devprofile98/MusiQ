@@ -6,7 +6,8 @@ import QtQuick.Dialogs 1.2
 Rectangle{
     id:mainrect
 
-    property var colors: ["#855dd4","#f7af6f","#f76fd3","#5ae089","#FFAB91","#80CBC4"]
+    property var colors: ["#855dd4","#f7af6f","#f76fd3","#5ae089","#FFAB91","#1abc9c"]
+    property var bgcolors: ["#ffffff","#000000","#00252e","#212021","#c3c4c9","#1abc9c"]
 
     visible: false
     radius: 10
@@ -83,7 +84,7 @@ Rectangle{
             width: timersep.width - timerlbl.width
             anchors.verticalCenter: timerlbl.verticalCenter
             height: 2
-            color:Qt.rgba(61,61, 58,0.5)
+            color:Qt.rgba(61, 61, 58,0.1)
         }
     }
 
@@ -167,13 +168,6 @@ Rectangle{
 
     }
 
-    //    RowLayout{
-    //        id:frontColorsec
-    //        anchors.top:killersec.bottom
-    //        anchors.horizontalCenter: killersec.horizontalCenter
-    //        anchors.topMargin: 20
-
-    //    }
 
     Row{
         id:settingsep
@@ -200,7 +194,7 @@ Rectangle{
             anchors.right: mainrect.right
             anchors.rightMargin: 10
             height: 2
-            color:Qt.rgba(61,61, 58,0.5)
+            color:Qt.rgba(61, 61, 58,0.1)
         }
     }
 
@@ -228,7 +222,7 @@ Rectangle{
             height: 50
             width: 50
             border{
-                color: Qt.rgba(255, 255, 255,0.5)
+                color: Qt.rgba(255, 255, 255,1)
                 width: 1
 
             }
@@ -244,12 +238,102 @@ Rectangle{
                     sap.settingbtncolor();
             }
         }
-            NumberAnimation on radius {
-                duration: 600
-            }
+
+           Behavior on radius {
+
+               NumberAnimation {
+                   duration: 200
+                   easing.type: Easing.InOutQuad
+               }
+           }
 
     }
 
 
 }
+
+    Row{
+        id:bgcolorsep
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: frontColorSec.bottom
+        anchors.topMargin: 20
+        width: parent.width - 100
+        spacing: 20
+
+        Label{
+            id:bgsep
+            text: "Appearence"
+            font{
+                bold: true
+            }
+            color:Qt.rgba(61,61, 58,0.4)
+            width: implicitWidth
+        }
+
+        Rectangle{
+
+            width: bgcolorsep.width - bgsep.width
+            anchors.verticalCenter: bgsep.verticalCenter
+            anchors.right: mainrect.right
+            anchors.rightMargin: 10
+            height: 2
+            color:Qt.rgba(61, 61, 58,0.1)
+        }
+    }
+
+
+    ListView{
+        height: 100
+        width: parent.width // 6*60
+        id: backColorSec
+
+        anchors{
+            top:bgcolorsep.bottom
+            horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            right: parent.right
+            margins: 10
+            topMargin: 20
+        }
+
+        orientation: Qt.Horizontal
+        model: 6
+        spacing:10
+
+
+        delegate: Rectangle {
+            height: 50
+            width: 50
+            border{
+                color: Qt.rgba(255, 255, 255,1)
+                width: 1
+
+            }
+
+            radius: backColorSec.currentIndex === model.index ? 15 : 25
+            color: bgcolors[model.index]
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    backColorSec.currentIndex = model.index;
+                    globalstyle.itemBG = bgcolors[model.index];
+            }
+        }
+
+           Behavior on radius {
+
+               NumberAnimation {
+                   duration: 200
+                   easing.type: Easing.InOutQuad
+               }
+           }
+
+    }
+
+
+}
+
+
+
 }
