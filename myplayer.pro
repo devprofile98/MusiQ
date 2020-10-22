@@ -12,6 +12,7 @@ SOURCES += \
         liveimageprovider.cpp \
         main.cpp \
         mostplayedlist.cpp \
+        roundedrect.cpp \
         simpleqabstractlist.cpp \
         songitemmodeler.cpp \
         tools.cpp
@@ -36,6 +37,7 @@ HEADERS += \
     dataprovider.h \
     liveimageprovider.h \
     mostplayedlist.h \
+    roundedrect.h \
     simpleqabstractlist.h \
     songitemmodeler.h \
     tools.h
@@ -67,8 +69,8 @@ linux:!android{
 }
 
 windows{
-#    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
-#    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+    LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
+    LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
     debug
     {
         LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd

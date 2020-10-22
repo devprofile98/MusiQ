@@ -5,6 +5,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Shapes 1.12
 import QtQuick.Controls.Material 2.3
 
+import roundedrect 1.0
 
 
 Rectangle{
@@ -177,13 +178,17 @@ Rectangle{
 
             }
 
-            Rectangle {
+            RoundedRect {
                 id:highlite
                 z:2
                 anchors.left: parent.left
                 width: 8; height: parent.height/2
 
+                toprightRadius: 8
+                bottomrightRadius: 8
+
                 color: globalstyle.mainFG;
+                clip: true
                 y: home.height/4
                 Behavior on y {
                     SpringAnimation {
@@ -192,13 +197,14 @@ Rectangle{
 
                     }
                 }
+
             }
 
             onClicked: {
                 highlite.visible = true
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=0;
-                if (mainstackview.currentItem != homepage){
+                if (mainstackview.currentItem !== homepage){
                     mainstackview.replace(homepage)
                 }
 

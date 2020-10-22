@@ -5,6 +5,7 @@
         <file>Font Awesome 5 Free-Solid-900.otf</file>
         <file>Antapani-ExtraBold.otf</file>
         <file>Manti Sans Regular Demo.otf</file>
+        <file>Ubuntu-Bold.ttf</file>
     </qresource>
     <qresource prefix="/new/prefix1">
         <file>default_music_cover.svg</file>

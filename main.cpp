@@ -15,6 +15,7 @@
 
 #include "liveimageprovider.h"
 #include"dataprovider.h"
+#include "roundedrect.h"
 
 #include<fileref.h>
 #include<tag.h>
@@ -60,6 +61,7 @@ int main(int argc, char *argv[])
 
 //    tools tools;
     qmlRegisterType<songitemmodeler>("SongFinder",1,0,"Songfinder");
+    qmlRegisterType<RoundedRect>("roundedrect",1,0,"RoundedRect");
 
     QQuickStyle::setStyle("Material");
 //    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
 
     app.dumpObjectTree();
 
-    app.setWindowIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
+    app.setWindowIcon(QIcon("TrayIcon.png"));
 //    QWindow::setIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
 //    backend2 bend;
 //    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
