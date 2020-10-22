@@ -262,6 +262,7 @@ Rectangle{
                     font{
                         bold:true
                         pixelSize: 12
+                        family: ubold.name
                     }
 
                 }
@@ -272,6 +273,8 @@ Rectangle{
                     font{
                         bold:true
                         pixelSize: 12
+                        family: ubold.name
+
                     }
 
                     anchors{

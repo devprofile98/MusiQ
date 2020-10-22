@@ -9,7 +9,7 @@ Popup{
     id:settingpopup
     background: Rectangle{
         anchors.fill: parent
-        color: "#242323"
+        color: globalstyle.itemBG
     }
 
     ColumnLayout{

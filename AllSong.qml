@@ -293,7 +293,8 @@ Rectangle{
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{
-                        family: antapan.name
+                        family: ubold.name
+                        bold:true
                     }
                     color: "white"
                 }

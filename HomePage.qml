@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
-
+import roundedrect 1.0
 Page{
     property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
     property real elementSize: 200
@@ -11,9 +11,12 @@ Page{
 
     id: mainView
     clip: true
-    background: Rectangle{
+    background: RoundedRect{
         color:mainItem//Qt.rgba(61,61, 58,0.05)
-        radius: 10
+        toprightRadius: 25
+        topleftRadius: 25
+        bottomleftRadius: 25
+        bottomrightRadius: 25
     }
 
     header: Rectangle

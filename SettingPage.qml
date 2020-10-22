@@ -2,22 +2,34 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
+import roundedrect 1.0
 
-Rectangle{
+
+RoundedRect{
     id:mainrect
 
     property var colors: ["#855dd4","#f7af6f","#f76fd3","#5ae089","#FFAB91","#1abc9c"]
-    property var bgcolors: ["#ffffff","#000000","#00252e","#212021","#c3c4c9","#1abc9c"]
+    property var bgcolors: ["#363535","#000000","#00252e","#212021","#c3c4c9","#1abc9c"]
 
     visible: false
-    radius: 10
-    //    anchors.fill: parent
+
+    toprightRadius: 25
+    topleftRadius: 25
+    bottomleftRadius: 25
+    bottomrightRadius: 25
     color: globalstyle.itemBG
-    //    color:"/*red*/"
     clip:true
     states:[
         State {
             name: "desktop_mode"
+            PropertyChanges {
+                target: mainrect
+                toprightRadius: 25
+                topleftRadius: 25
+                bottomleftRadius: 25
+                bottomrightRadius: 25
+            }
+
             PropertyChanges {
             target: settingsep
             width: parent.width - 100
@@ -37,6 +49,13 @@ Rectangle{
                 width: mainrect.width - 100
             }
             PropertyChanges {
+                target: mainrect
+                toprightRadius: 25
+                topleftRadius: 25
+                bottomleftRadius: 25
+                bottomrightRadius: 25
+            }
+            PropertyChanges {
             target: timersep
             width: parent.width - 100
             }
@@ -47,6 +66,13 @@ Rectangle{
 
                 target: settingsep
                 width: mainrect.width - 20
+            }
+            PropertyChanges {
+                target: mainrect
+                toprightRadius: 0
+                topleftRadius: 0
+                bottomleftRadius: 25
+                bottomrightRadius: 0
             }
             PropertyChanges {
             target: timersep
@@ -74,6 +100,7 @@ Rectangle{
             text: "Stop In"
             font{
                 bold: true
+                family:ubold.name
             }
             color:Qt.rgba(61,61, 58,0.4)
             width: implicitWidth
@@ -83,7 +110,7 @@ Rectangle{
 
             width: timersep.width - timerlbl.width
             anchors.verticalCenter: timerlbl.verticalCenter
-            height: 2
+            height: 1
             color:Qt.rgba(61, 61, 58,0.1)
         }
     }
@@ -103,6 +130,7 @@ Rectangle{
             font
             {
                 bold:true
+                family:ubold.name
             }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignLeft
@@ -179,9 +207,10 @@ Rectangle{
 
         Label{
             id:lblid
-            text: "Appearence"
+            text: "Appearance"
             font{
                 bold: true
+                family:ubold.name
             }
             color:Qt.rgba(61,61, 58,0.4)
             width: implicitWidth
@@ -193,7 +222,7 @@ Rectangle{
             anchors.verticalCenter: lblid.verticalCenter
             anchors.right: mainrect.right
             anchors.rightMargin: 10
-            height: 2
+            height: 1
             color:Qt.rgba(61, 61, 58,0.1)
         }
     }
@@ -262,9 +291,10 @@ Rectangle{
 
         Label{
             id:bgsep
-            text: "Appearence"
+            text: "Appearance"
             font{
                 bold: true
+                family:ubold.name
             }
             color:Qt.rgba(61,61, 58,0.4)
             width: implicitWidth

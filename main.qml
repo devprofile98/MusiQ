@@ -34,6 +34,7 @@ ApplicationWindow {
             fullscreenplayer.state="desktop_mode";
             mainstackview.state="desktop_mode";
             settingpage.state = "desktop_mode";
+            timing.state = "desktop_mode";
         }
         else if (width <= 1000 && width >700 ){
             sap.state = "middle_mode";
@@ -42,6 +43,7 @@ ApplicationWindow {
             fullscreenplayer.state="middle_mode"
             mainstackview.state = "middle_mode";
             settingpage.state = "middle_mode";
+            timing.state = "middle_mode";
         }
         else{
             sap.state = "mobile_mode";
@@ -50,6 +52,8 @@ ApplicationWindow {
             fullscreenplayer.state="mobile_mode"
             mainstackview.state = "mobile_mode";
             settingpage.state = "mobile_mode";
+            timing.state = "mobile_mode";
+
             closebtn.visible = false;
             closebtn.width=0;
             minimizebtn.visible = false;
@@ -69,6 +73,12 @@ ApplicationWindow {
         name :"antapan"
         id:antapan
     }
+    FontLoader{
+        source: "qrc:/fonts/Ubuntu-Bold.ttf"
+        name :"ubold"
+        id:ubold
+    }
+
 
     Styles{
         id:globalstyle
@@ -200,9 +210,9 @@ ApplicationWindow {
         anchors.right: allsong.left
         anchors.left: sap.right
         anchors.bottom: controller.top
-        anchors.top: closebtn.bottom
+        anchors.top: allsong.top
         anchors.margins: 20
-        anchors.topMargin: 5
+        anchors.topMargin: 0
         visible: true
 
         states:[
@@ -210,23 +220,26 @@ ApplicationWindow {
                 name: "desktop_mode"
                 PropertyChanges {
                     target: mainstackview
-
+//                    anchors.topMargin: 5
+                    anchors.rightMargin: 20
                 }
                 AnchorChanges{
                     target: mainstackview
                     anchors.right: allsong.left
-
-
+                    anchors.top: allsong.top
                 }
             },
             State {
                 name: "middle_mode"
                 PropertyChanges {
                     target: mainstackview
+//                    anchors.topMargin: 5
+                    anchors.rightMargin: 20
                 }
                 AnchorChanges{
                     target: mainstackview
                     anchors.right: allsong.left
+                    anchors.top: allsong.top
 
                 }
             },
@@ -235,10 +248,15 @@ ApplicationWindow {
                 PropertyChanges {
                     target: mainstackview
                     visible:sap.listCurrentIndex !== 0
+                    anchors.topMargin: 0
+                    anchors.rightMargin: 0
+
                 }
                 AnchorChanges{
                     target: mainstackview
                     anchors.right: controller.right
+                    anchors.top: sap.top
+
                 }
             }
 
