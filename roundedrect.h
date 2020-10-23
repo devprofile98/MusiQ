@@ -18,6 +18,7 @@ class RoundedRect: public QQuickPaintedItem
     Q_PROPERTY(int bottomleftRadius READ bottomleftRadius WRITE setBottomleftRadius)
     Q_PROPERTY(int xx READ xx WRITE setX)
     Q_PROPERTY(int yy READ yy WRITE setY)
+    Q_PROPERTY(bool Antialiasing READ Antialiasing WRITE setAntialiasing)
 //    Q_PROPERTY(int y1 READ y1 WRITE setY1)
 //    Q_PROPERTY(int y2 READ y2 WRITE setY2)
 
@@ -25,8 +26,6 @@ class RoundedRect: public QQuickPaintedItem
 
 //    Q_PROPERTY(int width READ width WRITE setWidth)
 //    Q_PROPERTY(int height READ y2 WRITE setY2)
-
-    QML_ELEMENT
 
 
 
@@ -48,6 +47,8 @@ class RoundedRect: public QQuickPaintedItem
 
 
     QString m_color = "white";
+
+    bool m_Antialiasing = true;
 
 public:
     RoundedRect(QQuickItem *parent=0);
@@ -84,6 +85,8 @@ public:
 
     QString color() const;
 
+    bool Antialiasing() const;
+
 public slots:
     void setToprightRadius(int toprightRadius);
     void setTopleftRadius(int topleftRadius);
@@ -114,7 +117,8 @@ public slots:
 //        m_y2 = y2;
 //        update();
 
-//    }
+    //    }
+    void setAntialiasing(bool Antialiasing);
 };
 
 

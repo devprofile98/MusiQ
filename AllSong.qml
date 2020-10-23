@@ -5,8 +5,10 @@ import SongFinder 1.0
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.12
 import QtQuick.Layouts 1.3
+import roundedrect 1.0
 
-Rectangle{
+
+RoundedRect{
     id:mainrect
 
     function nextSong(){
@@ -27,8 +29,8 @@ Rectangle{
         songmodel.playIndex()
     }
     function pause(){
-//        mainwindow.isPlaying = !mainwindow.isPlaying
-//        playBtnIconChanged();
+        //        mainwindow.isPlaying = !mainwindow.isPlaying
+        //        playBtnIconChanged();
         songmodel.pause()
     }
     function getPath(){
@@ -68,7 +70,13 @@ Rectangle{
 
     width: parent.width
     height: parent.height
-    radius: 10
+    //    radius: 10
+    toprightRadius: 20
+    topleftRadius: 20
+    bottomleftRadius: 20
+    bottomrightRadius: 20
+
+
     color: mainItem //Qt.rgba(61,61, 58,0.05)
     anchors.verticalCenter: fillingitem.verticalCenter
     anchors.rightMargin: 20
@@ -81,21 +89,24 @@ Rectangle{
             name: "desktop_mode"
             AnchorChanges {
                 target: mainrect
-                //                anchors.right: parent.right
                 anchors.left: undefined
                 anchors.right: controller.right
             }
             PropertyChanges {
                 target: mainrect
                 width : 400
+                toprightRadius: 20
+                topleftRadius: 20
+                bottomleftRadius: 20
+                bottomrightRadius: 20
             }
 
         },
+
         State {
             name: "middle_mode"
             AnchorChanges {
                 target: mainrect
-                //                anchors.right: parent.right
                 anchors.left: undefined
                 anchors.right: controller.right
             }
@@ -103,6 +114,10 @@ Rectangle{
                 target: mainrect
                 width : 400
                 anchors.leftMargin: 20
+                toprightRadius: 20
+                topleftRadius: 20
+                bottomleftRadius: 20
+                bottomrightRadius: 20
 
             }
 
@@ -111,8 +126,6 @@ Rectangle{
             name: "mobile_mode"
             AnchorChanges {
                 target: mainrect
-                //                anchors.right: parent.right
-//                anchors.left: parent.left
                 anchors.left: sap.right
                 anchors.right:mainwindow.right
                 anchors.top:sap.top
@@ -128,6 +141,11 @@ Rectangle{
                 anchors.topMargin: 0
                 anchors.bottomMargin: 15
                 anchors.rightMargin: 15
+
+                toprightRadius: 0
+                topleftRadius: 0
+                bottomleftRadius: 20
+                bottomrightRadius: 0
 
             }
 
@@ -235,7 +253,7 @@ Rectangle{
                 width: parent.width
                 height: parent.height
 
-//                property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
+                //                property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
 
                 Rectangle{
                     id:thumbrect
@@ -245,7 +263,7 @@ Rectangle{
                     Layout.alignment: Qt.AlignVCenter
                     Layout.leftMargin: 5
                     //                    anchors.verticalCenter: parent.verticalCenter
-//                    color: parent.colors[Math.floor(Math.random()*6)]
+                    //                    color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 5
 
                     Image {
@@ -313,7 +331,7 @@ Rectangle{
                         songmodel.play(model.path,model.index);
                         mainrect.duration()
 
-//                        isPlaying : true
+                        //                        isPlaying : true
                     }
                 }
             }
