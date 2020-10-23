@@ -248,8 +248,8 @@ RoundedRect{
 
 
         delegate: Rectangle {
-            height: 50
-            width: 50
+            height: 40
+            width: 40
             border{
                 color: Qt.rgba(255, 255, 255,1)
                 width: 1
@@ -332,8 +332,8 @@ RoundedRect{
 
 
         delegate: Rectangle {
-            height: 50
-            width: 50
+            height: 40
+            width: 40
             border{
                 color: Qt.rgba(255, 255, 255,1)
                 width: 1

@@ -197,7 +197,6 @@ Rectangle{
 
                     }
                 }
-
             }
 
             onClicked: {
