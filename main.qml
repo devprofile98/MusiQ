@@ -211,7 +211,7 @@ ApplicationWindow {
         anchors.left: sap.right
         anchors.bottom: controller.top
         anchors.top: allsong.top
-        anchors.margins: 20
+        anchors.margins: 15
         anchors.topMargin: 0
         visible: true
 
