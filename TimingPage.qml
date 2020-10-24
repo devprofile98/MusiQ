@@ -9,10 +9,10 @@ Page{
             name: "desktop_mode"
             PropertyChanges {
                 target: backrect
-                toprightRadius: 25
-                topleftRadius: 25
-                bottomleftRadius: 25
-                bottomrightRadius: 25
+                toprightRadius: 20
+                topleftRadius: 20
+                bottomleftRadius: 20
+                bottomrightRadius: 20
 
             }
         },
@@ -20,10 +20,10 @@ Page{
             name: "middle_mode"
             PropertyChanges {
                 target: backrect
-                toprightRadius: 25
-                topleftRadius: 25
-                bottomleftRadius: 25
-                bottomrightRadius: 25
+                toprightRadius: 20
+                topleftRadius: 20
+                bottomleftRadius: 20
+                bottomrightRadius: 20
 
             }
         },
@@ -33,7 +33,7 @@ Page{
                 target: backrect
                 toprightRadius: 0
                 topleftRadius: 0
-                bottomleftRadius: 40
+                bottomleftRadius: 20
                 bottomrightRadius: 0
 
             }
@@ -46,10 +46,10 @@ Page{
     background: RoundedRect{
         id:backrect
         color:globalstyle.itemBG
-        toprightRadius: 40
-        topleftRadius: 40
-        bottomleftRadius: 40
-        bottomrightRadius: 40
+        toprightRadius: 20
+        topleftRadius: 20
+        bottomleftRadius: 20
+        bottomrightRadius: 20
     }
 
     header: Rectangle

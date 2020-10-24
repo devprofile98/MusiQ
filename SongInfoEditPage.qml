@@ -12,6 +12,8 @@ Popup{
         color: globalstyle.itemBG
     }
 
+
+
     ColumnLayout{
         width: parent.width*(3/4)
         height: parent.height

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.3
@@ -102,6 +102,27 @@ Rectangle
     ]
 
     state: "desktop_mode"
+
+    SequentialAnimation{
+        id:scaleanim
+        running: false
+    ScaleAnimator {
+
+        target: mainrect;
+        from: 1
+        to: 1.2
+        duration: 100
+        running: false
+    }
+    ScaleAnimator {
+
+        target: mainrect;
+        from: 1.2
+        to: 1
+        duration: 100
+        running: false
+    }
+    }
 
 
     Image
@@ -532,20 +553,42 @@ Rectangle
             anchors.fill: parent
             onClicked:
             {
-                songinfoedit.open();
+                scaleanim.start();
+                _editerloader.active = true;
+                _editerloader.item.open();
+                scaleanim.start();
             }
         }
 
     }
 
-    SongInfoEditPage
-    {
+
+    Component{
         id:songinfoedit
-        implicitWidth: parent.width
-        implicitHeight: parent.height
-        anchors.centerIn: parent.Center
+        SongInfoEditPage
+        {
+            implicitWidth: parent.width
+            implicitHeight: parent.height
+
+            onClosed: {
+                _editerloader.active = false;
+            }
+        }
     }
 
+
+    Loader{
+        id:_editerloader
+        anchors.fill: parent
+        sourceComponent: songinfoedit
+        active: false
+
+        onLoaded: {
+            console.log("our loader works")
+        }
+
+
+    }
     FastBlur
     {
         id:blur

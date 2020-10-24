@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
@@ -190,8 +190,20 @@ Rectangle{
                 color: globalstyle.mainFG;
                 clip: true
                 y: home.height/4
+
+                antialiasing: false
                 Behavior on y {
                     SpringAnimation {
+
+//                        onStarted: {
+//                            highlite.Antialiasing = false
+//                        }
+
+//                        onFinished:{
+//                            highlite.Antialiasing = true;
+//                        }
+
+
                         spring: 4
                         damping: 0.3
 

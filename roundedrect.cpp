@@ -4,7 +4,6 @@ RoundedRect::RoundedRect(QQuickItem *parent)
     : QQuickPaintedItem(parent)
 {
 
-    qDebug()<<y() << "is the y";
 }
 
 int RoundedRect::toprightRadius() const
@@ -98,6 +97,7 @@ void RoundedRect::paint(QPainter *painter)
 //    path.lineTo(m_x , 0   +m_y + m_topleftRadius);
 
 
+    painter->setRenderHint(QPainter::Antialiasing,m_Antialiasing);
 
     path.moveTo(width(), m_toprightRadius/2);
     path.arcTo(width() - m_toprightRadius, 0, m_toprightRadius,m_toprightRadius,0.0,90.0);
@@ -113,9 +113,6 @@ void RoundedRect::paint(QPainter *painter)
     path.moveTo(width(), height() - m_bottomrightRadius/2);
     path.closeSubpath();
 
-    qDebug()<<"check painyting Rounded Rect";
-
-    painter->setRenderHint(QPainter::Antialiasing,m_Antialiasing);
     painter->setBrush(QColor(m_color)); // set background color from qml
     painter->setPen(QPen(QColor(m_color), 0)); // border radius
     painter->drawPath(path);
