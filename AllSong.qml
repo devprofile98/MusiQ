@@ -253,17 +253,12 @@ RoundedRect{
                 width: parent.width
                 height: parent.height
 
-                //                property var colors: ["#EF9A9A","#F48FB1","#9FA8DA","#B39DDB","#FFAB91","#80CBC4"]
-
                 Rectangle{
                     id:thumbrect
-                    //                    height: parent.height -10
                     Layout.preferredHeight: parent.height -10
                     Layout.preferredWidth: height
                     Layout.alignment: Qt.AlignVCenter
                     Layout.leftMargin: 5
-                    //                    anchors.verticalCenter: parent.verticalCenter
-                    //                    color: parent.colors[Math.floor(Math.random()*6)]
                     radius: 5
 
                     Image {
