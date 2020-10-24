@@ -532,20 +532,40 @@ Rectangle
             anchors.fill: parent
             onClicked:
             {
-                songinfoedit.open();
+                _editerloader.active = true;
+                _editerloader.item.open();
             }
         }
 
     }
 
-    SongInfoEditPage
-    {
+
+    Component{
         id:songinfoedit
-        implicitWidth: parent.width
-        implicitHeight: parent.height
-        anchors.centerIn: parent.Center
+        SongInfoEditPage
+        {
+            implicitWidth: parent.width
+            implicitHeight: parent.height
+
+            onClosed: {
+                _editerloader.active = false;
+            }
+        }
     }
 
+
+    Loader{
+        id:_editerloader
+        anchors.fill: parent
+        sourceComponent: songinfoedit
+        active: false
+
+        onLoaded: {
+            console.log("our loader works")
+        }
+
+
+    }
     FastBlur
     {
         id:blur

@@ -190,16 +190,18 @@ Rectangle{
                 color: globalstyle.mainFG;
                 clip: true
                 y: home.height/4
+
+                antialiasing: false
                 Behavior on y {
                     SpringAnimation {
 
-                        onStarted: {
-                            highlite.Antialiasing = false
-                        }
+//                        onStarted: {
+//                            highlite.Antialiasing = false
+//                        }
 
-                        onFinished:{
-                            highlite.Antialiasing = true;
-                        }
+//                        onFinished:{
+//                            highlite.Antialiasing = true;
+//                        }
 
 
                         spring: 4
