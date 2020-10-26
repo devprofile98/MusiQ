@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
@@ -197,50 +197,73 @@ RoundedRect{
     }
 
 
-    Row{
+//    Row{
+//        id:settingsep
+//        anchors.horizontalCenter: parent.horizontalCenter
+//        anchors.top: killersec.bottom
+//        anchors.topMargin: 20
+//        width: parent.width - 100
+//        spacing: 20
+
+//        Label{
+//            id:lblid
+//            text: "Appearance"
+//            font{
+//                bold: true
+//                family:ubold.name
+//            }
+//            color:Qt.rgba(61,61, 58,0.4)
+//            width: implicitWidth
+//        }
+
+//        Rectangle{
+
+//            width: settingsep.width - lblid.width
+//            anchors.verticalCenter: lblid.verticalCenter
+//            anchors.right: mainrect.right
+//            anchors.rightMargin: 10
+//            height: 1
+//            color:Qt.rgba(61, 61, 58,0.1)
+//        }
+//    }
+    Separator{
         id:settingsep
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: killersec.bottom
-        anchors.topMargin: 20
-        width: parent.width - 100
-        spacing: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: killersec.bottom
+            anchors.topMargin: 20
+            width: parent.width - 100
 
-        Label{
-            id:lblid
-            text: "Appearance"
-            font{
-                bold: true
-                family:ubold.name
-            }
-            color:Qt.rgba(61,61, 58,0.4)
-            width: implicitWidth
-        }
-
-        Rectangle{
-
-            width: settingsep.width - lblid.width
-            anchors.verticalCenter: lblid.verticalCenter
-            anchors.right: mainrect.right
-            anchors.rightMargin: 10
-            height: 1
-            color:Qt.rgba(61, 61, 58,0.1)
-        }
+        labeltext: "Appearance"
     }
 
 
     ListView{
-        height: 100
+        height: 50
         width: parent.width // 6*60
         id: frontColorSec
 
         anchors{
             top:settingsep.bottom
             horizontalCenter: parent.horizontalCenter
-            left: parent.left
-            right: parent.right
+            left: settingsep.left
+            right: settingsep.right
             margins: 10
             topMargin: 20
         }
+        clip: true
+        header: Label{
+            text: "accent"
+            font{
+                bold: true
+                family: ubold.name
+            }
+            color: Qt.rgba(61,61, 58,0.4)
+            Layout.alignment: Qt.AlignCenter
+            padding: 10
+
+        }
+        headerPositioning:ListView.PullBackHeader
+
 
         orientation: Qt.Horizontal
         model: 6
@@ -281,50 +304,44 @@ RoundedRect{
 
 }
 
-    Row{
-        id:bgcolorsep
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: frontColorSec.bottom
-        anchors.topMargin: 20
-        width: parent.width - 100
-        spacing: 20
+//    Separator{
+//        id:bgcolorsep
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            anchors.top: frontColorSec.bottom
+//            anchors.topMargin: 20
+//            width: parent.width - 100
 
-        Label{
-            id:bgsep
-            text: "Appearance"
-            font{
-                bold: true
-                family:ubold.name
-            }
-            color:Qt.rgba(61,61, 58,0.4)
-            width: implicitWidth
-        }
-
-        Rectangle{
-
-            width: bgcolorsep.width - bgsep.width
-            anchors.verticalCenter: bgsep.verticalCenter
-            anchors.right: mainrect.right
-            anchors.rightMargin: 10
-            height: 2
-            color:Qt.rgba(61, 61, 58,0.1)
-        }
-    }
+//        labeltext: "Appearance"
+//    }
 
 
     ListView{
-        height: 100
+        height: 50
         width: parent.width // 6*60
         id: backColorSec
 
         anchors{
-            top:bgcolorsep.bottom
+            top:frontColorSec.bottom
             horizontalCenter: parent.horizontalCenter
-            left: parent.left
-            right: parent.right
+            left: settingsep.left
+            right: settingsep.right
             margins: 10
-            topMargin: 20
+//            topMargin: 20
         }
+        clip: true
+        header: Label{
+            text: "background"
+            font{
+                bold: true
+                family: ubold.name
+            }
+            color: Qt.rgba(61,61, 58,0.4)
+            Layout.alignment: Qt.AlignCenter
+            padding: 10
+
+        }
+        headerPositioning:ListView.PullBackHeader
+
 
         orientation: Qt.Horizontal
         model: 6
