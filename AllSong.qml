@@ -56,6 +56,10 @@ RoundedRect{
     property color mainBack: globalstyle.mainBG
     property color mainItem: globalstyle.itemBG
 
+    property real origin: 0
+    property bool closemenu: false
+    property real sapwidth: state === "mobile_mode" ? 50 :90
+
 
     signal duration()
     signal playBtnIconChanged()
@@ -172,6 +176,7 @@ RoundedRect{
     ]
 
 
+
     Rectangle{
         id:labelrect
         width: parent.width
@@ -184,6 +189,14 @@ RoundedRect{
             text: "All Songs "
             anchors.top:parent.top
             font.bold: true
+        }
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                sapcollapse.to = sapwidth;
+                mainrect.closemenu = !mainrect.closemenu
+                sapcollapse.start();
+            }
         }
 
     }
@@ -202,6 +215,15 @@ RoundedRect{
                 }
             }
         }
+    }
+
+
+    NumberAnimation {
+        id:sapcollapse
+        target: sap
+        property: "width"
+        duration: 200
+        easing.type: Easing.InOutQuad
     }
 
     ListView{
@@ -228,6 +250,44 @@ RoundedRect{
             }
 
         }
+        MouseArea{
+//            property int sapwidth: 0
+            anchors.fill: parent
+            propagateComposedEvents :true
+
+            onPressed: {
+                if(mainrect.closemenu){
+                    return;
+                }
+                mainrect.origin = mouse.x
+            }
+            onPositionChanged: {
+                if(mainrect.closemenu)
+                    return;
+                if(mainrect.origin - mouse.x > 40 && mouse.x <= mainrect.origin && sap.width >=0){
+                    sap.width = mainrect.sapwidth + 40 - (mainrect.origin - mouse.x)
+                }
+
+            }
+
+            onReleased: {
+                if(sap.width >= mainrect.sapwidth*(3/4)){
+//                    sap.width = mainrect.sapwidth;
+                    mainrect.closemenu = !mainrect.closemenu;
+                    sapcollapse.to = mainrect.sapwidth;
+                    sapcollapse.start();
+                }
+                else{
+                    mainrect.closemenu = !mainrect.closemenu;
+                    sapcollapse.to = 0;
+                    sapcollapse.start();
+                }
+            }
+
+            Component.onCompleted: {
+//                mainrect.sapwidth = sap.width
+            }
+        }
         clip: true
         boundsBehavior: Flickable.FollowBoundsBehavior
         snapMode: ListView.SnapToItem
@@ -242,11 +302,7 @@ RoundedRect{
             width: listvi.width
             radius: 10
             color:  "transparent" //model.selected ? "#3d3d3a" :
-            MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {}
-            }
+
 
             RowLayout{
                 spacing: 10
@@ -268,10 +324,10 @@ RoundedRect{
                         anchors.fill: parent
                         anchors.centerIn: parent
                         source: "image://imageprovider/" + model.index
-                        sourceSize: {
-                            width:rowimage.width
-                            height:rowimage.height
-                        }
+                        //                        sourceSize: {
+                        //                            width:rowimage.width
+                        //                            height:rowimage.height
+                        //                        }
 
                         asynchronous: true
                         smooth: true
@@ -314,9 +370,10 @@ RoundedRect{
 
                 MouseArea{
                     anchors.fill: parent
-
+                    //                    preventStealing: true
 
                     onClicked: {
+
                         if (mainwindow.isPlaying === true){
                             playBtnIconChanged()
                         }
@@ -332,4 +389,6 @@ RoundedRect{
             }
         }
     }
+
+
 }

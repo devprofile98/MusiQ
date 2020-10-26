@@ -333,7 +333,7 @@ ApplicationWindow {
 
     AllSong{
         id:allsong
-        anchors.right: parent.right
+        anchors.right: controller.right
         anchors.top: closebtn.bottom
         anchors.bottom: controller.top
         height: parent.height - 130

@@ -16,6 +16,7 @@
         <file>SongInfoEditPage.qml</file>
         <file>MyTextField.qml</file>
         <file>Styles.qml</file>
+        <file>Separator.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>
