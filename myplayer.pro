@@ -7,6 +7,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += TAGLIB_STATIC
 TARGET = "MusiQ"
 SOURCES += \
+        appsetting.cpp \
         backend.cpp \
         dataprovider.cpp \
         liveimageprovider.cpp \
@@ -32,6 +33,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    appsetting.h \
     backend.h \
     backend2.h \
     dataprovider.h \

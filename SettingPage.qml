@@ -286,7 +286,7 @@ RoundedRect{
                 anchors.fill: parent
                 onClicked: {
                     frontColorSec.currentIndex = model.index;
-                    globalstyle.mainFG = colors[model.index];
+                    globalstyle.setMainFG(colors[model.index]);
                     sap.settingbtncolor();
             }
         }
@@ -364,7 +364,7 @@ RoundedRect{
                 anchors.fill: parent
                 onClicked: {
                     backColorSec.currentIndex = model.index;
-                    globalstyle.itemBG = bgcolors[model.index];
+                    globalstyle.setItemBG(bgcolors[model.index]);
             }
         }
 
