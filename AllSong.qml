@@ -1,4 +1,4 @@
-import QtQuick 2.9
+import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import SongFinder 1.0
@@ -56,6 +56,7 @@ RoundedRect{
     property color mainBack: globalstyle.mainBG
     property color mainItem: globalstyle.itemBG
 
+    property bool validClick: true
     property real origin: 0
     property bool closemenu: false
     property real sapwidth: state === "mobile_mode" ? 50 :90
@@ -194,7 +195,7 @@ RoundedRect{
             anchors.fill: parent
             onClicked: {
                 sapcollapse.to = sapwidth;
-                mainrect.closemenu = !mainrect.closemenu
+                mainrect.closemenu = false;
                 sapcollapse.start();
             }
         }
@@ -224,6 +225,11 @@ RoundedRect{
         property: "width"
         duration: 200
         easing.type: Easing.InOutQuad
+
+        onFinished:{
+            mainrect.validClick = true
+        }
+
     }
 
     ListView{
@@ -265,6 +271,7 @@ RoundedRect{
                 if(mainrect.closemenu)
                     return;
                 if(mainrect.origin - mouse.x > 40 && mouse.x <= mainrect.origin && sap.width >=0){
+                    validClick = false;
                     sap.width = mainrect.sapwidth + 40 - (mainrect.origin - mouse.x)
                 }
 
@@ -273,13 +280,16 @@ RoundedRect{
             onReleased: {
                 if(sap.width >= mainrect.sapwidth*(3/4)){
 //                    sap.width = mainrect.sapwidth;
-                    mainrect.closemenu = !mainrect.closemenu;
+                    mainrect.closemenu = false;
                     sapcollapse.to = mainrect.sapwidth;
+                    console.log("ANIMATION ON RELEASE IF SET WIDTH TO ",mainrect.sapwidth)
                     sapcollapse.start();
                 }
                 else{
-                    mainrect.closemenu = !mainrect.closemenu;
+                    mainrect.closemenu = true;
                     sapcollapse.to = 0;
+                    console.log("ANIMATION ON RELEASE SET WIDTH TO 0")
+
                     sapcollapse.start();
                 }
             }
@@ -373,10 +383,12 @@ RoundedRect{
                     //                    preventStealing: true
 
                     onClicked: {
-
+                    if(validClick){
+                        console.log("FROM LIST DELEGATE ONCLICKED ",validClick,closemenu)
                         if (mainwindow.isPlaying === true){
                             playBtnIconChanged()
                         }
+
                         playlistindex = model.index
                         currentpath = model.path
                         endPosition = model.duration
@@ -384,6 +396,7 @@ RoundedRect{
                         mainrect.duration()
 
                         //                        isPlaying : true
+                        }
                     }
                 }
             }

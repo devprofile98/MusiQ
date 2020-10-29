@@ -16,6 +16,7 @@
 #include "liveimageprovider.h"
 #include"dataprovider.h"
 #include "roundedrect.h"
+#include "appsetting.h"
 
 #include<fileref.h>
 #include<tag.h>
@@ -27,8 +28,8 @@
 #include <mp4/mp4coverart.h>
 
 #ifdef Q_OS_ANDROID
-    #include <QtAndroidExtras>
-    #include <QtAndroid>
+#include <QtAndroidExtras>
+#include <QtAndroid>
 #endif
 
 
@@ -37,34 +38,35 @@ int main(int argc, char *argv[])
     QThread::currentThread()->setObjectName("Main Thread");
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-//#ifdef Q_OS_WINDOWS
-//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
-//#endif
+    //#ifdef Q_OS_WINDOWS
+    //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
+    //#endif
 
 
 #ifdef Q_OS_ANDROID
-        QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
+    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
 
-        auto result = QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE"));
-        if (result == QtAndroid::PermissionResult::Denied){
+    auto result = QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE"));
+    if (result == QtAndroid::PermissionResult::Denied){
         qDebug()<<"dont have permission";
         QtAndroid::PermissionResultMap resulthash = QtAndroid::requestPermissionsSync(QStringList({"android.permission.READ_EXTERNAL_STORAGE"}));
         if(resulthash["android.permission.READ_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied){
             return 0;
         }
-        }
-        else{
-            qDebug()<<"have this permission";
-        }
+    }
+    else{
+        qDebug()<<"have this permission";
+    }
 #endif
 
 
-//    tools tools;
+    //    tools tools;
+//    qmlRegisterType<AppSetting>("appsettings",1,0,"Appsettings");
     qmlRegisterType<songitemmodeler>("SongFinder",1,0,"Songfinder");
     qmlRegisterType<RoundedRect>("roundedrect",1,0,"RoundedRect");
 
     QQuickStyle::setStyle("Material");
-//    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
+    //    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
     QGuiApplication app(argc, argv);
 
     DataProvider* dp = new DataProvider(&app);
@@ -72,16 +74,18 @@ int main(int argc, char *argv[])
     app.dumpObjectTree();
 
     app.setWindowIcon(QIcon("TrayIcon.png"));
-//    QWindow::setIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
-//    backend2 bend;
-//    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
+    //    QWindow::setIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
+    //    backend2 bend;
+    //    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
     LiveImageProvider liveimage;
 
     QQmlApplicationEngine engine;
-//    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
-//    engine.rootContext()->setContextProperty("backend",&bend);
-//    engine.rootContext()->setContextProperty("tools",&tools);
+    //    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
+    //    engine.rootContext()->setContextProperty("backend",&bend);
+    //    engine.rootContext()->setContextProperty("tools",&tools);
+    AppSetting *settings = new AppSetting{};
     engine.rootContext()->setContextProperty("DataModel",dp);
+    engine.rootContext()->setContextProperty("AppSettings",settings);
     engine.addImageProvider("imageprovider", &liveimage);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
