@@ -13,10 +13,10 @@ RoundedRect{
 
     visible: false
 
-    toprightRadius: 20
-    topleftRadius: 20
-    bottomleftRadius: 20
-    bottomrightRadius: 20
+    toprightRadius: 10
+    topleftRadius: 10
+    bottomleftRadius: 10
+    bottomrightRadius: 10
     color: globalstyle.itemBG
     clip:true
     states:[
@@ -24,10 +24,10 @@ RoundedRect{
             name: "desktop_mode"
             PropertyChanges {
                 target: mainrect
-                toprightRadius: 25
-                topleftRadius: 25
-                bottomleftRadius: 25
-                bottomrightRadius: 25
+                toprightRadius: 13
+                topleftRadius: 13
+                bottomleftRadius: 13
+                bottomrightRadius: 13
             }
 
             PropertyChanges {
@@ -50,10 +50,10 @@ RoundedRect{
             }
             PropertyChanges {
                 target: mainrect
-                toprightRadius: 20
-                topleftRadius: 20
-                bottomleftRadius: 20
-                bottomrightRadius: 20
+                toprightRadius: 10
+                topleftRadius: 10
+                bottomleftRadius: 10
+                bottomrightRadius: 10
             }
             PropertyChanges {
             target: timersep
@@ -71,7 +71,7 @@ RoundedRect{
                 target: mainrect
                 toprightRadius: 0
                 topleftRadius: 0
-                bottomleftRadius: 20
+                bottomleftRadius: 10
                 bottomrightRadius: 0
             }
             PropertyChanges {

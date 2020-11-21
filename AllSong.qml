@@ -76,10 +76,10 @@ RoundedRect{
     width: parent.width
     height: parent.height
     //    radius: 10
-    toprightRadius: 20
-    topleftRadius: 20
-    bottomleftRadius: 20
-    bottomrightRadius: 20
+    toprightRadius: 10
+    topleftRadius: 10
+    bottomleftRadius: 10
+    bottomrightRadius: 10
 
 
     color: mainItem //Qt.rgba(61,61, 58,0.05)
@@ -100,10 +100,10 @@ RoundedRect{
             PropertyChanges {
                 target: mainrect
                 width : 400
-                toprightRadius: 20
-                topleftRadius: 20
-                bottomleftRadius: 20
-                bottomrightRadius: 20
+                toprightRadius: 10
+                topleftRadius: 10
+                bottomleftRadius: 10
+                bottomrightRadius: 10
             }
 
         },
@@ -119,10 +119,10 @@ RoundedRect{
                 target: mainrect
                 width : 400
                 anchors.leftMargin: 20
-                toprightRadius: 20
-                topleftRadius: 20
-                bottomleftRadius: 20
-                bottomrightRadius: 20
+                toprightRadius: 10
+                topleftRadius: 10
+                bottomleftRadius: 10
+                bottomrightRadius: 10
 
             }
 
@@ -149,7 +149,7 @@ RoundedRect{
 
                 toprightRadius: 0
                 topleftRadius: 0
-                bottomleftRadius: 20
+                bottomleftRadius: 10
                 bottomrightRadius: 0
 
             }
