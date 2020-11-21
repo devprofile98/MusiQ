@@ -33,32 +33,44 @@ QString RoundedRect::color() const
 
 void RoundedRect::setToprightRadius(int toprightRadius)
 {
+//    if (toprightRadius > width()/2 || toprightRadius > height()/2){
+//        toprightRadius = height() >= width() ? width()/2 : height() /2;
+//    }
+    m_toprightRadius = toprightRadius*2;
     update();
-    m_toprightRadius = toprightRadius;
 }
 
 void RoundedRect::setTopleftRadius(int topleftRadius)
 {
+//    if (topleftRadius > width()/2 || topleftRadius > height()/2){
+//        topleftRadius = height() >= width() ? width()/2 : height() /2;
+//    }
+    m_topleftRadius = topleftRadius*2;
     update();
-    m_topleftRadius = topleftRadius;
 }
 
 void RoundedRect::setBottomrightRadius(int bottomrightRadius)
 {
+//    if (bottomrightRadius > width()/2 || bottomrightRadius > height()/2){
+//        bottomrightRadius = height() >= width() ? width()/2 : height() /2;
+//    }
+    m_bottomrightRadius = bottomrightRadius*2;
     update();
-    m_bottomrightRadius = bottomrightRadius;
 }
 
 void RoundedRect::setBottomleftRadius(int bottomleftRadius)
 {
+//    if (bottomleftRadius > width()/2 || bottomleftRadius > height()/2){
+//        bottomleftRadius = height() >= width() ? width()/2 : height() /2;
+//    }
+    m_bottomleftRadius = bottomleftRadius*2;
     update();
-    m_bottomleftRadius = bottomleftRadius;
 }
 
 void RoundedRect::setColor(QString color)
 {
-    update();
     m_color = color;
+    update();
 }
 bool RoundedRect::Antialiasing() const
 {
@@ -77,26 +89,6 @@ void RoundedRect::paint(QPainter *painter)
 
     QPainterPath path;
 
-//    // top left curve begin
-//    path.moveTo(m_x, m_topleftRadius+m_y);
-//    path.arcTo(m_x , 0 + m_y , m_topleftRadius, m_topleftRadius,-180,-90);
-//    path.lineTo(width() + m_x - m_toprightRadius, 0+m_y);
-
-//    // top right curve
-//    path.arcTo(width() + m_x - m_toprightRadius, 0+m_y, m_toprightRadius, m_toprightRadius, 90, -90);
-//    path.lineTo(width()+m_x, height()+m_y - m_bottomrightRadius);
-
-//    //bottom right curve
-//    path.arcTo(width()+m_x, height(), -m_bottomrightRadius, -m_bottomrightRadius,180 ,-90);
-//    path.lineTo(m_x+m_bottomleftRadius, height()+m_y);
-
-//    //bottom left curve
-//    path.arcTo(m_x, height() , m_bottomleftRadius, -m_bottomleftRadius, -270,90);
-
-//    // go to beginig
-//    path.lineTo(m_x , 0   +m_y + m_topleftRadius);
-
-
     painter->setRenderHint(QPainter::Antialiasing,m_Antialiasing);
 
     path.moveTo(width(), m_toprightRadius/2);
@@ -114,6 +106,6 @@ void RoundedRect::paint(QPainter *painter)
     path.closeSubpath();
 
     painter->setBrush(QColor(m_color)); // set background color from qml
-    painter->setPen(QPen(QColor(m_color), 0)); // border radius
+    painter->setPen(QPen(QColor("transparent"), -1)); // border radius with size > 0 the result will not be pleasing
     painter->drawPath(path);
 }

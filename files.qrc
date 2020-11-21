@@ -12,5 +12,6 @@
         <file>default_music_cover.png</file>
         <file>thumbnail.svg</file>
         <file>TrayIcon.png</file>
+        <file>TrayIcon_copy.png</file>
     </qresource>
 </RCC>

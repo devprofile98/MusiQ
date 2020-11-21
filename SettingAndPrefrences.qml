@@ -184,8 +184,8 @@ Rectangle{
                 anchors.left: parent.left
                 width: 8; height: parent.height/2
 
-                toprightRadius: 8
-                bottomrightRadius: 8
+                toprightRadius: 4
+                bottomrightRadius: 4
 
                 color: globalstyle.mainFG;
                 clip: true

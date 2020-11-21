@@ -13,10 +13,10 @@ Page{
     clip: true
     background: RoundedRect{
         color:mainItem//Qt.rgba(61,61, 58,0.05)
-        toprightRadius: 20
-        topleftRadius: 20
-        bottomleftRadius: 20
-        bottomrightRadius: 20
+        toprightRadius: 10
+        topleftRadius: 10
+        bottomleftRadius: 10
+        bottomrightRadius: 10
     }
 
     header: Rectangle
