@@ -102,10 +102,12 @@ void RoundedRect::paint(QPainter *painter)
 
     path.lineTo(width()-m_bottomrightRadius/2,height());
     path.arcTo(width()-m_bottomrightRadius,height()-m_bottomrightRadius,m_bottomrightRadius,m_bottomrightRadius,270.0,90.0);
-    path.moveTo(width(), height() - m_bottomrightRadius/2);
+    path.lineTo(width(), height() - m_bottomrightRadius/2);
     path.closeSubpath();
 
+    painter->setPen(QPen(QColor("transparent"), 0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->setBrush(QColor(m_color)); // set background color from qml
-    painter->setPen(QPen(QColor("transparent"), -1)); // border radius with size > 0 the result will not be pleasing
     painter->drawPath(path);
+
+
 }
