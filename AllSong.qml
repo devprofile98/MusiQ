@@ -81,7 +81,6 @@ RoundedRect{
     bottomleftRadius: 10
     bottomrightRadius: 10
 
-
     color: mainItem //Qt.rgba(61,61, 58,0.05)
     anchors.verticalCenter: fillingitem.verticalCenter
     anchors.rightMargin: 20

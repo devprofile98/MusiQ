@@ -24,10 +24,13 @@ Rectangle{
 
             settinglbl.color="white"
             highlite.visible = true
+
         }
         else{
             settinglbl.color = globalstyle.mainFG;
             highlite.visible = false;
+
+
         }
     }
 
@@ -37,8 +40,10 @@ Rectangle{
     }
 
 
+    PropertyAnimation{
+        target: highlite
 
-
+    }
 
 
     id:root
@@ -121,8 +126,6 @@ Rectangle{
             anchors.fill: parent
 
             onClicked: {
-
-
                 mainstackview.replace(settingpage);
                 listCurrentIndex= -1;
                 highlite.y= home.inseq*root.btnsize +root.btnsize/4
@@ -194,19 +197,15 @@ Rectangle{
                 antialiasing: false
                 Behavior on y {
                     SpringAnimation {
-
-//                        onStarted: {
-//                            highlite.Antialiasing = false
-//                        }
-
-//                        onFinished:{
-//                            highlite.Antialiasing = true;
-//                        }
-
-
                         spring: 4
                         damping: 0.3
+                    }
+                }
 
+                Behavior on x{
+                    SpringAnimation {
+                        spring: 4
+                        damping: 0.3
                     }
                 }
             }

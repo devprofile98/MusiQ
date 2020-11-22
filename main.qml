@@ -186,13 +186,17 @@ ApplicationWindow {
         id:home
         visible: true
         anchors.left:sap.right
-        y:-90
+//        y:-90
+        anchors.top: parent.top
+        anchors.bottom: controller.top
+        anchors.right: parent.right
     }
 
     Controller{
         id:controller
-        anchors.top: home.bottom
+//        anchors.top: home.bottom
         width: parent.width
+        anchors.bottom: parent.bottom
         height: 90
     }
 
@@ -333,12 +337,14 @@ ApplicationWindow {
 
     AllSong{
         id:allsong
-        anchors.right: controller.right
+        anchors.right: parent.right
         anchors.top: closebtn.bottom
         anchors.bottom: controller.top
-        height: parent.height - 130
-        anchors.margins: 20
+//        height: parent.height - 130
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
         anchors.topMargin: 5
+        anchors.bottomMargin: 15
 
         Component.onCompleted: {
             onDuration: controller.durationToText()
