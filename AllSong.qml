@@ -256,7 +256,7 @@ RoundedRect{
 
         }
         MouseArea{
-//            property int sapwidth: 0
+            //            property int sapwidth: 0
             anchors.fill: parent
             propagateComposedEvents :true
 
@@ -278,7 +278,7 @@ RoundedRect{
 
             onReleased: {
                 if(sap.width >= mainrect.sapwidth*(3/4)){
-//                    sap.width = mainrect.sapwidth;
+                    //                    sap.width = mainrect.sapwidth;
                     mainrect.closemenu = false;
                     sapcollapse.to = mainrect.sapwidth;
                     console.log("ANIMATION ON RELEASE IF SET WIDTH TO ",mainrect.sapwidth)
@@ -294,7 +294,7 @@ RoundedRect{
             }
 
             Component.onCompleted: {
-//                mainrect.sapwidth = sap.width
+                //                mainrect.sapwidth = sap.width
             }
         }
         clip: true
@@ -375,29 +375,57 @@ RoundedRect{
                         bold:true
                     }
                     color: "white"
+
                 }
+
+//                Button{
+//                    //                    Layout.preferredWidth: 10
+//                    //                    Layout.preferredHeight: 10
+//                    Layout.fillHeight: true
+//                    Layout.fillWidth: true
+////                    z:100
+//                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+//                    background: Rectangle{
+//                        color: "yellow"
+//                    }
+
+//                    Label{
+//                        text: ":"
+//                        font{
+//                            bold: true
+//                            pixelSize: 15
+//                        }
+
+//                    }
+//                }
 
                 MouseArea{
                     anchors.fill: parent
+
                     //                    preventStealing: true
 
                     onClicked: {
-                    if(validClick){
-                        console.log("FROM LIST DELEGATE ONCLICKED ",validClick,closemenu)
-                        if (mainwindow.isPlaying === true){
-                            playBtnIconChanged()
-                        }
+                        if(validClick){
+                            if (mainwindow.isPlaying === true){
+                                playBtnIconChanged()
+                            }
 
-                        playlistindex = model.index
-                        currentpath = model.path
-                        endPosition = model.duration
-                        songmodel.play(model.path,model.index);
-                        mainrect.duration()
+                            playlistindex = model.index
+                            currentpath = model.path
+                            endPosition = model.duration
+                            songmodel.play(model.path,model.index);
+                            mainrect.duration()
 
-                        //                        isPlaying : true
+                            //                        isPlaying : true
                         }
                     }
+                    onPressAndHold: {
+                        fullscreenplayer.editPageOpen();
+                    }
+
                 }
+
+
             }
         }
     }

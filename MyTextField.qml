@@ -2,17 +2,18 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 
 
-    TextField {
-        property alias labelvalue: lbl.text
+  TextField {
+//        property alias labelvalue: lbl.text
         property alias backColor: background.color
-        property alias frontColor: lbl.color
-        property alias maintext: maintext.text
+//        property alias frontColor: lbl.color
+//        property alias maintext: maintext.text
         id: control
-        leftInset:lbl.right
-        color: "transparent"
+        leftInset:-10
+        color: globalstyle.mainFG
         font{
             bold:true
             pixelSize: 15
+            family: ubold.name
         }
 
         states: [
@@ -22,35 +23,35 @@ import QtQuick.Controls 2.5
                     target: control
 
                 }
-                AnchorChanges{
-                    target: lbl
-                    anchors.top:undefined
-                    anchors.bottom: control.top
-                    anchors.verticalCenter: undefined
-                }
-                AnchorChanges{
-                    target: maintext
-                    anchors.left: control.left
-                }
-                PropertyChanges {
-                    target: maintext
-                    text:control.text
+//                AnchorChanges{
+////                    target: lbl
+////                    anchors.top:undefined
+////                    anchors.bottom: control.top
+////                    anchors.verticalCenter: undefined
+////                }
+//                AnchorChanges{
+//                    target: maintext
+//                    anchors.left: control.left
+//                }
+//                PropertyChanges {
+//                    target: maintext
+//                    text:control.text
 
-                }
+//                }
             },
             State {
                 name: "focus_off"
 
-                AnchorChanges{
-                    target: lbl
-                    anchors.verticalCenter: control.verticalCenter
+//                AnchorChanges{
+//                    target: lbl
+//                    anchors.verticalCenter: control.verticalCenter
 
-                    anchors.bottom: undefined
-                }
-                AnchorChanges{
-                    target: maintext
-                    anchors.left: lbl.right
-                }
+//                    anchors.bottom: undefined
+//                }
+//                AnchorChanges{
+//                    target: maintext
+//                    anchors.left: control.left
+//                }
 
             }
         ]
@@ -69,14 +70,14 @@ import QtQuick.Controls 2.5
 
 
 
-        onFocusChanged: {
-            if(focus){
-                control.state = "focus_on";
-            }
-            else{
-                control.state = "focus_off";
-            }
-        }
+//        onFocusChanged: {
+//            if(focus){
+//                control.state = "focus_on";
+//            }
+//            else{
+//                control.state = "focus_off";
+//            }
+//        }
 
         background: Rectangle {
             id:background
@@ -87,28 +88,28 @@ import QtQuick.Controls 2.5
 
         }
 
-        Label{
-            id:lbl
-            text:labelvalue
-            //            anchors.top: control.top
-            anchors.left: control.left
-            anchors.verticalCenter: control.verticalCenter
-            anchors.leftMargin:20
-            font{
-                bold:true
-            }
-        }
-
-        Label{
-            id:maintext
-            text:""
-            anchors.left: lbl.right
-            anchors.verticalCenter: control.verticalCenter
+//        Label{
+//            id:lbl
+//            text:labelvalue
+//            //            anchors.top: control.top
+//            anchors.left: control.left
+//            anchors.verticalCenter: control.verticalCenter
 //            anchors.leftMargin:20
-            font{
-                bold:true
-                pixelSize: 15
-            }
-        }
+//            font{
+//                bold:true
+//            }
+//        }
+
+//        Label{
+//            id:maintext
+//            text:""
+//            anchors.left: control.left
+//            anchors.verticalCenter: control.verticalCenter
+////            anchors.leftMargin:20
+//            font{
+//                bold:true
+//                pixelSize: 15
+//            }
+//        }
     }
 

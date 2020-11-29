@@ -16,6 +16,20 @@ Rectangle
 
     property int pbarleftx: allsong.passed / allsong.endPosition
     property int iconsize: 18
+
+
+    function editPageOpen(){
+        //        scaleanim.start();
+        _editerloader.active = true;
+        _editerloader.item.open();
+        //        scaleanim.start();
+    }
+
+    function editPageClose(){
+        _editerloader.active = false;
+
+    }
+
     states:[
         State {
             name: "desktop_mode"
@@ -106,22 +120,22 @@ Rectangle
     SequentialAnimation{
         id:scaleanim
         running: false
-    ScaleAnimator {
+        ScaleAnimator {
 
-        target: mainrect;
-        from: 1
-        to: 1.2
-        duration: 100
-        running: false
-    }
-    ScaleAnimator {
+            target: mainrect;
+            from: 1
+            to: 1.2
+            duration: 100
+            running: false
+        }
+        ScaleAnimator {
 
-        target: mainrect;
-        from: 1.2
-        to: 1
-        duration: 100
-        running: false
-    }
+            target: mainrect;
+            from: 1.2
+            to: 1
+            duration: 100
+            running: false
+        }
     }
 
 
@@ -478,44 +492,44 @@ Rectangle
 
     }
 
-        Rectangle
+    Rectangle
+    {
+        id:closedrawer
+        width: 30
+        height: 30
+        anchors.margins: 10
+        z:2
+        color:Qt.rgba(61, 61, 58,0.1)// "#3d3d3a"//        opacity: 0.4
+        radius: 8
+        anchors
         {
-            id:closedrawer
-            width: 30
-            height: 30
-            anchors.margins: 10
-            z:2
-            color:Qt.rgba(61, 61, 58,0.1)// "#3d3d3a"//        opacity: 0.4
-            radius: 8
-            anchors
-            {
-                top: parent.top
-                right: parent.right
-            }
-            Label
-            {
-                anchors.centerIn: parent
-                color: "white"
-                text: "\uf103"
-                font
-                {
-                    family: solidfont.name
-                    bold:true
-                    pixelSize: 18
-                }
-            }
-
-
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    fullscreenDrawer.close();
-                }
-            }
-
+            top: parent.top
+            right: parent.right
         }
+        Label
+        {
+            anchors.centerIn: parent
+            color: "white"
+            text: "\uf103"
+            font
+            {
+                family: solidfont.name
+                bold:true
+                pixelSize: 18
+            }
+        }
+
+
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                fullscreenDrawer.close();
+            }
+        }
+
+    }
 
 
     Rectangle
@@ -571,7 +585,7 @@ Rectangle
             implicitHeight: parent.height
 
             onClosed: {
-                _editerloader.active = false;
+                editPageClose();
             }
         }
     }
