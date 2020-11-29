@@ -37,6 +37,9 @@ Popup{
             Layout.preferredWidth: 200//parent.width
             Layout.preferredHeight: 200//parent.width
             Layout.maximumHeight: 200//parent.width
+
+
+
             sourceSize{
                 width: songCover.width
                 height: songCover.height
@@ -47,62 +50,67 @@ Popup{
         MyTextField{
             id:singername
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "Singer"
+            //            labelvalue: "Singer"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
-            maintext:DataModel.songerName
+            //            maintext:DataModel.songerName
             Material.accent: "#d18bf0"
-            frontColor: globalstyle.mainFG
+            placeholderText: DataModel.songerName
+            //            frontColor: globalstyle.mainFG
 
         }
 
         MyTextField{
             id:songtitle
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "Title"
+            //            labelvalue: "Title"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
-            maintext:DataModel.songTitle
+            //            maintext:DataModel.songTitle
+            placeholderText: DataModel.songTitle
             Material.accent: "#d18bf0"
-            frontColor: globalstyle.mainFG
+            //            frontColor: globalstyle.mainFG
         }
 
         MyTextField{
             id:albumname
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "Album"
+            //            labelvalue: "Album"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
-            maintext:DataModel.albumName
+            //            maintext:DataModel.albumName
+            placeholderText: DataModel.albumName
             Material.accent: "#d18bf0"
-            frontColor: globalstyle.mainFG
+            //            frontColor: globalstyle.mainFG
         }
 
         MyTextField{
             id:releaseyear
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "Release"
+            //            labelvalue: "Release"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
-            maintext:DataModel.songReleaseYear
+            //            maintext:DataModel.songReleaseYear
+            placeholderText: DataModel.songReleaseYear
             Material.accent: "#d18bf0"
-            frontColor: globalstyle.mainFG
+            //            frontColor: globalstyle.mainFG
         }
 
         MyTextField{
             id:genre
             Layout.alignment:Qt.AlignHCenter | Qt.AlignTop
-            labelvalue: "Genre"
+            //            labelvalue: "Genre"
             Layout.preferredWidth: parent.width*(3/4)
             Layout.preferredHeight: implicitHeight
             backColor: Qt.rgba(61,61, 58,0.04)
-            maintext:DataModel.songGenre
+            //            maintext:DataModel.songGenre
+            placeholderText: DataModel.songGenre
             Material.accent: "#d18bf0"
-            frontColor: globalstyle.mainFG
+            //            frontColor: globalstyle.mainFG
 
         }
 
@@ -111,6 +119,11 @@ Popup{
             height: 30
             text:"save"
             Layout.alignment: Qt.AlignHCenter
+
+            font{
+                bold:true
+                family: ubold.name
+            }
 
             onClicked: {
                 DataModel.editSongInfo(allsong.playlistindex,singername.text, songtitle.text, albumname.text, releaseyear.text, genre.text)
