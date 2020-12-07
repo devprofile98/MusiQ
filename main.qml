@@ -182,6 +182,32 @@ ApplicationWindow {
     }
 
 
+    Component{
+        id:songinfoedit
+        SongInfoEditPage
+        {
+            implicitWidth: parent.width
+            implicitHeight: parent.height
+
+            onClosed: {
+                editPageClose();
+            }
+        }
+    }
+
+
+    Loader{
+        id:_editerloader
+        anchors.fill: parent
+        sourceComponent: songinfoedit
+        active: false
+
+        onLoaded: {
+            console.log("our loader works")
+        }
+    }
+
+
     Home{
         id:home
         visible: true

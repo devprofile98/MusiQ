@@ -238,6 +238,7 @@ RoundedRect{
         anchors.top: labelrect.bottom
         
         anchors.horizontalCenter: parent.horizontalCenter
+
         model: Songfinder{
             id:songmodel
             onSongchanged: {
@@ -364,6 +365,38 @@ RoundedRect{
 
                     }
 
+                    Rectangle{
+                        id:presseffect
+                        y:listvi.currentItem.y
+                        width: 1
+                        height: 70
+                        visible: false
+                        anchors.margins: 0;
+                        radius: 5
+                        color:"#878686"
+                        z:-1
+
+
+                        Behavior on width {
+                            NumberAnimation{
+                                duration: 400;
+                            }
+                        }
+
+
+                    }
+
+                    Timer{
+                        id:presseffecttimer
+                        interval: 400
+                        onTriggered: {
+                            fullscreenplayer.editPageOpen();
+                            presseffect.visible = false;
+                            presseffect.width = 1;
+                            listvi.currentItem.clip = false;
+                        }
+                    }
+
                 }
 
                 Label{
@@ -378,29 +411,17 @@ RoundedRect{
 
                 }
 
-//                Button{
-//                    //                    Layout.preferredWidth: 10
-//                    //                    Layout.preferredHeight: 10
-//                    Layout.fillHeight: true
-//                    Layout.fillWidth: true
-////                    z:100
-//                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-//                    background: Rectangle{
-//                        color: "yellow"
-//                    }
-
-//                    Label{
-//                        text: ":"
-//                        font{
-//                            bold: true
-//                            pixelSize: 15
-//                        }
-
-//                    }
-//                }
-
                 MouseArea{
                     anchors.fill: parent
+
+                    onPressAndHold: {
+                        listvi.currentItem.clip = true;
+                        presseffect.x = 0;
+                        presseffect.y = 0;
+                        presseffect.visible = true;
+                        presseffect.width = listvi.width;
+                        presseffecttimer.start();
+                    }
 
                     //                    preventStealing: true
 
@@ -419,10 +440,6 @@ RoundedRect{
                             //                        isPlaying : true
                         }
                     }
-                    onPressAndHold: {
-                        fullscreenplayer.editPageOpen();
-                    }
-
                 }
 
 
