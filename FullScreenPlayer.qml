@@ -577,32 +577,7 @@ Rectangle
     }
 
 
-    Component{
-        id:songinfoedit
-        SongInfoEditPage
-        {
-            implicitWidth: parent.width
-            implicitHeight: parent.height
 
-            onClosed: {
-                editPageClose();
-            }
-        }
-    }
-
-
-    Loader{
-        id:_editerloader
-        anchors.fill: parent
-        sourceComponent: songinfoedit
-        active: false
-
-        onLoaded: {
-            console.log("our loader works")
-        }
-
-
-    }
     FastBlur
     {
         id:blur
