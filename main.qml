@@ -190,7 +190,6 @@ ApplicationWindow {
             implicitHeight: parent.height
 
             onClosed: {
-                editPageClose();
             }
         }
     }
