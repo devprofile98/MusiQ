@@ -201,13 +201,16 @@ RoundedRect{
 
     }
 
-    Component {
-        id: highlight
-
-        Rectangle {
+Component{
+    id:highlightcomp
+        Highlite{
+            id: highlight
             width: listvi.width; height: 70
-            color: "#3d3d3a"; radius: 5
             y: listvi.currentItem.y
+            maincolor: "#3d3d3a"
+            holdcolor: "white"
+            towidth: listvi.width
+            anchors.leftMargin: 5
             Behavior on y {
                 SpringAnimation {
                     spring: 4
@@ -215,6 +218,19 @@ RoundedRect{
                 }
             }
         }
+
+        //        Rectangle {
+        //            width: listvi.width; height: 70
+        //            color: "#3d3d3a"; radius: 5
+        //            y: listvi.currentItem.y
+        //            Behavior on y {
+        //                SpringAnimation {
+        //                    spring: 4
+        //                    damping: 0.3
+        //                }
+        //            }
+        //        }
+
     }
 
 
@@ -304,7 +320,7 @@ RoundedRect{
         header: labelrect
         spacing:10
 
-        highlight: highlight
+        highlight: highlightcomp
         highlightFollowsCurrentItem: false
 
         delegate: Rectangle{
@@ -414,14 +430,15 @@ RoundedRect{
                 MouseArea{
                     anchors.fill: parent
 
-                    onPressAndHold: {
-                        listvi.currentItem.clip = true;
-                        presseffect.x = 0;
-                        presseffect.y = 0;
-                        presseffect.visible = true;
-                        presseffect.width = listvi.width;
-                        presseffecttimer.start();
-                    }
+//                    onPressAndHold: {
+//                        //                        listvi.currentItem.clip = true;
+//                        //                        presseffect.x = 0;
+//                        //                        presseffect.y = 0;
+//                        //                        presseffect.visible = true;
+//                        //                        presseffect.width = listvi.width;
+//                        highlightcomp.holdAnime();
+//                        //                        presseffecttimer.start();
+//                    }
 
                     //                    preventStealing: true
 

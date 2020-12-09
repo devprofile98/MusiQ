@@ -17,6 +17,7 @@
         <file>MyTextField.qml</file>
         <file>Styles.qml</file>
         <file>Separator.qml</file>
+        <file>Highlite.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>
