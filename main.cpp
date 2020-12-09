@@ -17,6 +17,7 @@
 #include"dataprovider.h"
 #include "roundedrect.h"
 #include "appsetting.h"
+#include "dbmanager.h"
 
 #include<fileref.h>
 #include<tag.h>
@@ -31,6 +32,8 @@
 #include <QtAndroidExtras>
 #include <QtAndroid>
 #endif
+
+
 
 
 int main(int argc, char *argv[])
@@ -59,6 +62,7 @@ int main(int argc, char *argv[])
     }
 #endif
 
+    DBManager db("./mysqlite.sqlite3");
 
     //    tools tools;
 //    qmlRegisterType<AppSetting>("appsettings",1,0,"Appsettings");
@@ -84,6 +88,7 @@ int main(int argc, char *argv[])
     //    engine.rootContext()->setContextProperty("backend",&bend);
     //    engine.rootContext()->setContextProperty("tools",&tools);
     AppSetting *settings = new AppSetting{};
+    engine.rootContext()->setContextProperty("DBManager",&db);
     engine.rootContext()->setContextProperty("DataModel",dp);
     engine.rootContext()->setContextProperty("AppSettings",settings);
     engine.addImageProvider("imageprovider", &liveimage);

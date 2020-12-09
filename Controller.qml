@@ -80,6 +80,11 @@ Rectangle{
         mainwindow.isPlaying =!mainwindow.isPlaying
     }
 
+    function openAddPopup(){
+        addplaylistloader.active = true;
+        addplaylistloader.item.open();
+    }
+
     property real allsongend: allsong.endPosition
     onAllsongendChanged: {
         anim.stop();
@@ -511,6 +516,15 @@ Rectangle{
                         family:solidfont.name
                         pixelSize: parent.height/5
                     }
+
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+//                            DBManager.creatPlaylist("new playlist");
+                            openAddPopup();
+                        }
+                    }
                 }
                 Canvas{
                     id:durationcanvas
@@ -636,6 +650,8 @@ Rectangle{
                     ;                }
             }
         }
+
+
 
     }
 

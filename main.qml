@@ -20,10 +20,10 @@ ApplicationWindow {
     title: qsTr("MusiQ")
     Material.theme: Material.Dark
     Material.background:globalstyle.itemBG
-//    flags:  Qt.FramelessWindowHint
-//    flags: /*Qt.FramelessWindowHint |*/
-////           Qt.WindowMinimizeButtonHint |
-//           Qt.Window
+    //    flags:  Qt.FramelessWindowHint
+    //    flags: /*Qt.FramelessWindowHint |*/
+    ////           Qt.WindowMinimizeButtonHint |
+    //           Qt.Window
 
 
     onWidthChanged: {
@@ -92,7 +92,7 @@ ApplicationWindow {
         width: 20
         height: width
         color:"#242323"
-//        anchors.right: parent.right
+        //        anchors.right: parent.right
         anchors.top: parent.top
         anchors.right: allsong.right
 
@@ -118,7 +118,7 @@ ApplicationWindow {
         width: 20
         height: width
         color:"#242323"
-//        anchors.right: parent.right
+        //        anchors.right: parent.right
         anchors.top: parent.top
         anchors.right: closebtn.left
 
@@ -200,10 +200,6 @@ ApplicationWindow {
         anchors.fill: parent
         sourceComponent: songinfoedit
         active: false
-
-        onLoaded: {
-            console.log("our loader works")
-        }
     }
 
 
@@ -211,7 +207,7 @@ ApplicationWindow {
         id:home
         visible: true
         anchors.left:sap.right
-//        y:-90
+        //        y:-90
         anchors.top: parent.top
         anchors.bottom: controller.top
         anchors.right: parent.right
@@ -219,7 +215,7 @@ ApplicationWindow {
 
     Controller{
         id:controller
-//        anchors.top: home.bottom
+        //        anchors.top: home.bottom
         width: parent.width
         anchors.bottom: parent.bottom
         height: 90
@@ -249,7 +245,7 @@ ApplicationWindow {
                 name: "desktop_mode"
                 PropertyChanges {
                     target: mainstackview
-//                    anchors.topMargin: 5
+                    //                    anchors.topMargin: 5
                     anchors.rightMargin: 20
                 }
                 AnchorChanges{
@@ -262,7 +258,7 @@ ApplicationWindow {
                 name: "middle_mode"
                 PropertyChanges {
                     target: mainstackview
-//                    anchors.topMargin: 5
+                    //                    anchors.topMargin: 5
                     anchors.rightMargin: 20
                 }
                 AnchorChanges{
@@ -295,57 +291,57 @@ ApplicationWindow {
 
         initialItem: homepage
         pushEnter: Transition {
-                 PropertyAnimation {
-                     property: "opacity"
-                     from: 0
-                     to:1
-                     duration: 2000
-                 }
-             }
-             pushExit: Transition {
-                 PropertyAnimation {
-                     property: "opacity"
-                     from: 1
-                     to:0
-                     duration: 2000
-                 }
-             }
+            PropertyAnimation {
+                property: "opacity"
+                from: 0
+                to:1
+                duration: 2000
+            }
+        }
+        pushExit: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 1
+                to:0
+                duration: 2000
+            }
+        }
 
-             popEnter: Transition {
-                 PropertyAnimation {
-                     property: "opacity"
-                     from: 0
-                     to:1
-                     duration: 2000
-                 }
-             }
+        popEnter: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 0
+                to:1
+                duration: 2000
+            }
+        }
 
-             popExit: Transition {
-                 PropertyAnimation {
-                     property: "opacity"
-                     from: 1
-                     to:0
-                     duration: 2000
-                 }
-             }
+        popExit: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 1
+                to:0
+                duration: 2000
+            }
+        }
 
-             replaceEnter: Transition {
-                 PropertyAnimation {
-                     property: "opacity"
-                     from: 0
-                     to:1
-                     duration: 200
-                 }
-             }
+        replaceEnter: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 0
+                to:1
+                duration: 200
+            }
+        }
 
-             replaceExit: Transition {
-                 PropertyAnimation {
-                     property: "opacity"
-                     from: 1
-                     to:0
-                     duration: 200
-                 }
-             }
+        replaceExit: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 1
+                to:0
+                duration: 200
+            }
+        }
     }
 
     TimingPage{
@@ -365,7 +361,7 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.top: closebtn.bottom
         anchors.bottom: controller.top
-//        height: parent.height - 130
+        //        height: parent.height - 130
         anchors.leftMargin: 20
         anchors.rightMargin: 20
         anchors.topMargin: 5
@@ -385,6 +381,26 @@ ApplicationWindow {
     SplashScreen{
         anchors.fill:parent
     }
+
+    Component{
+        id:_addplaylistcmp
+        AddPlaylistBtn{
+            //            anchors.centerIn: overlay.overlay
+            width: parent.width
+            height: parent.height
+        }
+    }
+
+    Loader{
+        id:addplaylistloader
+        //        anchors.fill: parent
+        anchors.centerIn: parent
+        width: 300
+        height: 200
+        sourceComponent:_addplaylistcmp
+        active: false
+    }
+
 
     function toggleDrawer(){
         if (fullscreenDrawer.opened){

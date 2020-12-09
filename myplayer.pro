@@ -1,4 +1,4 @@
-QT += quick multimedia quickcontrols2
+QT += quick multimedia quickcontrols2 sql
 
 CONFIG += c++17
 
@@ -10,6 +10,7 @@ SOURCES += \
         appsetting.cpp \
         backend.cpp \
         dataprovider.cpp \
+        dbmanager.cpp \
         liveimageprovider.cpp \
         main.cpp \
         mostplayedlist.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     backend.h \
     backend2.h \
     dataprovider.h \
+    dbmanager.h \
     liveimageprovider.h \
     mostplayedlist.h \
     roundedrect.h \
@@ -73,6 +75,7 @@ linux:!android{
 windows{
     LIBS+=-L$${PRO_PATH}/Dependencies/TagLib/lib/ -ltag
     LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlib
+#    LIBS+=-L"F:/Qt/5.15.0/msvc2019/lib/Qt5Sqld.lib"
     debug
     {
         LIBS+=-L$${PRO_PATH}/Dependencies/zlib/lib/ -lzlibd
