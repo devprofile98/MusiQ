@@ -18,6 +18,7 @@
         <file>Styles.qml</file>
         <file>Separator.qml</file>
         <file>Highlite.qml</file>
+        <file>AddPlaylistBtn.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>
