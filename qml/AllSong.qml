@@ -201,8 +201,8 @@ RoundedRect{
 
     }
 
-Component{
-    id:highlightcomp
+    Component{
+        id:highlightcomp
         Highlite{
             id: highlight
             width: listvi.width; height: 70
@@ -218,19 +218,6 @@ Component{
                 }
             }
         }
-
-        //        Rectangle {
-        //            width: listvi.width; height: 70
-        //            color: "#3d3d3a"; radius: 5
-        //            y: listvi.currentItem.y
-        //            Behavior on y {
-        //                SpringAnimation {
-        //                    spring: 4
-        //                    damping: 0.3
-        //                }
-        //            }
-        //        }
-
     }
 
 
@@ -273,7 +260,6 @@ Component{
 
         }
         MouseArea{
-            //            property int sapwidth: 0
             anchors.fill: parent
             propagateComposedEvents :true
 
@@ -311,7 +297,6 @@ Component{
             }
 
             Component.onCompleted: {
-                //                mainrect.sapwidth = sap.width
             }
         }
         clip: true
@@ -328,7 +313,6 @@ Component{
             width: listvi.width
             radius: 10
             color:  "transparent" //model.selected ? "#3d3d3a" :
-
 
             RowLayout{
                 spacing: 10
@@ -350,11 +334,6 @@ Component{
                         anchors.fill: parent
                         anchors.centerIn: parent
                         source: "image://imageprovider/" + model.index
-                        //                        sourceSize: {
-                        //                            width:rowimage.width
-                        //                            height:rowimage.height
-                        //                        }
-
                         asynchronous: true
                         smooth: true
                         layer.enabled: true
@@ -369,7 +348,6 @@ Component{
                                 thumbrect.color = mainrect.colors[Math.floor(Math.random()*6)]
                             }
                         }
-
                     }
 
                     Rectangle{
@@ -378,7 +356,6 @@ Component{
                         width: rowimage.width
                         height: rowimage.height
                         radius: 5
-
                     }
 
                     Rectangle{
@@ -392,14 +369,11 @@ Component{
                         color:"#878686"
                         z:-1
 
-
                         Behavior on width {
                             NumberAnimation{
                                 duration: 400;
                             }
                         }
-
-
                     }
 
                     Timer{
@@ -416,32 +390,55 @@ Component{
                 }
 
                 Label{
-                    Layout.fillWidth: implicitWidth
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignLeft
+                    Layout.preferredWidth:parent.width - thumbrect.width  - 50
+                    clip: true
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: ubold.name
                         bold:true
                     }
                     color: "white"
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    visible: false
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    onClicked: {
+                        if(validClick){
+                            if (mainwindow.isPlaying === true){
+                                playBtnIconChanged()
+                            }
+                            playlistindex = model.index
+                            currentpath = model.path
+                            endPosition = model.duration
+                            songmodel.play(model.path,model.index);
+                            mainrect.duration()
+                        }
+                        if(mouse.button & Qt.LeftButton) {
+                            console.log("RIGHT BUTTON HANDLED")
+                        }
+                    }
+                }
+                Button{
+                    Layout.preferredWidth:implicitWidth
+                    //                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter | Qt.AlignRight
+                    text: "\uf142"
+                    background: Rectangle{
+                        color: "transparent"
+                    }
+                    onClicked: {
+                        console.log("button clicked also")
+                    }
+
 
                 }
 
+
+
                 MouseArea{
                     anchors.fill: parent
-
-//                    onPressAndHold: {
-//                        //                        listvi.currentItem.clip = true;
-//                        //                        presseffect.x = 0;
-//                        //                        presseffect.y = 0;
-//                        //                        presseffect.visible = true;
-//                        //                        presseffect.width = listvi.width;
-//                        highlightcomp.holdAnime();
-//                        //                        presseffecttimer.start();
-//                    }
-
-                    //                    preventStealing: true
-
                     onClicked: {
                         if(validClick){
                             if (mainwindow.isPlaying === true){
@@ -453,13 +450,9 @@ Component{
                             endPosition = model.duration
                             songmodel.play(model.path,model.index);
                             mainrect.duration()
-
-                            //                        isPlaying : true
                         }
                     }
                 }
-
-
             }
         }
     }

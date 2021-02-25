@@ -39,11 +39,7 @@ DBManager::DBManager(const QString& path)
 
 void DBManager::addToPlaylist(QString path)
 {
-
     QSqlQuery query;
-
-
-
 }
 
 void DBManager::creatPlaylist(QString name)
@@ -53,7 +49,6 @@ void DBManager::creatPlaylist(QString name)
     query.bindValue(":name",name);
     query.bindValue(":count",0);
     if(!query.exec()){
-
         qDebug()<<"DATABASE::ERROR::INSERT:: cannot create new playlist\n"<<query.lastError();
     }
 
