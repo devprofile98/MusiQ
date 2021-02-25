@@ -1,24 +1,24 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>qtquickcontrols2.conf</file>
-        <file>Fonts.qml</file>
-        <file>SettingAndPrefrences.qml</file>
-        <file>ShowPage.qml</file>
-        <file>Home.qml</file>
-        <file>Controller.qml</file>
-        <file>FullScreenPlayer.qml</file>
-        <file>AllSong.qml</file>
-        <file>SplashScreen.qml</file>
-        <file>TimingPage.qml</file>
-        <file>HomePage.qml</file>
-        <file>SettingPage.qml</file>
-        <file>SongInfoEditPage.qml</file>
-        <file>MyTextField.qml</file>
-        <file>Styles.qml</file>
-        <file>Separator.qml</file>
-        <file>Highlite.qml</file>
-        <file>AddPlaylistBtn.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/qtquickcontrols2.conf</file>
+        <file>qml/Fonts.qml</file>
+        <file>qml/SettingAndPrefrences.qml</file>
+        <file>qml/ShowPage.qml</file>
+        <file>qml/Home.qml</file>
+        <file>qml/Controller.qml</file>
+        <file>qml/FullScreenPlayer.qml</file>
+        <file>qml/AllSong.qml</file>
+        <file>qml/SplashScreen.qml</file>
+        <file>qml/TimingPage.qml</file>
+        <file>qml/HomePage.qml</file>
+        <file>qml/SettingPage.qml</file>
+        <file>qml/SongInfoEditPage.qml</file>
+        <file>qml/MyTextField.qml</file>
+        <file>qml/Styles.qml</file>
+        <file>qml/Separator.qml</file>
+        <file>qml/Highlite.qml</file>
+        <file>qml/AddPlaylistBtn.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>

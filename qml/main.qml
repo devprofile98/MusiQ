@@ -63,18 +63,18 @@ ApplicationWindow {
 
 
     FontLoader{
-        source: "/fonts/Font Awesome 5 Free-Solid-900.otf"
+        source: "/fonts/resources/Font Awesome 5 Free-Solid-900.otf"
         name :"solidfont"
         id:solidfont
     }
 
     FontLoader{
-        source: "qrc:/fonts/Antapani-ExtraBold.otf"
+        source: "/fonts/resources/Antapani-ExtraBold.otf"
         name :"antapan"
         id:antapan
     }
     FontLoader{
-        source: "qrc:/fonts/Ubuntu-Bold.ttf"
+        source: "/fonts/resources/Ubuntu-Bold.ttf"
         name :"ubold"
         id:ubold
     }

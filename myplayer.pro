@@ -47,6 +47,7 @@ HEADERS += \
     tools.h
 
 DISTFILES += \
+    CMakeLists.txt \
     android/AndroidManifest.xml \
     android/AndroidManifest.xml \
     android/build.gradle \
