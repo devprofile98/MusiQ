@@ -6,9 +6,11 @@
 #include <QStandardPaths>
 #include<QtMultimedia>
 #include <QDebug>
+#include <QList>
+
 #include "tools.h"
 #include "dataprovider.h"
-
+#include "structures.h"
 
 class LiveImageProvider;
 
@@ -78,6 +80,7 @@ private:
     void songpathfinder(QDir home,QStringList filters,QStringList& allpath);
     QStringList allPath;
     QStringList searchfilters;
+    QList<Song> m_songs;
     mutable int m_index;
     QMediaPlayer m_playing_song;
     QMediaPlaylist m_playlist;

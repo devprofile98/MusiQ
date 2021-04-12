@@ -253,6 +253,10 @@ Rectangle{
                 highlite.y= inseq*root.btnsize +root.btnsize/4
                 listCurrentIndex=1;
 
+                if (mainstackview.currentItem !== likedpage){
+                    mainstackview.replace(likedpage)
+                }
+
             }
         }
         TabButton{

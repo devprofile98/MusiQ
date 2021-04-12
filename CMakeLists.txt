@@ -37,6 +37,7 @@ set(MUSIQ_HEADERS
     include/simpleqabstractlist.h
     include/songitemmodeler.h
     include/tools.h
+    include/structures.h
     )
 
 set(QRC_FILE
