@@ -487,13 +487,21 @@ Rectangle{
                 }
 
                 //add to favorite
-                Label{
+                Button{
                     id:likebtn
                     anchors.left:shufflebtn.right
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: parent.height/4
 
                     text:"\uf004"
+                    background:Rectangle {
+                        color: "transparent";
+                    }
+
+                    onClicked: {
+                        console.log(allsong.currentpath)
+                        DBManager.likeAsong(allsong.currentpath);
+                    }
 
                     font{
                         bold:true

@@ -213,7 +213,7 @@ RoundedRect{
             anchors.leftMargin: 5
             Behavior on y {
                 SpringAnimation {
-                    spring: 4
+                    spring: 2
                     damping: 0.3
                 }
             }
@@ -391,38 +391,40 @@ RoundedRect{
 
                 Label{
                     Layout.preferredWidth:parent.width - thumbrect.width  - 50
-                    clip: true
+//                    clip: true
+                    maximumLineCount: 1
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                     text: model.name.toString().split(".mp3")[0]
                     font{
                         family: ubold.name
                         bold:true
                     }
+                    elide: Text.ElideRight
                     color: "white"
                 }
-                MouseArea{
-                    anchors.fill: parent
-                    visible: false
-                    acceptedButtons: Qt.LeftButton | Qt.RightButton
-                    onClicked: {
-                        if(validClick){
-                            if (mainwindow.isPlaying === true){
-                                playBtnIconChanged()
-                            }
-                            playlistindex = model.index
-                            currentpath = model.path
-                            endPosition = model.duration
-                            songmodel.play(model.path,model.index);
-                            mainrect.duration()
-                        }
-                        if(mouse.button & Qt.LeftButton) {
-                            console.log("RIGHT BUTTON HANDLED")
-                        }
-                    }
-                }
+//                MouseArea{
+//                    anchors.fill: parent
+//                    visible: false
+//                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+//                    onClicked: {
+//                        if(validClick){
+//                            if (mainwindow.isPlaying === true){
+//                                playBtnIconChanged()
+//                            }
+//                            playlistindex = model.index
+//                            currentpath = model.path
+//                            endPosition = model.duration
+//                            songmodel.play(model.path,model.index);
+//                            mainrect.duration()
+//                        }
+//                        if(mouse.button & Qt.LeftButton) {
+//                            console.log("RIGHT BUTTON HANDLED")
+//                        }
+//                    }
+//                }
                 Button{
                     Layout.preferredWidth:implicitWidth
-                    //                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                     Layout.alignment: Qt.AlignCenter | Qt.AlignRight
                     text: "\uf142"
                     background: Rectangle{
@@ -434,8 +436,6 @@ RoundedRect{
 
 
                 }
-
-
 
                 MouseArea{
                     anchors.fill: parent
