@@ -134,7 +134,6 @@ RoundedRect{
             }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignLeft
-
         }
         Tumbler{
             id:mtumbler

@@ -19,6 +19,7 @@
         <file>qml/Separator.qml</file>
         <file>qml/Highlite.qml</file>
         <file>qml/AddPlaylistBtn.qml</file>
+        <file>qml/LikedPage.qml</file>
     </qresource>
     <qresource prefix="/icon"/>
 </RCC>

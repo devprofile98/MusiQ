@@ -37,6 +37,7 @@ set(MUSIQ_HEADERS
     include/simpleqabstractlist.h
     include/songitemmodeler.h
     include/tools.h
+    include/structures.h
     )
 
 set(QRC_FILE
@@ -68,8 +69,8 @@ target_link_libraries(MusiQ Qt5::QuickControls2)
 
 
 if (WIN32)
-    target_link_libraries(MusiQ ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/lib/tag.lib)
-    target_link_libraries(MusiQ ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/zlib/lib/zlib.lib)
+    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/lib/tag.lib")
+    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/zlib/lib/zlib.lib")
 elseif(UNIX)
     find_package(QtAndroidExtras REQUIRED)
     target_link_libraries(MusiQ /home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android -ltag)

@@ -14,6 +14,7 @@ public:
     DBManager(const QString& path);
     Q_INVOKABLE void addToPlaylist(QString path);
     Q_INVOKABLE void creatPlaylist(QString name);
+    Q_INVOKABLE void likeAsong(QString path);
 
 
 private:

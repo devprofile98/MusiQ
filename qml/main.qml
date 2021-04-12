@@ -351,7 +351,14 @@ ApplicationWindow {
 
     HomePage{
         id:homepage
+        visible: false
     }
+
+    LikedPage{
+        id:likedpage
+        visible: false
+    }
+
     SettingPage{
         id:settingpage
     }

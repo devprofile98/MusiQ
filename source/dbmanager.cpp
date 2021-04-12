@@ -31,6 +31,23 @@ DBManager::DBManager(const QString& path)
              qDebug() << "DATABASE::ERROR::QUERY:: addPerson error:"<< query.lastError();
         }
 
+        if(!query.exec("create table liked_song (id int primary key, "
+                       "path varchar(512))"
+                       ))
+        {
+             qDebug() << "DATABASE::ERROR::QUERY:: like table creating error:"<< query.lastError();
+        }
+
+        if(!query.exec("create table song (id int primary key, "
+                       "path varchar(512),"
+                       "plays INTEGER,"
+                       "liked INTEGER"
+                       ")"
+                       ))
+        {
+             qDebug() << "DATABASE::ERROR::QUERY:: like table creating error:"<< query.lastError();
+        }
+
 
     }
 
@@ -39,11 +56,7 @@ DBManager::DBManager(const QString& path)
 
 void DBManager::addToPlaylist(QString path)
 {
-
     QSqlQuery query;
-
-
-
 }
 
 void DBManager::creatPlaylist(QString name)
@@ -53,8 +66,20 @@ void DBManager::creatPlaylist(QString name)
     query.bindValue(":name",name);
     query.bindValue(":count",0);
     if(!query.exec()){
-
         qDebug()<<"DATABASE::ERROR::INSERT:: cannot create new playlist\n"<<query.lastError();
+    }
+
+
+}
+
+void DBManager::likeAsong(QString path)
+{
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO liked_song (path) VALUES (:path)");
+    query.bindValue(":path", path);
+    if(!query.exec()){
+        qDebug() << "DATABASE::LIKE::ERROR -> CAN'T LIKE NEW SONG ";
     }
 
 
