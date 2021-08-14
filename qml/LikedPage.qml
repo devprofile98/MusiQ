@@ -44,8 +44,9 @@ Page{
         anchors.fill: parent
         anchors.centerIn: parent
         anchors.topMargin: 40
+        anchors.bottomMargin: 15
         anchors.leftMargin: 15
-
+        clip: true
 
         width: mainView.width
         height: mainView.height

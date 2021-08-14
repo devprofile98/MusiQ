@@ -9,7 +9,7 @@ songitemmodeler::songitemmodeler(QObject *parent,tools *tool)
     : QAbstractListModel(parent)
 {
     m_index=0;
-    m_playback_mode=0;
+    m_playback_mode=1;
     searchfilters.append("*.mp3");
     allPath = *(DataProvider::all_path);
 
@@ -161,6 +161,7 @@ void songitemmodeler::m_status()
 void songitemmodeler::next()
 {
     qDebug()<< "current item in NEXT method"<< m_playlist.currentIndex();
+
     m_playlist.next();
     m_playing_song.play();
 }
@@ -202,6 +203,8 @@ void songitemmodeler::m_ChangePlaybackMode(int mode)
 {
 
     m_playback_mode++;
+    qInfo() << m_playback_mode << " " << m_playlist.nextIndex() << DataProvider::all_path->length();
+
     // toggle playback mode to shuffle
     if (mode == 4){
         m_playback_mode = 4;
@@ -209,7 +212,7 @@ void songitemmodeler::m_ChangePlaybackMode(int mode)
 
     // check for invalid play back mode and set to 0
     if (m_playback_mode >4 || m_playback_mode <0 )
-        m_playback_mode = 0;
+        m_playback_mode = 1;
 
 
     if (m_playback_mode == 1){
@@ -217,15 +220,17 @@ void songitemmodeler::m_ChangePlaybackMode(int mode)
 
     }
     else if (m_playback_mode == 0){
-        m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
-        qDebug()<<"CURRENT ITEM IN PLAYLIST IS :"<<m_playlist.currentIndex();
+//        m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
+//        qDebug()<<"CURRENT ITEM IN PLAYLIST IS :"<<m_playlist.currentIndex();
 //        m_playlist.setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+        return;
 
     }
     else if (m_playback_mode == 2){
         m_playlist.setPlaybackMode(QMediaPlaylist::Sequential);
     }
     else if (m_playback_mode == 3){
+        qInfo() << "we are in loop";
         m_playlist.setPlaybackMode(QMediaPlaylist::Loop);
     }
     // shuffle mode
