@@ -9,7 +9,7 @@ import roundedrect 1.0
 
 
 Rectangle{
-//    property color btncolor: globalstyle.mainFG //"#7f05e3"
+    //    property color btncolor: globalstyle.mainFG //"#7f05e3"
 
     property color mainFront: globalstyle.mainFG
     property color mainBack: globalstyle.mainBG
@@ -18,19 +18,29 @@ Rectangle{
     property int btnsize: 100
     property int iconsize: width/4
     property int listCurrentIndex: 0
+    property bool settingRotated: false
 
     onListCurrentIndexChanged: {
         if (listCurrentIndex!==-1){
+            if (settingRotated === true){
+                settingRotated = false
+                rotanim.from = 40
+                rotanim.to  = 0
+                rotanim.start()
+            }
 
             settinglbl.color="white"
             highlite.visible = true
 
+
         }
         else{
+            settingRotated = true
             settinglbl.color = globalstyle.mainFG;
             highlite.visible = false;
-
-
+            rotanim.from = 0
+            rotanim.to  = 40
+            rotanim.start()
         }
     }
 
@@ -42,7 +52,15 @@ Rectangle{
 
     PropertyAnimation{
         target: highlite
+    }
 
+    RotationAnimator{
+        id:rotanim
+        target: settingbtn
+        from: 0
+        to : 360
+        duration: 200
+        running: false
     }
 
 
@@ -110,7 +128,7 @@ Rectangle{
         }
     ]
     Rectangle{
-//        property int inseq: 0
+        //        property int inseq: 0
         id:settingbtn
         width: btnsize; height: btnsize
         color: "transparent"
@@ -139,7 +157,6 @@ Rectangle{
             top:settingbtn.bottom
             topMargin: 5
             horizontalCenter: root.horizontalCenter
-
         }
 
         width:btnsize*(3/4)
@@ -217,9 +234,6 @@ Rectangle{
                 if (mainstackview.currentItem !== homepage){
                     mainstackview.replace(homepage)
                 }
-
-
-
             }
         }
 
