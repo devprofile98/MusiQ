@@ -9,9 +9,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-
-add_definitions(-DTAGLIB_STATIC)
-
 set(MUSIQ_SOURCES
     source/main.cpp
     source/roundedrect.cpp
@@ -46,16 +43,29 @@ set(QRC_FILE
     files.qrc
     )
 
-find_package(Qt5 COMPONENTS Quick Quick Sql Multimedia QuickControls2  REQUIRED)
+find_package(Qt5 COMPONENTS Quick Quick Sql Multimedia QuickControls2 AndroidExtras  REQUIRED)
 #find_package(QtQuick REQUIRED)
 #find_package(QtCore REQUIRED)
 #find_package(QtSql REQUIRED)
 #find_package(QtQuickControls2 REQUIRED)
 #find_package(QtMultiMedia REQUIRED)
 
-add_definitions(-TAGLIB_STATIC)
+if (WIN32)
+    add_executable(MusiQ ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS})
+    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/lib/tagd.lib")
+    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/zlib/lib/zlibd.lib")
+elseif(UNIX AND NOT ANDROID)
+    add_executable(MusiQ ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS})
+    target_link_libraries(MusiQ -ltag)
+elseif(ANDROID)
+    add_library(MusiQ SHARED
+        ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS}
+    )
+    message("BUILD FOR ANDROID ...")
+    target_link_libraries(MusiQ /home/ahmad/Documents/projects/cpp/musiQ/MusiQ/Dependencies/TagLib/lib/libtag.a
+        /home/ahmad/Documents/projects/cpp/musiQ/MusiQ/Dependencies/zlib/lib/libz.a)
+endif()
 
-add_executable(MusiQ ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS})
 target_include_directories(MusiQ PUBLIC "./include/" ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/include)
 target_include_directories(MusiQ PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/zlib/include/)
 target_include_directories(MusiQ PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/include/mpeg/id3v1/)
@@ -66,15 +76,4 @@ target_link_libraries(MusiQ Qt5::Core)
 target_link_libraries(MusiQ Qt5::Sql)
 target_link_libraries(MusiQ Qt5::Multimedia)
 target_link_libraries(MusiQ Qt5::QuickControls2)
-
-
-if (WIN32)
-    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/lib/tagd.lib")
-    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/zlib/lib/zlibd.lib")
-elseif(UNIX)
-    find_package(QtAndroidExtras REQUIRED)
-    target_link_libraries(MusiQ /home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android -ltag)
-elseif(ANDROID)
-    find_package(QtAndroidExtras REQUIRED)
-    target_link_libraries(MusiQ /home/sub/Documents/Projects/MusiQ/musix/Dependencies/TagLib/lib/Android -ltag)
-endif()
+target_link_libraries(MusiQ Qt5::AndroidExtras)

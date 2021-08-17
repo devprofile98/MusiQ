@@ -45,6 +45,9 @@ int main(int argc, char *argv[])
     //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
     //#endif
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::Ceil);
+#endif
 
 #ifdef Q_OS_ANDROID
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
