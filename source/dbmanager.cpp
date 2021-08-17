@@ -1,5 +1,6 @@
 #include "dbmanager.h"
 #include <QDebug>
+
 DBManager::DBManager(const QString& path)
 {
 
@@ -20,7 +21,7 @@ DBManager::DBManager(const QString& path)
                        "name varchar(60),"
                        "count integer)"))
         {
-             qDebug() << "DATABASE::ERROR::QUERY:: addPerson error:"<< query.lastError();
+            qDebug() << "DATABASE::ERROR::QUERY:: addPerson error:"<< query.lastError();
         }
 
         if(!query.exec("create table playlist_song (id int primary key, "
@@ -28,14 +29,14 @@ DBManager::DBManager(const QString& path)
                        "belong INT,"
                        " FOREIGN KEY(belong) REFERENCES playlist(id))"))
         {
-             qDebug() << "DATABASE::ERROR::QUERY:: addPerson error:"<< query.lastError();
+            qDebug() << "DATABASE::ERROR::QUERY:: addPerson error:"<< query.lastError();
         }
 
         if(!query.exec("create table liked_song (id int primary key, "
                        "path varchar(512))"
                        ))
         {
-             qDebug() << "DATABASE::ERROR::QUERY:: like table creating error:"<< query.lastError();
+            qDebug() << "DATABASE::ERROR::QUERY:: like table creating error:"<< query.lastError();
         }
 
         if(!query.exec("create table song (id int primary key, "
@@ -45,13 +46,9 @@ DBManager::DBManager(const QString& path)
                        ")"
                        ))
         {
-             qDebug() << "DATABASE::ERROR::QUERY:: like table creating error:"<< query.lastError();
+            qDebug() << "DATABASE::ERROR::QUERY:: like table creating error:"<< query.lastError();
         }
-
-
     }
-
-
 }
 
 void DBManager::addToPlaylist(QString path)
@@ -68,8 +65,6 @@ void DBManager::creatPlaylist(QString name)
     if(!query.exec()){
         qDebug()<<"DATABASE::ERROR::INSERT:: cannot create new playlist\n"<<query.lastError();
     }
-
-
 }
 
 void DBManager::likeAsong(QString path)
@@ -84,3 +79,32 @@ void DBManager::likeAsong(QString path)
 
 
 }
+
+void DBManager::AddSongListToDB(const QStringList &songs)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO song (path) VALUES (?)");
+    query.addBindValue(songs);
+
+    if(!query.execBatch()){
+        qDebug() << "Failed to load song path in database";
+    }
+
+}
+
+QSharedPointer<QStringList> DBManager::GetSongListFromDB()
+{
+    QSqlQuery query("SELECT path from song");
+    while(query.next()){
+        songs->append(query.value(0).toString());
+    }
+    return songs;
+}
+
+bool DBManager::isEmpty()
+{
+    return songs->isEmpty();
+}
+
+QSharedPointer<QStringList> DBManager::songs = QSharedPointer<QStringList>{new QStringList{}};

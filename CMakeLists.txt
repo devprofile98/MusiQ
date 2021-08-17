@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.17)
 project(MusiQ)
 
 set(CMAKE_CXX_STANDARD 11)
+#set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -43,12 +44,8 @@ set(QRC_FILE
     files.qrc
     )
 
-find_package(Qt5 COMPONENTS Quick Quick Sql Multimedia QuickControls2 AndroidExtras  REQUIRED)
-#find_package(QtQuick REQUIRED)
-#find_package(QtCore REQUIRED)
-#find_package(QtSql REQUIRED)
-#find_package(QtQuickControls2 REQUIRED)
-#find_package(QtMultiMedia REQUIRED)
+find_package(Qt5 COMPONENTS Quick Quick Sql Multimedia QuickControls2 AndroidExtras REQUIRED)
+
 
 if (WIN32)
     add_executable(MusiQ ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS})
@@ -58,12 +55,13 @@ elseif(UNIX AND NOT ANDROID)
     add_executable(MusiQ ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS})
     target_link_libraries(MusiQ -ltag)
 elseif(ANDROID)
+    find_package(AndroidExtras)
     add_library(MusiQ SHARED
         ${MUSIQ_SOURCES} ${QRC_FILE} ${MUSIQ_HEADERS}
     )
     message("BUILD FOR ANDROID ...")
-    target_link_libraries(MusiQ /home/ahmad/Documents/projects/cpp/musiQ/MusiQ/Dependencies/TagLib/lib/libtag.a
-        /home/ahmad/Documents/projects/cpp/musiQ/MusiQ/Dependencies/zlib/lib/libz.a)
+    target_link_libraries(MusiQ "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/lib/libtag.a"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/zlib/lib/libz.a")
 endif()
 
 target_include_directories(MusiQ PUBLIC "./include/" ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/TagLib/include)
@@ -76,4 +74,7 @@ target_link_libraries(MusiQ Qt5::Core)
 target_link_libraries(MusiQ Qt5::Sql)
 target_link_libraries(MusiQ Qt5::Multimedia)
 target_link_libraries(MusiQ Qt5::QuickControls2)
-target_link_libraries(MusiQ Qt5::AndroidExtras)
+
+if (ANDROID)
+    target_link_libraries(MusiQ Qt5::AndroidExtras)
+endif()

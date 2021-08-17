@@ -11,6 +11,7 @@
 #include "tools.h"
 #include "dataprovider.h"
 #include "structures.h"
+#include "dbmanager.h"
 
 class LiveImageProvider;
 
