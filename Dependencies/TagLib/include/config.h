@@ -4,15 +4,14 @@
 #define TAGLIB_CONFIG_H
 
 /* Defined if your compiler supports some byte swap functions */
-/* #undef HAVE_GCC_BYTESWAP */
+#define   HAVE_GCC_BYTESWAP 1
 /* #undef HAVE_GLIBC_BYTESWAP */
-#define   HAVE_MSC_BYTESWAP 1
+/* #undef HAVE_MSC_BYTESWAP */
 /* #undef HAVE_MAC_BYTESWAP */
 /* #undef HAVE_OPENBSD_BYTESWAP */
 
 /* Defined if your compiler supports some atomic operations */
-#define   HAVE_STD_ATOMIC 1
-/* #undef HAVE_GCC_ATOMIC */
+#define   HAVE_GCC_ATOMIC 1
 /* #undef HAVE_MAC_ATOMIC */
 /* #undef HAVE_WIN_ATOMIC */
 /* #undef HAVE_IA64_ATOMIC */
@@ -22,14 +21,14 @@
 /* #undef HAVE_VSPRINTF_S */
 
 /* Defined if your compiler supports ISO _strdup */
-#define   HAVE_ISO_STRDUP 1
+/* #undef HAVE_ISO_STRDUP */
 
 /* Defined if zlib is installed */
-/* #undef HAVE_ZLIB */
+#define   HAVE_ZLIB 1
 
 /* Indicates whether debug messages are shown even in release mode */
 /* #undef TRACE_IN_RELEASE */
 
-#define TESTS_DIR "F:/project/TAGLIB/taglib/tests/"
+#define TESTS_DIR "/home/ahmad/Documents/projects/cpp/taglib/tests/"
 
 #endif

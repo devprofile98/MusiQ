@@ -45,6 +45,9 @@ int main(int argc, char *argv[])
     //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
     //#endif
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::Ceil);
+#endif
 
 #ifdef Q_OS_ANDROID
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
@@ -64,29 +67,18 @@ int main(int argc, char *argv[])
 
     DBManager db("./mysqlite.sqlite3");
 
-    //    tools tools;
-//    qmlRegisterType<AppSetting>("appsettings",1,0,"Appsettings");
     qmlRegisterType<songitemmodeler>("SongFinder",1,0,"Songfinder");
     qmlRegisterType<RoundedRect>("roundedrect",1,0,"RoundedRect");
 
     QQuickStyle::setStyle("Material");
-    //    qmlRegisterType<backend2>("Bend",1,0,"BackEndFinder");
     QGuiApplication app(argc, argv);
 
     DataProvider* dp = new DataProvider(&app);
 
-    app.dumpObjectTree();
-
     app.setWindowIcon(QIcon("TrayIcon.png"));
-    //    QWindow::setIcon(QIcon("qrc:/new/prefix1/thumbnail.svg"));
-    //    backend2 bend;
-    //    QScopedPointer<LiveImageProvider> liveimage(new LiveImageProvider());
     LiveImageProvider liveimage;
 
     QQmlApplicationEngine engine;
-    //    engine.rootContext()->setContextProperty("imageProvider",&liveimage);
-    //    engine.rootContext()->setContextProperty("backend",&bend);
-    //    engine.rootContext()->setContextProperty("tools",&tools);
     AppSetting *settings = new AppSetting{};
     engine.rootContext()->setContextProperty("DBManager",&db);
     engine.rootContext()->setContextProperty("DataModel",dp);

@@ -81,7 +81,8 @@ QVariant DataProvider::access_manager(qint64 id, uint request_type)
 
 DataProvider::DataProvider(QObject *parent) : QObject(parent)
 {
-    findMediaOnDisk();
+    if (DBManager::isEmpty())
+        findMediaOnDisk();
 }
 
 
@@ -113,7 +114,7 @@ bool DataProvider::editSongInfo(int songid,QString singer_name, QString song_tit
         return false;
 
     TagLib::ID3v2::Tag* tag = audioFile.ID3v2Tag(true);
-//    TagLib::ID3v2::FrameList l = tag->frameList("APIC");
+    //    TagLib::ID3v2::FrameList l = tag->frameList("APIC");
 
     tag->setAlbum(album_name.toStdString());
     tag->setYear(release_year);

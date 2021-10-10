@@ -60,6 +60,7 @@ RoundedRect{
     property real origin: 0
     property bool closemenu: false
     property real sapwidth: state === "mobile_mode" ? 50 :90
+    property real itemHeight: state ==="mobile_mode" ? 60 : (state === "desktop_mode" ? 70 : 70)
 
 
     signal duration()
@@ -105,6 +106,11 @@ RoundedRect{
                 bottomrightRadius: 10
             }
 
+            PropertyChanges {
+                target:listvi
+                width: parent.width - 40
+            }
+
         },
 
         State {
@@ -124,6 +130,10 @@ RoundedRect{
                 bottomrightRadius: 10
 
             }
+            PropertyChanges {
+                target:listvi
+                width: parent.width - 40
+            }
 
         },
         State {
@@ -131,11 +141,10 @@ RoundedRect{
             AnchorChanges {
                 target: mainrect
                 anchors.left: sap.right
-                anchors.right:mainwindow.right
+                anchors.right:parent.right
                 anchors.top:sap.top
-
-
             }
+
             PropertyChanges {
                 target: mainrect
                 visible:sap.listCurrentIndex === 0;
@@ -144,7 +153,7 @@ RoundedRect{
                 anchors.leftMargin: 15
                 anchors.topMargin: 0
                 anchors.bottomMargin: 15
-                anchors.rightMargin: 15
+                anchors.rightMargin: 5
 
                 toprightRadius: 0
                 topleftRadius: 0
@@ -154,7 +163,8 @@ RoundedRect{
             }
 
             PropertyChanges {
-                target:mainrect
+                target:listvi
+                width: parent.width - 20
             }
 
         }
@@ -189,6 +199,7 @@ RoundedRect{
             text: "All Songs "
             anchors.top:parent.top
             font.bold: true
+            font.pixelSize: 15
         }
         MouseArea{
             anchors.fill: parent
@@ -205,7 +216,7 @@ RoundedRect{
         id:highlightcomp
         Highlite{
             id: highlight
-            width: listvi.width; height: 70
+            width: listvi.width; height: mainrect.itemHeight
             y: listvi.currentItem.y
             maincolor: "#3d3d3a"
             holdcolor: "white"
@@ -236,7 +247,7 @@ RoundedRect{
 
     ListView{
         id:listvi
-        width:parent.width - 40
+        width: parent.width - 40
         height: parent.height - 45
         anchors.top: labelrect.bottom
         
@@ -309,7 +320,7 @@ RoundedRect{
         highlightFollowsCurrentItem: false
 
         delegate: Rectangle{
-            height: 70
+            height: mainrect.itemHeight
             width: listvi.width
             radius: 10
             color:  "transparent" //model.selected ? "#3d3d3a" :
@@ -398,6 +409,7 @@ RoundedRect{
                     font{
                         family: ubold.name
                         bold:true
+                        pixelSize: 12
                     }
                     elide: Text.ElideRight
                     color: "white"

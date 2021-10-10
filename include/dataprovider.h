@@ -2,18 +2,18 @@
 #define DATAPROVIDER_H
 
 #include <QObject>
-#include<QDebug>
-#include<QStringList>
-#include<QDir>
-#include<QUrl>
+#include <QDebug>
+#include <QStringList>
+#include <QDir>
+#include <QUrl>
 #include <QStandardPaths>
 #include <QMutex>
 #include <QMutexLocker>
 #include <QImage>
 #include <QVariant>
 
-#include<fileref.h>
-#include<tag.h>
+#include <fileref.h>
+#include <tag.h>
 #include <mpeg/mpegfile.h>
 #include <attachedpictureframe.h>
 #include <mpeg/id3v2/id3v2tag.h>
@@ -21,13 +21,14 @@
 #include <mp4/mp4tag.h>
 #include <mp4/mp4coverart.h>
 
-#include<QDebug>
-#include<QQmlContext>
-#include<QString>
-#include<QBuffer>
-#include<QByteArray>
-#include<QList>
+#include <QDebug>
+#include <QQmlContext>
+#include <QString>
+#include <QBuffer>
+#include <QByteArray>
+#include <QList>
 
+#include "dbmanager.h"
 
 struct song{
     QString title;
