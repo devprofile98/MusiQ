@@ -10,7 +10,8 @@ RoundedRect{
 
     property var colors: ["#855dd4","#f7af6f","#f76fd3","#5ae089","#FFAB91","#1abc9c"]
     property var bgcolors: ["#363535","#000000","#00252e","#212021","#c3c4c9","#1abc9c"]
-
+    property real headingSize: 14
+    property real fontSize: 12
     visible: false
 
     toprightRadius: 10
@@ -31,12 +32,12 @@ RoundedRect{
             }
 
             PropertyChanges {
-            target: settingsep
-            width: parent.width - 100
+                target: settingsep
+                width: parent.width - 100
             }
             PropertyChanges {
-            target: timersep
-            width: parent.width - 100
+                target: timersep
+                width: parent.width - 100
             }
             AnchorChanges{
 
@@ -56,8 +57,8 @@ RoundedRect{
                 bottomrightRadius: 10
             }
             PropertyChanges {
-            target: timersep
-            width: parent.width - 100
+                target: timersep
+                width: parent.width - 100
             }
         },
         State {
@@ -75,8 +76,8 @@ RoundedRect{
                 bottomrightRadius: 0
             }
             PropertyChanges {
-            target: timersep
-            width: parent.width - 20
+                target: timersep
+                width: parent.width - 20
             }
 
 
@@ -101,6 +102,7 @@ RoundedRect{
             font{
                 bold: true
                 family:ubold.name
+                pixelSize: mainrect.headingSize
             }
             color:Qt.rgba(61,61, 58,0.4)
             width: implicitWidth
@@ -131,6 +133,7 @@ RoundedRect{
             {
                 bold:true
                 family:ubold.name
+                pixelSize: mainrect.fontSize
             }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignLeft
@@ -141,6 +144,7 @@ RoundedRect{
             font
             {
                 bold:true
+                pixelSize: mainrect.fontSize
             }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignLeft
@@ -151,6 +155,7 @@ RoundedRect{
             font
             {
                 bold:true
+                pixelSize: mainrect.fontSize
             }
             Layout.preferredWidth: implicitWidth
             Layout.alignment: Qt.AlignRight
@@ -195,44 +200,15 @@ RoundedRect{
 
     }
 
-
-//    Row{
-//        id:settingsep
-//        anchors.horizontalCenter: parent.horizontalCenter
-//        anchors.top: killersec.bottom
-//        anchors.topMargin: 20
-//        width: parent.width - 100
-//        spacing: 20
-
-//        Label{
-//            id:lblid
-//            text: "Appearance"
-//            font{
-//                bold: true
-//                family:ubold.name
-//            }
-//            color:Qt.rgba(61,61, 58,0.4)
-//            width: implicitWidth
-//        }
-
-//        Rectangle{
-
-//            width: settingsep.width - lblid.width
-//            anchors.verticalCenter: lblid.verticalCenter
-//            anchors.right: mainrect.right
-//            anchors.rightMargin: 10
-//            height: 1
-//            color:Qt.rgba(61, 61, 58,0.1)
-//        }
-//    }
     Separator{
         id:settingsep
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: killersec.bottom
-            anchors.topMargin: 20
-            width: parent.width - 100
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: killersec.bottom
+        anchors.topMargin: 20
+        width: parent.width - 100
 
         labeltext: "Appearance"
+        headingSize: mainrect.headingSize
     }
 
 
@@ -255,6 +231,7 @@ RoundedRect{
             font{
                 bold: true
                 family: ubold.name
+                pixelSize: mainrect.fontSize
             }
             color: Qt.rgba(61,61, 58,0.4)
             Layout.alignment: Qt.AlignCenter
@@ -287,32 +264,18 @@ RoundedRect{
                     frontColorSec.currentIndex = model.index;
                     globalstyle.setMainFG(colors[model.index]);
                     sap.settingbtncolor();
+                }
+            }
+
+            Behavior on radius {
+
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
             }
         }
-
-           Behavior on radius {
-
-               NumberAnimation {
-                   duration: 200
-                   easing.type: Easing.InOutQuad
-               }
-           }
-
     }
-
-
-}
-
-//    Separator{
-//        id:bgcolorsep
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            anchors.top: frontColorSec.bottom
-//            anchors.topMargin: 20
-//            width: parent.width - 100
-
-//        labeltext: "Appearance"
-//    }
-
 
     ListView{
         height: 50
@@ -325,7 +288,7 @@ RoundedRect{
             left: settingsep.left
             right: settingsep.right
             margins: 10
-//            topMargin: 20
+            //            topMargin: 20
         }
         clip: true
         header: Label{
@@ -333,6 +296,7 @@ RoundedRect{
             font{
                 bold: true
                 family: ubold.name
+                pixelSize: mainrect.fontSize
             }
             color: Qt.rgba(61,61, 58,0.4)
             Layout.alignment: Qt.AlignCenter
@@ -340,7 +304,6 @@ RoundedRect{
 
         }
         headerPositioning:ListView.PullBackHeader
-
 
         orientation: Qt.Horizontal
         model: 6
@@ -364,22 +327,16 @@ RoundedRect{
                 onClicked: {
                     backColorSec.currentIndex = model.index;
                     globalstyle.setItemBG(bgcolors[model.index]);
+                }
+            }
+
+            Behavior on radius {
+
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
             }
         }
-
-           Behavior on radius {
-
-               NumberAnimation {
-                   duration: 200
-                   easing.type: Easing.InOutQuad
-               }
-           }
-
     }
-
-
-}
-
-
-
 }

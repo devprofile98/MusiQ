@@ -242,7 +242,6 @@ Rectangle{
                 visible: false
             }
 
-
             visible: true
         }
 
